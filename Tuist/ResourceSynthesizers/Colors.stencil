@@ -22,7 +22,7 @@ public enum Colors {
 {% endfor %}
 }
 
-public struct ColorAsset {
+public struct ColorAsset: Sendable {
   public let name: String
 
   public var color: SwiftUI.Color {

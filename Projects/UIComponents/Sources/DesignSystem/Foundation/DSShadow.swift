@@ -8,7 +8,7 @@
 
 import SwiftUI
 
-public struct DSShadowStyle {
+public struct DSShadowStyle: Sendable {
     public let color: Color
     public let radius: CGFloat
     public let x: CGFloat
