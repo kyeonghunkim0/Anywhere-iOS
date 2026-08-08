@@ -15,8 +15,7 @@ import PackageDescription
 let package = Package(
     name: "Anywhere",
     dependencies: [
-              .package(url: "https://github.com/airbnb/lottie-ios", from: "4.5.0"),
-              .package(url: "https://github.com/Alamofire/Alamofire.git", from: "5.6.4"),
-              .package(url: "https://github.com/onevcat/Kingfisher.git", from: "7.10.0")
-          ]
+        .package(url: "https://github.com/google/GoogleSignIn-iOS",
+                 from: "9.0.0")
+    ]
 )

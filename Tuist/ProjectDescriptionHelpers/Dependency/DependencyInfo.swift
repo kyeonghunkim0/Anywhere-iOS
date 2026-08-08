@@ -10,9 +10,10 @@
 /// 각 모듈이 가지는 의존성 정보를 정리합니다.
 let dependencyInfo: [DependencyInformation: [DependencyInformation]] = [
     .app: [.dicontainer, .presentation],
-    .dicontainer: [.presentation, .domain, .data, .uiComponents, .core],
+    .dicontainer: [.presentation, .domain, .data, .uiComponents, .auth, .core],
     .presentation: [.domain, .core, .uiComponents],
     .domain: [.core],
+    .auth: [.core],
     .data: [.domain, .core],
 
     .core: [],
@@ -20,9 +21,10 @@ let dependencyInfo: [DependencyInformation: [DependencyInformation]] = [
 
 /// 외부 라이브러리를 정리합니다.
 let externalDependencyInfo: [DependencyInformation: [DependencyInformation]] = [
+    .auth: [.googleAuth],
 //    .data: [.alamofire],
 //    .presentation: [.lottie]
-:]
+]
 
 /// 모듈 및 SPM에 대해서 정의합니다.
 public enum DependencyInformation: String, CaseIterable, Sendable {
@@ -32,13 +34,12 @@ public enum DependencyInformation: String, CaseIterable, Sendable {
     case domain = "Domain"
     case data = "Data"
     case uiComponents = "UIComponents"
+    case auth = "Auth"
     case core = "Core"
     case dicontainer = "DIContainer"
     
     // MARK: - 사용할 SPM 명세
-//    case kingFisher = "Kingfisher"
-//    case alamofire = "Alamofire"
-//    case lottie = "Lottie"
+    case googleAuth = "GoogleSignInSwift"
 }
 
 /// 모듈과 의존성을 연결합니다.

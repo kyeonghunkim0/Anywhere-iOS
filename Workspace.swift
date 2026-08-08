@@ -11,6 +11,7 @@ let workspace = Workspace(
     name: "Anywhere",
     projects: [
         "Projects/AnywhereApp",
+        "Projects/Auth",
         "Projects/Core",
         "Projects/UIComponents",
         "Projects/Domain",
