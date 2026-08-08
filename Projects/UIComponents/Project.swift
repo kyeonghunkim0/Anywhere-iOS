@@ -8,4 +8,12 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.makeProject(name: "UIComponents", product: .staticFramework, hasResource: true, hasSampleApp: true)
+let project = Project.makeProject(
+    name: "UIComponents",
+    product: .staticFramework,
+    hasResource: true,
+    hasSampleApp: true,
+    resourceSynthesizers: [
+        .custom(name: "Colors", parser: .assets, extensions: ["xcassets"]),
+    ]
+)

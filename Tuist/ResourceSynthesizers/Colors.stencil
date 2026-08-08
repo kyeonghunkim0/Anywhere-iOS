@@ -1,0 +1,51 @@
+// swiftlint:disable all
+// Generated using tuist — https://github.com/tuist/tuist
+//
+// Assets.xcassets의 Color Set을 `Colors.<name>.color` 형태로 접근할 수 있게 합니다.
+
+import Foundation
+import SwiftUI
+
+{% if catalogs %}
+{% macro casesBlock assets %}
+{% for asset in assets %}
+{% if asset.type == "color" %}
+  public static let {{asset.name|swiftIdentifier:"pretty"|lowerFirstWord|escapeReservedKeywords}} = ColorAsset(name: "{{asset.value}}")
+{% elif asset.items %}
+{% call casesBlock asset.items %}
+{% endif %}
+{% endfor %}
+{% endmacro %}
+public enum Colors {
+{% for catalog in catalogs %}
+{% call casesBlock catalog.assets %}
+{% endfor %}
+}
+
+public struct ColorAsset {
+  public let name: String
+
+  public var color: SwiftUI.Color {
+    SwiftUI.Color(name, bundle: {{param.bundle|default:"BundleToken.bundle"}})
+  }
+
+  fileprivate init(name: String) {
+    self.name = name
+  }
+}
+
+{% if not param.bundle %}
+private final class BundleToken {
+  static let bundle: Bundle = {
+    #if SWIFT_PACKAGE
+    return Bundle.module
+    #else
+    return Bundle(for: BundleToken.self)
+    #endif
+  }()
+}
+{% endif %}
+{% else %}
+// No colors found
+{% endif %}
+// swiftlint:enable all

@@ -22,7 +22,8 @@ public extension Project {
         name: String,
         product: Product,
         hasResource: Bool,
-        hasSampleApp: Bool = false
+        hasSampleApp: Bool = false,
+        resourceSynthesizers: [ResourceSynthesizer] = .default
     ) -> Project {
         let debugScheme = Scheme.scheme(
             schemeName: "\(name)Debug",
@@ -73,7 +74,8 @@ public extension Project {
             options: options(disableBundleAccessors: hasResource),
             settings: Settings.defaultTargetSettings(),
             targets: targets,
-            schemes: schemes
+            schemes: schemes,
+            resourceSynthesizers: resourceSynthesizers
         )
     }
     
