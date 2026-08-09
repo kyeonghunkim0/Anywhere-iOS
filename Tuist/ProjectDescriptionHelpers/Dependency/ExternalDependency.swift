@@ -17,4 +17,5 @@ public extension TargetDependency {
 
     // MARK: - Firebase
     static let firebaseAuth: TargetDependency = .external(name: "FirebaseAuth")
+    static let firebaseCore: TargetDependency = .external(name: "FirebaseCore")
 }

@@ -6,6 +6,7 @@
 //  Copyright © 2026 com.kimkhuna. All rights reserved.
 //
 
+import FirebaseCore
 import Foundation
 import GoogleSignIn
 
@@ -14,8 +15,13 @@ import GoogleSignIn
 /// 이 타입을 `Auth` 로 두면 FirebaseAuth 의 `Auth` 클래스와 이름이 겹칩니다.
 /// 모듈 이름도 `Auth` 라서 `Auth.xxx` 한정 접근까지 모호해지므로 이름을 분리했습니다.
 public enum AuthConfiguration {
-    /// Info.plist의 GIDClientID로 GIDSignIn을 초기화합니다. 앱 시작 시 한 번 호출해야 합니다.
+    /// FirebaseApp과 GIDSignIn을 초기화합니다. 앱 시작 시 한 번 호출해야 합니다.
+    ///
+    /// Google, Apple 로그인 모두 최종적으로 Firebase Auth 세션으로 합쳐지므로
+    /// FirebaseApp.configure()가 먼저 실행되어 있어야 합니다.
     public static func configure() {
+        FirebaseApp.configure()
+
         guard let clientID = Bundle.main.object(forInfoDictionaryKey: "GIDClientID") as? String else { return }
         GIDSignIn.sharedInstance.configuration = GIDConfiguration(clientID: clientID)
     }

@@ -24,7 +24,8 @@ public extension Target {
         product: Product,
         isSampleApp: Bool = false,
         dependencies: [TargetDependency] = [],
-        sampleAppInfoPlist: [String: Plist.Value] = [:]
+        sampleAppInfoPlist: [String: Plist.Value] = [:],
+        entitlements: Entitlements? = nil
     ) -> Target {
         let sources: SourceFilesList = isSampleApp ? ["SampleApp/Sources/**"] : ["Sources/**"]
         let resources: ResourceFileElements? = isSampleApp ? ["SampleApp/Resources/**"] : (hasResource ? ["Resources/**"] : nil)
@@ -60,7 +61,7 @@ public extension Target {
             infoPlist: infoPlist,
             sources: sources,
             resources: resources,
-            // entitlements: 사용하는 경우 \(Target.appName).entitlements,
+            entitlements: entitlements,
             // scripts: 사용하는 경우 지정,
             dependencies: dependencies,
             settings: Settings.defaultTargetSettings()

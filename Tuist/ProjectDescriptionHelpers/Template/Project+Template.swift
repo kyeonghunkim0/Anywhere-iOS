@@ -24,7 +24,9 @@ public extension Project {
         hasResource: Bool,
         hasSampleApp: Bool = false,
         resourceSynthesizers: [ResourceSynthesizer] = .default,
-        sampleAppInfoPlist: [String: Plist.Value] = [:]
+        entitlements: Entitlements? = nil,
+        sampleAppInfoPlist: [String: Plist.Value] = [:],
+        sampleAppEntitlements: Entitlements? = nil
     ) -> Project {
         let debugScheme = Scheme.scheme(
             schemeName: "\(name)Debug",
@@ -43,7 +45,8 @@ public extension Project {
                 name: name,
                 hasResource: hasResource,
                 product: product,
-                dependencies: DependencyInformation.dependencies(name: name)
+                dependencies: DependencyInformation.dependencies(name: name),
+                entitlements: entitlements
             )
         ]
         
@@ -58,7 +61,8 @@ public extension Project {
                     product: .app,
                     isSampleApp: true,
                     dependencies: [.target(name: name)],
-                    sampleAppInfoPlist: sampleAppInfoPlist
+                    sampleAppInfoPlist: sampleAppInfoPlist,
+                    entitlements: sampleAppEntitlements
                 )
             )
             

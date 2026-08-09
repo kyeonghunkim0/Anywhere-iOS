@@ -21,5 +21,6 @@ let project = Project.makeProject(
                 "CFBundleURLSchemes": ["$(GOOGLE_REVERSED_CLIENT_ID)"],
             ]
         ],
-    ]
+    ],
+    sampleAppEntitlements: .file(path: "SampleApp/Auth.entitlements")
 )
