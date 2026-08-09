@@ -27,14 +27,24 @@ public extension Target {
     ) -> Target {
         let sources: SourceFilesList = isSampleApp ? ["SampleApp/Sources/**"] : ["Sources/**"]
         let resources: ResourceFileElements? = isSampleApp ? ["SampleApp/Resources/**"] : (hasResource ? ["Resources/**"] : nil)
-        let infoPlist: InfoPlist = isSampleApp ? .extendingDefault(
-            with: [
-                "UILaunchScreen": [
-                    "UIColorName": "",
-                    "UIImageName": "",
+        // 런치스크린, 화면 방향, URL scheme 같은 키는 앱 번들에만 의미가 있습니다.
+        // 정적 프레임워크까지 같은 Info.plist를 물리면 GIDClientID 같은 앱 전용 값이
+        // 모든 모듈 번들에 복사되므로, 앱 타겟에만 커스텀 Info.plist를 적용합니다.
+        let infoPlist: InfoPlist
+        if isSampleApp {
+            infoPlist = .extendingDefault(
+                with: [
+                    "UILaunchScreen": [
+                        "UIColorName": "",
+                        "UIImageName": "",
+                    ]
                 ]
-            ]
-        ) : .file(path: .relativeToRoot("Tuist/Config/Info.plist"))
+            )
+        } else if product == .app {
+            infoPlist = .file(path: .relativeToRoot("Tuist/Config/Info.plist"))
+        } else {
+            infoPlist = .default
+        }
         
         return Target.target(
             name: name,
