@@ -7,7 +7,7 @@
 
 @preconcurrency import ProjectDescription
 
-/// 각 모듈이 가지는 의존성 정보를 정리합니다.
+/// 각 모듈이 가지는 내부 모듈 의존성을 정리합니다.
 let dependencyInfo: [DependencyInformation: [DependencyInformation]] = [
     .app: [.dicontainer, .presentation],
     .dicontainer: [.presentation, .domain, .data, .uiComponents, .auth, .core],
@@ -19,14 +19,13 @@ let dependencyInfo: [DependencyInformation: [DependencyInformation]] = [
     .core: [],
 ]
 
-/// 외부 라이브러리를 정리합니다.
-let externalDependencyInfo: [DependencyInformation: [DependencyInformation]] = [
-    .auth: [.googleAuth],
-//    .data: [.alamofire],
-//    .presentation: [.lottie]
+/// 각 모듈이 사용하는 외부 라이브러리를 정리합니다.
+/// 사용 가능한 상수는 ExternalDependency.swift 를 참고하세요.
+let externalDependencyInfo: [DependencyInformation: [TargetDependency]] = [
+    .auth: [.googleSignIn, .firebaseAuth],
 ]
 
-/// 모듈 및 SPM에 대해서 정의합니다.
+/// 내부 모듈을 정의합니다.
 public enum DependencyInformation: String, CaseIterable, Sendable {
     // MARK: - Clean Architecture 기반으로 설정
     case app = "AnywhereApp"
@@ -37,9 +36,6 @@ public enum DependencyInformation: String, CaseIterable, Sendable {
     case auth = "Auth"
     case core = "Core"
     case dicontainer = "DIContainer"
-    
-    // MARK: - 사용할 SPM 명세
-    case googleAuth = "GoogleSignInSwift"
 }
 
 /// 모듈과 의존성을 연결합니다.
@@ -55,10 +51,7 @@ public extension DependencyInformation {
         }
 
         // 외부 라이브러리 의존성
-        let externalModules = externalDependencyInfo[module] ?? []
-        let externalDependencies: [TargetDependency] = externalModules.map {
-            .external(name: $0.rawValue)
-        }
+        let externalDependencies = externalDependencyInfo[module] ?? []
 
         return internalDependencies + externalDependencies
     }

@@ -36,4 +36,23 @@ public extension Settings {
             // defaultConfiguration: 이거는 프로젝트 세팅에서 설정하는 것
         )
     }
+
+    /// 외부 SPM 패키지에 적용할 기본 설정입니다.
+    ///
+    /// 앱 타겟 설정(defaultTargetSettings)을 그대로 쓰면 안 됩니다.
+    /// - SWIFT_VERSION 6.0 을 강제하면 Swift 5 로 작성된 SDK가 깨집니다.
+    /// - Secrets.xcconfig 는 외부 패키지가 알 필요가 없습니다.
+    /// 여기서는 앱과 동일한 Configuration 이름(Debug/Release)만 맞춰줍니다.
+    static func externalPackageSettings() -> Settings {
+        return Settings.settings(
+            base: [
+                "IPHONEOS_DEPLOYMENT_TARGET": "17.0",
+            ],
+            configurations: [
+                .debug(name: .debug),
+                .release(name: .release),
+            ],
+            defaultSettings: DefaultSettings.recommended
+        )
+    }
 }
