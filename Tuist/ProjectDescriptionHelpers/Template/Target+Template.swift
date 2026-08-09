@@ -23,23 +23,27 @@ public extension Target {
         hasResource: Bool,
         product: Product,
         isSampleApp: Bool = false,
-        dependencies: [TargetDependency] = []
+        dependencies: [TargetDependency] = [],
+        sampleAppInfoPlist: [String: Plist.Value] = [:]
     ) -> Target {
         let sources: SourceFilesList = isSampleApp ? ["SampleApp/Sources/**"] : ["Sources/**"]
         let resources: ResourceFileElements? = isSampleApp ? ["SampleApp/Resources/**"] : (hasResource ? ["Resources/**"] : nil)
         // 런치스크린, 화면 방향, URL scheme 같은 키는 앱 번들에만 의미가 있습니다.
         // 정적 프레임워크까지 같은 Info.plist를 물리면 GIDClientID 같은 앱 전용 값이
         // 모든 모듈 번들에 복사되므로, 앱 타겟에만 커스텀 Info.plist를 적용합니다.
+        // sampleAppInfoPlist는 Google Sign-In처럼 특정 모듈의 샘플 앱에서만
+        // 필요한 키(GIDClientID, URL scheme 등)를 추가로 얹기 위한 것으로,
+        // 지정하지 않으면 다른 샘플 앱과 동일하게 기본 런치스크린 키만 갖습니다.
         let infoPlist: InfoPlist
         if isSampleApp {
-            infoPlist = .extendingDefault(
-                with: [
-                    "UILaunchScreen": [
-                        "UIColorName": "",
-                        "UIImageName": "",
-                    ]
+            var entries: [String: Plist.Value] = [
+                "UILaunchScreen": [
+                    "UIColorName": "",
+                    "UIImageName": "",
                 ]
-            )
+            ]
+            entries.merge(sampleAppInfoPlist) { _, custom in custom }
+            infoPlist = .extendingDefault(with: entries)
         } else if product == .app {
             infoPlist = .file(path: .relativeToRoot("Tuist/Config/Info.plist"))
         } else {

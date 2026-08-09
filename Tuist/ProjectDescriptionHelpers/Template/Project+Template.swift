@@ -23,7 +23,8 @@ public extension Project {
         product: Product,
         hasResource: Bool,
         hasSampleApp: Bool = false,
-        resourceSynthesizers: [ResourceSynthesizer] = .default
+        resourceSynthesizers: [ResourceSynthesizer] = .default,
+        sampleAppInfoPlist: [String: Plist.Value] = [:]
     ) -> Project {
         let debugScheme = Scheme.scheme(
             schemeName: "\(name)Debug",
@@ -56,7 +57,8 @@ public extension Project {
                     hasResource: true,
                     product: .app,
                     isSampleApp: true,
-                    dependencies: [.target(name: name)]
+                    dependencies: [.target(name: name)],
+                    sampleAppInfoPlist: sampleAppInfoPlist
                 )
             )
             

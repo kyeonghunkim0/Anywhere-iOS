@@ -8,4 +8,18 @@
 import ProjectDescription
 import ProjectDescriptionHelpers
 
-let project = Project.makeProject(name: "Auth", product: .staticFramework, hasResource: true, hasSampleApp: true)
+let project = Project.makeProject(
+    name: "Auth",
+    product: .staticFramework,
+    hasResource: true,
+    hasSampleApp: true,
+    sampleAppInfoPlist: [
+        "GIDClientID": "$(GOOGLE_CLIENT_ID)",
+        "CFBundleURLTypes": [
+            [
+                "CFBundleTypeRole": "Editor",
+                "CFBundleURLSchemes": ["$(GOOGLE_REVERSED_CLIENT_ID)"],
+            ]
+        ],
+    ]
+)
