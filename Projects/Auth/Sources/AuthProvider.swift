@@ -1,9 +1,12 @@
-//
-//  AuthProvider.swift
-//  Auth
-//
-//  Created by 김경훈 on 7/27/26.
-//  Copyright © 2026 com.kimkhuna. All rights reserved.
-//
+import GoogleSignIn
+import UIKit
 
-import Foundation
+public struct AuthProvider {
+    public init() {}
+
+    @MainActor
+    public func signInWithGoogle(presenting viewController: UIViewController) async throws -> GIDGoogleUser {
+        let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: viewController)
+        return result.user
+    }
+}
