@@ -10,21 +10,30 @@ public struct AuthProvider {
     public init() {}
 
     @discardableResult
-    public func signInWithGoogle(presenting viewController: UIViewController) async throws -> FirebaseAuth.User {
+    public func signInWithGoogle(presenting viewController: UIViewController) async throws -> SocialSignInResult {
         let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: viewController)
         guard let idToken = result.user.idToken?.tokenString else {
             throw AuthProviderError.missingGoogleIDToken
+        }
+        guard let googleUserID = result.user.userID else {
+            throw AuthProviderError.missingGoogleUserID
         }
 
         let credential = GoogleAuthProvider.credential(
             withIDToken: idToken,
             accessToken: result.user.accessToken.tokenString
         )
-        return try await Auth.auth().signIn(with: credential).user
+        let firebaseUser = try await Auth.auth().signIn(with: credential).user
+
+        return SocialSignInResult(
+            socialId: googleUserID,
+            nickname: firebaseUser.displayName ?? result.user.profile?.name,
+            profileImageURL: firebaseUser.photoURL ?? result.user.profile?.imageURL(withDimension: 200)
+        )
     }
 
     @discardableResult
-    public func signInWithApple(presenting viewController: UIViewController) async throws -> FirebaseAuth.User {
+    public func signInWithApple(presenting viewController: UIViewController) async throws -> SocialSignInResult {
         guard let anchor = viewController.view.window else {
             throw AuthProviderError.missingAppleCredential
         }
@@ -43,6 +52,14 @@ public struct AuthProvider {
             idToken: idTokenString,
             rawNonce: nonce
         )
-        return try await Auth.auth().signIn(with: credential).user
+        let firebaseUser = try await Auth.auth().signIn(with: credential).user
+
+        let nickname = PersonNameComponentsFormatter().string(from: appleIDCredential.fullName ?? PersonNameComponents())
+        return SocialSignInResult(
+            // Apple의 안정적인 유저 식별자. 최초 로그인 시에만 fullName/email이 함께 온다.
+            socialId: appleIDCredential.user,
+            nickname: nickname.isEmpty ? firebaseUser.displayName : nickname,
+            profileImageURL: firebaseUser.photoURL
+        )
     }
 }
