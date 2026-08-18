@@ -15,5 +15,6 @@ let project = Project.makeProject(
     hasSampleApp: true,
     resourceSynthesizers: [
         .custom(name: "Colors", parser: .assets, extensions: ["xcassets"]),
+        .strings(),
     ]
 )
