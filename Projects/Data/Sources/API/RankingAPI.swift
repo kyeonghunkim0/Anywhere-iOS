@@ -1,11 +1,13 @@
 enum RankingAPI: BaseAPI {
-    case users(period: String)
-    case me(period: String)
+    case users
+    case places
+    case me
 
     var path: String {
         switch self {
-        case .users: "/api/ranking/users"
-        case .me:    "/api/ranking/me"
+        case .users:  "/api/ranking/users"
+        case .places: "/api/ranking/places"
+        case .me:     "/api/ranking/me"
         }
     }
 
@@ -13,15 +15,8 @@ enum RankingAPI: BaseAPI {
 
     var authorization: AuthorizationPolicy {
         switch self {
-        case .users: .none
-        case .me:    .required
-        }
-    }
-
-    var queryParameters: [String: String] {
-        switch self {
-        case .users(let period), .me(let period):
-            ["period": period]
+        case .users, .places: .none
+        case .me:             .required
         }
     }
 }

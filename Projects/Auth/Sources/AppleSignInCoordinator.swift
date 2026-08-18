@@ -82,7 +82,6 @@ final class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate,
 
 enum AuthProviderError: LocalizedError {
     case missingGoogleIDToken
-    case missingGoogleUserID
     case missingAppleCredential
     case missingAppleIdentityToken
 
@@ -90,8 +89,6 @@ enum AuthProviderError: LocalizedError {
         switch self {
         case .missingGoogleIDToken:
             return "구글 로그인 토큰을 가져오지 못했습니다."
-        case .missingGoogleUserID:
-            return "구글 계정 정보를 가져오지 못했습니다."
         case .missingAppleCredential:
             return "애플 로그인 인증 정보를 가져오지 못했습니다."
         case .missingAppleIdentityToken:

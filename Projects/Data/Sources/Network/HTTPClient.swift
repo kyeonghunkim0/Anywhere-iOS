@@ -57,7 +57,7 @@ actor HTTPClient {
         case 401:
             throw .unauthorized
         case 404:
-            throw .notFound
+            throw .notFound(message: Self.serverMessage(from: data))
         case 429:
             throw .rateLimited(message: Self.serverMessage(from: data))
         case 400..<500:

@@ -1,66 +1,44 @@
 import Foundation
 
-public struct RegionLevelInfo: Sendable, Equatable {
-    public let regionName: String
-    public let level: Int
-    public let isLevelUp: Bool
-    public let visitorCount: Int
-    public let exp: Int
-    public let targetVisitorCount: Int
-
-    public init(
-        regionName: String,
-        level: Int,
-        isLevelUp: Bool,
-        visitorCount: Int,
-        exp: Int,
-        targetVisitorCount: Int
-    ) {
-        self.regionName = regionName
-        self.level = level
-        self.isLevelUp = isLevelUp
-        self.visitorCount = visitorCount
-        self.exp = exp
-        self.targetVisitorCount = targetVisitorCount
-    }
-}
-
 public struct StampResult: Sendable, Identifiable {
     public let id: String
     public let placeName: String
     public let regionName: String
     public let isDepopulated: Bool
-    public let visitorOrder: Int
-    public let visitorOrderMessage: String
+    /// 1 = 일반, 2 = 인구감소지역 보상 2배.
     public let bonusMultiplier: Int
     public let stampsEarned: Int
     public let checkedInAt: Date
     public let totalStamps: Int
-    public let regionLevelInfo: RegionLevelInfo?
+    /// 해당 지역의 N번째 방문자 각인.
+    public let visitorNumber: Int
+    /// 이번 체크인이 반영된 뒤의 지역 레벨.
+    public let regionLevel: Int
+    public let regionLeveledUp: Bool
 
     public init(
         id: String,
         placeName: String,
         regionName: String,
         isDepopulated: Bool,
-        visitorOrder: Int,
-        visitorOrderMessage: String,
         bonusMultiplier: Int,
         stampsEarned: Int,
         checkedInAt: Date,
         totalStamps: Int,
-        regionLevelInfo: RegionLevelInfo?
+        visitorNumber: Int,
+        regionLevel: Int,
+        regionLeveledUp: Bool
     ) {
         self.id = id
         self.placeName = placeName
         self.regionName = regionName
         self.isDepopulated = isDepopulated
-        self.visitorOrder = visitorOrder
-        self.visitorOrderMessage = visitorOrderMessage
         self.bonusMultiplier = bonusMultiplier
         self.stampsEarned = stampsEarned
         self.checkedInAt = checkedInAt
         self.totalStamps = totalStamps
-        self.regionLevelInfo = regionLevelInfo
+        self.visitorNumber = visitorNumber
+        self.regionLevel = regionLevel
+        self.regionLeveledUp = regionLeveledUp
     }
 }

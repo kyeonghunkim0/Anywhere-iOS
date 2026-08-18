@@ -1,4 +1,5 @@
 public protocol RankingRepository: Sendable {
-    func fetchUserRanking(period: RankingPeriod) async throws(NetworkError) -> [UserRankItem]
-    func fetchMyRank(period: RankingPeriod) async throws(NetworkError) -> MyRank
+    func fetchUserRanking() async throws(NetworkError) -> [UserRankItem]
+    func fetchPlaceRanking() async throws(NetworkError) -> [PlaceRankItem]
+    func fetchMyRank() async throws(NetworkError) -> MyRank
 }

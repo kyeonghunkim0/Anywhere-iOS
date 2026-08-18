@@ -5,36 +5,34 @@ import UIKit
 /// Domain은 UIKit을 몰라야 하므로, AuthProvider가 요구하는 UIViewController를
 /// 여기서 활성 window scene으로부터 직접 찾아 흡수한다.
 struct SocialAuthenticatingAdapter: SocialAuthenticating {
-    private let authProvider = AuthProvider()
-
     func signIn(with socialType: SocialType) async throws(SocialAuthenticationError) -> SocialCredential {
-        guard let viewController = await Self.topViewController() else {
-            throw .failed
-        }
-
         do {
-            let result: SocialSignInResult
-            switch socialType {
-            case .google:
-                result = try await authProvider.signInWithGoogle(presenting: viewController)
-            case .apple:
-                result = try await authProvider.signInWithApple(presenting: viewController)
-            case .kakao:
-                // 카카오 SDK는 아직 연동되지 않았다.
-                throw SocialAuthenticationError.failed
-            }
+            let result = try await Self.performSignIn(with: socialType)
             return SocialCredential(
                 socialType: socialType,
-                socialId: result.socialId,
-                nickname: result.nickname,
-                profileImageURL: result.profileImageURL
+                idToken: result.idToken,
+                nickname: result.nickname
             )
-        } catch let error as SocialAuthenticationError {
-            throw error
         } catch is CancellationError {
             throw .cancelled
         } catch {
             throw .failed
+        }
+    }
+
+    /// AuthProvider는 @MainActor 타입이라 생성부터 호출까지 전부 메인 액터에서 해야 한다.
+    @MainActor
+    private static func performSignIn(with socialType: SocialType) async throws -> SocialSignInResult {
+        guard let viewController = topViewController() else {
+            throw SocialAuthenticationError.failed
+        }
+
+        let authProvider = AuthProvider()
+        switch socialType {
+        case .google:
+            return try await authProvider.signInWithGoogle(presenting: viewController)
+        case .apple:
+            return try await authProvider.signInWithApple(presenting: viewController)
         }
     }
 

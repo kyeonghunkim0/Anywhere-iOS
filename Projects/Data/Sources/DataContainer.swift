@@ -1,4 +1,5 @@
 import Domain
+
 /// Data 모듈의 유일한 public 진입점.
 /// HTTPClient/TokenStore 같은 인프라 타입은 internal로 숨기고, Domain 프로토콜
 /// 타입으로만 Repository를 노출한다. DIContainer는 이 컨테이너 하나만 알면 된다.
@@ -20,12 +21,17 @@ public final class DataContainer: Sendable {
     }
 
     public var authRepository: AuthRepository { AuthRepositoryImpl(httpClient: httpClient) }
+    public var userRepository: UserRepository { UserRepositoryImpl(httpClient: httpClient) }
     public var matchRepository: MatchRepository { MatchRepositoryImpl(httpClient: httpClient) }
     public var missionRepository: MissionRepository { MissionRepositoryImpl(httpClient: httpClient) }
     public var passportRepository: PassportRepository { PassportRepositoryImpl(httpClient: httpClient) }
     public var rankingRepository: RankingRepository { RankingRepositoryImpl(httpClient: httpClient) }
     public var feedRepository: FeedRepository { FeedRepositoryImpl(httpClient: httpClient) }
-    public var questRepository: QuestRepository { QuestRepositoryImpl(httpClient: httpClient) }
+    public var badgeRepository: BadgeRepository { BadgeRepositoryImpl(httpClient: httpClient) }
+    public var regionRepository: RegionRepository { RegionRepositoryImpl(httpClient: httpClient) }
+    public var tagRepository: TagRepository { TagRepositoryImpl(httpClient: httpClient) }
+    public var reviewRepository: ReviewRepository { ReviewRepositoryImpl(httpClient: httpClient) }
+    public var appRepository: AppRepository { AppRepositoryImpl(httpClient: httpClient) }
     public var locationRepository: LocationRepository { sharedLocationRepository }
     public var sessionRepository: SessionRepository { SessionRepositoryImpl(tokenStore: tokenStore) }
 }

@@ -1,4 +1,5 @@
 import Domain
+
 final class RankingRepositoryImpl: RankingRepository, Sendable {
     private let httpClient: HTTPClient
 
@@ -6,24 +7,27 @@ final class RankingRepositoryImpl: RankingRepository, Sendable {
         self.httpClient = httpClient
     }
 
-    func fetchUserRanking(period: RankingPeriod) async throws(NetworkError) -> [UserRankItem] {
+    func fetchUserRanking() async throws(NetworkError) -> [UserRankItem] {
         do {
-            let envelope = try await httpClient.request(
-                RankingAPI.users(period: period.rawValue),
-                as: RankingResponseDTO<[UserRankItemDTO]>.self
-            )
+            let envelope = try await httpClient.request(RankingAPI.users, as: APIResponse<[UserRankItemDTO]>.self)
             return envelope.value.data.map { $0.toEntity() }
         } catch {
             throw ErrorMapper.network(error)
         }
     }
 
-    func fetchMyRank(period: RankingPeriod) async throws(NetworkError) -> MyRank {
+    func fetchPlaceRanking() async throws(NetworkError) -> [PlaceRankItem] {
         do {
-            let envelope = try await httpClient.request(
-                RankingAPI.me(period: period.rawValue),
-                as: RankingResponseDTO<MyRankDTO>.self
-            )
+            let envelope = try await httpClient.request(RankingAPI.places, as: APIResponse<[PlaceRankItemDTO]>.self)
+            return envelope.value.data.map { $0.toEntity() }
+        } catch {
+            throw ErrorMapper.network(error)
+        }
+    }
+
+    func fetchMyRank() async throws(NetworkError) -> MyRank {
+        do {
+            let envelope = try await httpClient.request(RankingAPI.me, as: APIResponse<MyRankDTO>.self)
             return envelope.value.data.toEntity()
         } catch {
             throw ErrorMapper.network(error)

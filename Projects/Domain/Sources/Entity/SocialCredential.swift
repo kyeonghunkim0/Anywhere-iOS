@@ -1,22 +1,19 @@
-import Foundation
-
 public enum SocialType: String, Sendable, Equatable {
     case google
     case apple
-    case kakao
 }
 
-/// 소셜 SDK 로그인 결과. 서버에는 이 중 socialId만 전달된다.
+/// 소셜 SDK 로그인 결과. 서버는 idToken을 각 프로바이더 공개키로 직접 검증하고,
+/// 거기서 나온 sub만 socialId로 신뢰한다 — 클라이언트가 socialId를 보내지 않는다.
 public struct SocialCredential: Sendable {
     public let socialType: SocialType
-    public let socialId: String
+    /// google: GIDGoogleUser.idToken.tokenString / apple: ASAuthorizationAppleIDCredential.identityToken
+    public let idToken: String
     public let nickname: String?
-    public let profileImageURL: URL?
 
-    public init(socialType: SocialType, socialId: String, nickname: String?, profileImageURL: URL?) {
+    public init(socialType: SocialType, idToken: String, nickname: String?) {
         self.socialType = socialType
-        self.socialId = socialId
+        self.idToken = idToken
         self.nickname = nickname
-        self.profileImageURL = profileImageURL
     }
 }

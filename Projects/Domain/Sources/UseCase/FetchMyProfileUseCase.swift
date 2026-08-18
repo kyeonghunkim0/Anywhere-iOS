@@ -1,11 +1,11 @@
 public struct FetchMyProfileUseCase: Sendable {
-    private let authRepository: AuthRepository
+    private let userRepository: UserRepository
 
-    public init(authRepository: AuthRepository) {
-        self.authRepository = authRepository
+    public init(userRepository: UserRepository) {
+        self.userRepository = userRepository
     }
 
     public func execute() async throws(AuthError) -> UserProfile {
-        try await authRepository.fetchMyProfile()
+        try await userRepository.fetchMyProfile()
     }
 }

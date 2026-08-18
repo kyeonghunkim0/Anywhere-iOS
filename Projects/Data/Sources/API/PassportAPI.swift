@@ -1,18 +1,11 @@
 enum PassportAPI: BaseAPI {
-    case mine
     case detail(userId: String)
 
-    var path: String {
-        switch self {
-        case .mine:      "/api/passport"
-        case .detail:    "/api/passport/{userId}"
-        }
-    }
+    var path: String { "/api/passport/{userId}" }
 
     var pathParameters: [String: String] {
         switch self {
-        case .mine:                     [:]
-        case .detail(let userId):       ["userId": userId]
+        case .detail(let userId): ["userId": userId]
         }
     }
 

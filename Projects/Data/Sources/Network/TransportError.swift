@@ -6,8 +6,8 @@ enum TransportError: Error, Sendable {
     case unauthorized
     /// 400. message는 서버가 준 한국어 사유.
     case badRequest(message: String)
-    /// 404.
-    case notFound
+    /// 404. message는 서버가 준 사유 (오퍼레이션마다 뜻이 다르다).
+    case notFound(message: String)
     /// 429. message는 서버가 준 사유.
     case rateLimited(message: String)
     case decoding(any Error)

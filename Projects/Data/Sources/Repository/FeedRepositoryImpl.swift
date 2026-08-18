@@ -1,4 +1,5 @@
 import Domain
+
 final class FeedRepositoryImpl: FeedRepository, Sendable {
     private let httpClient: HTTPClient
 
@@ -6,9 +7,12 @@ final class FeedRepositoryImpl: FeedRepository, Sendable {
         self.httpClient = httpClient
     }
 
-    func fetchHomeFeed() async throws(NetworkError) -> HomeFeed {
+    func fetchRecentFeed(limit: Int?) async throws(NetworkError) -> ActivityFeed {
         do {
-            let envelope = try await httpClient.request(FeedAPI.home, as: APIResponse<HomeFeedDTO>.self)
+            let envelope = try await httpClient.request(
+                FeedAPI.recent(limit: limit),
+                as: APIResponse<ActivityFeedDTO>.self
+            )
             return envelope.value.data.toEntity()
         } catch {
             throw ErrorMapper.network(error)

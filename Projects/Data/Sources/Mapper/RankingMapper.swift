@@ -1,17 +1,20 @@
-import Foundation
 import Domain
 
 extension UserRankItemDTO {
     func toEntity() -> UserRankItem {
-        UserRankItem(
+        UserRankItem(rank: rank, userId: userId, nickname: nickname, totalStamps: totalStamps)
+    }
+}
+
+extension PlaceRankItemDTO {
+    func toEntity() -> PlaceRankItem {
+        PlaceRankItem(
             rank: rank,
-            userId: userId,
-            nickname: nickname,
-            profileImageURL: profileImage.flatMap(URL.init(string:)),
-            score: score,
-            totalStamps: totalStamps,
-            depopulatedVisits: depopulatedVisits,
-            level: level
+            regionId: regionId,
+            sidoName: sidoName,
+            sigunguName: sigunguName,
+            isDepopulated: isDepopulated,
+            visitCount: visitCount
         )
     }
 }
@@ -19,17 +22,11 @@ extension UserRankItemDTO {
 extension MyRankDTO {
     func toEntity() -> MyRank {
         MyRank(
-            item: UserRankItem(
-                rank: rank,
-                userId: userId,
-                nickname: nickname,
-                profileImageURL: profileImage.flatMap(URL.init(string:)),
-                score: score,
-                totalStamps: totalStamps,
-                depopulatedVisits: depopulatedVisits,
-                level: level
-            ),
+            rank: rank,
             totalUsers: totalUsers,
+            userId: userId,
+            nickname: nickname,
+            totalStamps: totalStamps,
             topPercentage: topPercentage
         )
     }

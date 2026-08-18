@@ -15,9 +15,6 @@ public struct AuthProvider {
         guard let idToken = result.user.idToken?.tokenString else {
             throw AuthProviderError.missingGoogleIDToken
         }
-        guard let googleUserID = result.user.userID else {
-            throw AuthProviderError.missingGoogleUserID
-        }
 
         let credential = GoogleAuthProvider.credential(
             withIDToken: idToken,
@@ -25,10 +22,10 @@ public struct AuthProvider {
         )
         let firebaseUser = try await Auth.auth().signIn(with: credential).user
 
+        // 서버로는 Firebase 세션이 아니라 Google이 발급한 idToken을 그대로 넘긴다.
         return SocialSignInResult(
-            socialId: googleUserID,
-            nickname: firebaseUser.displayName ?? result.user.profile?.name,
-            profileImageURL: firebaseUser.photoURL ?? result.user.profile?.imageURL(withDimension: 200)
+            idToken: idToken,
+            nickname: firebaseUser.displayName ?? result.user.profile?.name
         )
     }
 
@@ -55,11 +52,10 @@ public struct AuthProvider {
         let firebaseUser = try await Auth.auth().signIn(with: credential).user
 
         let nickname = PersonNameComponentsFormatter().string(from: appleIDCredential.fullName ?? PersonNameComponents())
+        // fullName은 최초 로그인 시에만 온다. 서버 검증에 쓰이는 값은 identityToken이다.
         return SocialSignInResult(
-            // Apple의 안정적인 유저 식별자. 최초 로그인 시에만 fullName/email이 함께 온다.
-            socialId: appleIDCredential.user,
-            nickname: nickname.isEmpty ? firebaseUser.displayName : nickname,
-            profileImageURL: firebaseUser.photoURL
+            idToken: idTokenString,
+            nickname: nickname.isEmpty ? firebaseUser.displayName : nickname
         )
     }
 }

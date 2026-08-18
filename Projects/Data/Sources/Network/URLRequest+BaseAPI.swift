@@ -34,10 +34,6 @@ extension URLRequest {
         case .required:
             guard let token else { throw TransportError.unauthorized }
             setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-        case .optional:
-            if let token {
-                setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")
-            }
         }
 
         switch api.task {
