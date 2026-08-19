@@ -26,6 +26,8 @@ actor HTTPClient {
         let token = await tokenProvider()
         let urlRequest = try URLRequest(api: api, baseURL: configuration.baseURL, token: token, encoder: JSONCoder.encoder)
 
+        Self.logRequest(urlRequest)
+
         let data: Data
         let response: URLResponse
         do {
@@ -39,6 +41,8 @@ actor HTTPClient {
         guard let httpResponse = response as? HTTPURLResponse else {
             throw TransportError.unknown(statusCode: -1)
         }
+
+        Self.logResponse(httpResponse, data: data)
 
         try Self.validate(statusCode: httpResponse.statusCode, data: data)
 
@@ -72,5 +76,28 @@ actor HTTPClient {
     private static func serverMessage(from data: Data) -> String {
         struct ErrorEnvelope: Decodable { let message: String? }
         return (try? JSONCoder.decoder.decode(ErrorEnvelope.self, from: data))?.message ?? "알 수 없는 오류가 발생했습니다."
+    }
+
+    private static func logRequest(_ request: URLRequest) {
+        #if DEBUG
+        var lines = ["➡️ [Request] \(request.httpMethod ?? "") \(request.url?.absoluteString ?? "")"]
+        if let headers = request.allHTTPHeaderFields, !headers.isEmpty {
+            lines.append("Headers: \(headers)")
+        }
+        if let body = request.httpBody, let bodyString = String(data: body, encoding: .utf8) {
+            lines.append("Body: \(bodyString)")
+        }
+        print(lines.joined(separator: "\n"))
+        #endif
+    }
+
+    private static func logResponse(_ response: HTTPURLResponse, data: Data) {
+        #if DEBUG
+        var lines = ["⬅️ [Response] \(response.statusCode) \(response.url?.absoluteString ?? "")"]
+        if let bodyString = String(data: data, encoding: .utf8) {
+            lines.append("Body: \(bodyString)")
+        }
+        print(lines.joined(separator: "\n"))
+        #endif
     }
 }
