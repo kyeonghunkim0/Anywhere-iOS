@@ -14,3 +14,22 @@
 "login.failureTitle" = "로그인 실패";
 "login.sessionExpired" = "다시 로그인해주세요.";
 "login.networkError" = "네트워크 연결을 확인해주세요.";
+
+"home.appName" = "아무데나";
+"home.tripBadge" = "이동 중";
+"home.tripDistance" = "확정 시점 거리 %.1fkm";
+"home.verifyArrival" = "GPS 위치 인증하기";
+"home.cancelTrip" = "여정 취소하기";
+"home.heroTitle" = "어디 갈래?\n아무데나.";
+"home.heroSubtitle" = "한적한 지역 명소를 랜덤으로 추천해드려요.";
+"home.startTrip" = "아무데나 떠나기";
+"home.specialQuests" = "스페셜 퀘스트";
+"home.limitedTime" = "기간 한정";
+"home.trendingLocal" = "지금 뜨는 로컬";
+"home.levelUpSoon" = "레벨업 임박";
+"home.remainingToLevelUp" = "%d명만 더 오면 Lv.%d 달성";
+"home.errorTitle" = "불러오기 실패";
+"home.navHome" = "홈";
+"home.navPassport" = "여권";
+"home.navRanking" = "랭킹";
+"home.navSettings" = "설정";

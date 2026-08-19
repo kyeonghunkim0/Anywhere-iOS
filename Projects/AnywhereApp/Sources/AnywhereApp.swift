@@ -29,10 +29,21 @@ struct AnywhereApp: App {
 
     var body: some Scene {
         WindowGroup {
-            LoginView(viewModel: LoginViewModel(signInUseCase: container.signInUseCase))
-                .onOpenURL { url in
-                    AppDependencyContainer.handleSocialAuthURL(url)
+            RootView(
+                loginViewModel: LoginViewModel(signInUseCase: container.signInUseCase),
+                homeViewModelFactory: { session in
+                    HomeViewModel(
+                        session: session,
+                        fetchCurrentTripUseCase: container.fetchCurrentTripUseCase,
+                        fetchSeasonalBadgesUseCase: container.fetchSeasonalBadgesUseCase,
+                        fetchGrowthRegionsUseCase: container.fetchGrowthRegionsUseCase,
+                        cancelMatchUseCase: container.cancelMatchUseCase
+                    )
                 }
+            )
+            .onOpenURL { url in
+                AppDependencyContainer.handleSocialAuthURL(url)
+            }
         }
     }
 }

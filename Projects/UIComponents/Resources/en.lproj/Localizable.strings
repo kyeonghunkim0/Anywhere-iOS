@@ -14,3 +14,22 @@
 "login.failureTitle" = "Sign-in Failed";
 "login.sessionExpired" = "Please sign in again.";
 "login.networkError" = "Please check your network connection.";
+
+"home.appName" = "Anywhere";
+"home.tripBadge" = "On the way";
+"home.tripDistance" = "%.1fkm at match time";
+"home.verifyArrival" = "Verify with GPS";
+"home.cancelTrip" = "Cancel trip";
+"home.heroTitle" = "Where to?\nAnywhere.";
+"home.heroSubtitle" = "We'll randomly recommend a quiet local spot.";
+"home.startTrip" = "Go anywhere";
+"home.specialQuests" = "Special Quests";
+"home.limitedTime" = "Limited time";
+"home.trendingLocal" = "Trending locals";
+"home.levelUpSoon" = "Almost leveled up";
+"home.remainingToLevelUp" = "%d more visits to reach Lv.%d";
+"home.errorTitle" = "Couldn't load";
+"home.navHome" = "Home";
+"home.navPassport" = "Passport";
+"home.navRanking" = "Ranking";
+"home.navSettings" = "Settings";

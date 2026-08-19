@@ -38,6 +38,9 @@ public enum DSIcon: String, CaseIterable, Sendable {
     case check, chevronRight, close, star, quote, car, backpack, clock, chat
     // 지역/뱃지 세트
     case ranking, tree, bridge, leaf, sparkles, cheese, train, wind, temple, baseball, fish
+    // 시즌 뱃지 세트 — 서버가 자유 문자열로 내려주는 icon 키 중 실제로 쓰인 것만 그때그때 추가한다.
+    case watermelon
+    case nightMarket = "night-market"
 
     var isFilled: Bool { self == .star || self == .flame }
 
@@ -148,6 +151,20 @@ public enum DSIcon: String, CaseIterable, Sendable {
             return [
                 .path("M3 12c3-4 8-5.5 12-3.5 2 1 3.5 2.3 6 1.5-1 2-1 3-.3 4.5-2.5 3.5-8.5 4-13.5.5"),
                 .circle(cx: 7.5, cy: 11, r: 0.7, alwaysFilled: true),
+            ]
+        case .watermelon:
+            return [
+                .path("M4.5 18A7.5 7.5 0 0 1 19.5 18Z"),
+                .path("M6.3 18A5.7 5.7 0 0 1 17.7 18"),
+                .circle(cx: 10, cy: 15.3, r: 0.6, alwaysFilled: true),
+                .circle(cx: 14, cy: 14.6, r: 0.6, alwaysFilled: true),
+                .circle(cx: 12, cy: 12.6, r: 0.6, alwaysFilled: true),
+            ]
+        case .nightMarket:
+            return [
+                .path("M12 2.5V4.5"),
+                .path("M8 7c0-1.7 1.8-2.7 4-2.7s4 1 4 2.7v9.5c0 1.7-1.8 2.7-4 2.7s-4-1-4-2.7Z"),
+                .path("M8 10.8h8M8 15h8"),
             ]
         }
     }
