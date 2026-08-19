@@ -1,3 +1,16 @@
 "common.confirm" = "확인";
 "common.cancel" = "취소";
 "common.close" = "닫기";
+
+"login.title" = "시작하거나\n계정 만들기";
+"login.subtitle" = "유명 관광지 말고 한적한 지역 명소로. 도착해서 GPS로 도장을 찍고 전국을 모아보세요.";
+"login.googleButton" = "Google로 시작하기";
+"login.appleButton" = "Apple로 계속하기";
+"login.termsPrefix" = "계속 진행하면 ";
+"login.termsOfService" = "서비스 이용약관";
+"login.termsConnector" = "과 ";
+"login.privacyPolicy" = "개인정보 처리방침";
+"login.termsSuffix" = "을 읽고 동의한 것으로 봅니다.";
+"login.failureTitle" = "로그인 실패";
+"login.sessionExpired" = "다시 로그인해주세요.";
+"login.networkError" = "네트워크 연결을 확인해주세요.";

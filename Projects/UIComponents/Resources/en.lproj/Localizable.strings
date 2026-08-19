@@ -1,3 +1,16 @@
 "common.confirm" = "Confirm";
 "common.cancel" = "Cancel";
 "common.close" = "Close";
+
+"login.title" = "Start or\nCreate an Account";
+"login.subtitle" = "Skip the famous spots. Discover quiet local gems, stamp your visit with GPS, and collect the whole country.";
+"login.googleButton" = "Continue with Google";
+"login.appleButton" = "Continue with Apple";
+"login.termsPrefix" = "By continuing, you agree to our ";
+"login.termsOfService" = "Terms of Service";
+"login.termsConnector" = " and ";
+"login.privacyPolicy" = "Privacy Policy";
+"login.termsSuffix" = ".";
+"login.failureTitle" = "Sign-in Failed";
+"login.sessionExpired" = "Please sign in again.";
+"login.networkError" = "Please check your network connection.";

@@ -1,15 +1,29 @@
+import Auth
 import Data
 import Domain
+import Foundation
 
-/// 앱 전체의 합성 루트. Presentation은 이 컨테이너의 UseCase 프로퍼티만 알면 되고,
-/// DataContainer/SocialAuthenticatingAdapter 같은 구현 세부는 여기서만 조립된다.
+/// 앱 전체의 합성 루트. Presentation·AnywhereApp은 이 컨테이너만 알면 되고,
+/// DataContainer/SocialAuthenticatingAdapter/Auth SDK 초기화 같은 구현 세부는
+/// 여기서만 조립된다 — AnywhereApp이 Data/Auth를 직접 import하지 않아도 되게 한다.
 public final class AppDependencyContainer: Sendable {
     private let dataContainer: DataContainer
     private let socialAuthenticating: SocialAuthenticating
 
-    public init(apiConfiguration: APIConfiguration) {
-        self.dataContainer = DataContainer(configuration: apiConfiguration)
+    public init(baseURL: URL) {
+        self.dataContainer = DataContainer(configuration: APIConfiguration(baseURL: baseURL))
         self.socialAuthenticating = SocialAuthenticatingAdapter()
+    }
+
+    /// Firebase/GoogleSignIn SDK 초기화. 앱 시작 시 한 번 호출해야 한다.
+    public static func configureSocialAuth() {
+        AuthConfiguration.configure()
+    }
+
+    /// Google 로그인 리다이렉트 URL 처리. App의 onOpenURL에서 호출해야 한다.
+    @discardableResult
+    public static func handleSocialAuthURL(_ url: URL) -> Bool {
+        AuthConfiguration.handle(url)
     }
 
     // MARK: - 인증 / 프로필
