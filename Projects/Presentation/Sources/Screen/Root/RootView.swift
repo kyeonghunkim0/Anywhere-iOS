@@ -34,13 +34,15 @@ public struct RootView: View {
                     RouteDestinationView(route: route)
                 }
         }
-        .environment(coordinator)
         .sheet(item: $coordinator.sheet) { route in
             RouteDestinationView(route: route)
         }
         .fullScreenCover(item: $coordinator.fullScreenCover) { route in
             RouteDestinationView(route: route)
         }
+        // sheet/fullScreenCover보다 바깥에 둬야 한다. 안쪽에 두면 띄워진 화면은
+        // 이 모디파이어의 자손이 아니라서 코디네이터를 찾지 못하고 크래시한다.
+        .environment(coordinator)
     }
 
     @ViewBuilder
@@ -97,7 +99,7 @@ private struct HomeScreen: View {
     var body: some View {
         HomeView(
             viewModel: viewModel,
-            onStartTrip: { coordinator.pushViewController(.matching) },
+            onStartTrip: { coordinator.pushViewController(.tripFilter) },
             onVerifyArrival: { coordinator.pushViewController(.arrivalVerification(matchId: $0)) },
             onOpenProfile: { coordinator.pushViewController(.profile) },
             onOpenPassport: { coordinator.pushViewController(.passport) },

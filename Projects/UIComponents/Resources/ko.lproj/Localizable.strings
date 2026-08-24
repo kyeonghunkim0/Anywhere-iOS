@@ -1,6 +1,7 @@
 "common.confirm" = "확인";
 "common.cancel" = "취소";
 "common.close" = "닫기";
+"common.back" = "뒤로";
 
 "login.title" = "시작하거나\n계정 만들기";
 "login.subtitle" = "유명 관광지 말고 한적한 지역 명소로. 도착해서 GPS로 도장을 찍고 전국을 모아보세요.";
@@ -33,3 +34,12 @@
 "home.navPassport" = "여권";
 "home.navRanking" = "랭킹";
 "home.navSettings" = "설정";
+
+"tripFilter.title" = "아무데나 떠날 조건";
+"tripFilter.distanceQuestion" = "얼마나 멀리 갈래?";
+"tripFilter.rangeNearbyTitle" = "2시간 이내";
+"tripFilter.rangeNearbySubtitle" = "반경 약 120km";
+"tripFilter.rangeDayTripTitle" = "당일치기";
+"tripFilter.rangeDayTripSubtitle" = "반경 약 250km";
+"tripFilter.rangeAnywhereTitle" = "어디든지";
+"tripFilter.rangeAnywhereSubtitle" = "전국 · 반경 제한 없음";

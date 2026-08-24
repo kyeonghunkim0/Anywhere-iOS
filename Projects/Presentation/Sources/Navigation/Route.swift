@@ -18,8 +18,10 @@ public enum Route: Hashable, Identifiable, Sendable {
     case ranking
     /// 설정
     case settings
-    /// 랜덤 매칭 — 여행 시작
-    case matching
+    /// 아무데나 떠날 조건 — 매칭 전 거리 선택
+    case tripFilter
+    /// 랜덤 매칭 — 여행 시작. 조건 화면에서 고른 반경을 그대로 들고 간다.
+    case matching(radiusKm: Double?)
     /// 도착 인증
     case arrivalVerification(matchId: String)
     /// 지역 상세

@@ -11,8 +11,18 @@ import UIComponents
 struct RouteDestinationView: View {
     let route: Route
 
+    @Environment(NavigationCoordinator.self) private var coordinator
+
     var body: some View {
         switch route {
+        case .tripFilter:
+            TripFilterView(
+                onBack: { coordinator.popViewController() },
+                onStart: { range in
+                    coordinator.pushViewController(.matching(radiusKm: range.radiusKm))
+                }
+            )
+
         // 아직 화면이 없는 Route는 자리표시자로 둔다 — 화면이 생기는 대로 이 case를 교체한다.
         case .profile, .passport, .ranking, .settings,
              .matching, .arrivalVerification, .regionDetail, .placeDetail,

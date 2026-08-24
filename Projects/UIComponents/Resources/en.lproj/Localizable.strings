@@ -1,6 +1,7 @@
 "common.confirm" = "Confirm";
 "common.cancel" = "Cancel";
 "common.close" = "Close";
+"common.back" = "Back";
 
 "login.title" = "Start or\nCreate an Account";
 "login.subtitle" = "Skip the famous spots. Discover quiet local gems, stamp your visit with GPS, and collect the whole country.";
@@ -33,3 +34,12 @@
 "home.navPassport" = "Passport";
 "home.navRanking" = "Ranking";
 "home.navSettings" = "Settings";
+
+"tripFilter.title" = "Where to wander";
+"tripFilter.distanceQuestion" = "How far will you go?";
+"tripFilter.rangeNearbyTitle" = "Under 2 hours";
+"tripFilter.rangeNearbySubtitle" = "About 120km away";
+"tripFilter.rangeDayTripTitle" = "Day trip";
+"tripFilter.rangeDayTripSubtitle" = "About 250km away";
+"tripFilter.rangeAnywhereTitle" = "Anywhere";
+"tripFilter.rangeAnywhereSubtitle" = "Nationwide · no limit";
