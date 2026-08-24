@@ -15,6 +15,7 @@ public struct RootView: View {
     @Bindable private var loginViewModel: LoginViewModel
     private let homeViewModelFactory: (User) -> HomeViewModel
     private let matchingViewModelFactory: (Double?) -> MatchingViewModel
+    private let matchResultViewModelFactory: (RandomMatch, Double?) -> MatchResultViewModel
 
     @State private var coordinator = NavigationCoordinator()
 
@@ -22,12 +23,14 @@ public struct RootView: View {
         viewModel: RootViewModel,
         loginViewModel: LoginViewModel,
         homeViewModelFactory: @escaping (User) -> HomeViewModel,
-        matchingViewModelFactory: @escaping (Double?) -> MatchingViewModel
+        matchingViewModelFactory: @escaping (Double?) -> MatchingViewModel,
+        matchResultViewModelFactory: @escaping (RandomMatch, Double?) -> MatchResultViewModel
     ) {
         self.viewModel = viewModel
         self.loginViewModel = loginViewModel
         self.homeViewModelFactory = homeViewModelFactory
         self.matchingViewModelFactory = matchingViewModelFactory
+        self.matchResultViewModelFactory = matchResultViewModelFactory
     }
 
     public var body: some View {
@@ -49,7 +52,11 @@ public struct RootView: View {
     }
 
     private func destination(_ route: Route) -> some View {
-        RouteDestinationView(route: route, matchingViewModelFactory: matchingViewModelFactory)
+        RouteDestinationView(
+            route: route,
+            matchingViewModelFactory: matchingViewModelFactory,
+            matchResultViewModelFactory: matchResultViewModelFactory
+        )
     }
 
     @ViewBuilder
@@ -113,5 +120,11 @@ private struct HomeScreen: View {
             onOpenRanking: { coordinator.pushViewController(.ranking) },
             onOpenSettings: { coordinator.pushViewController(.settings) }
         )
+        // 루트로 돌아온 시점은 여정이 확정·취소됐을 수 있는 시점이다.
+        // load()의 hasLoaded 가드 때문에 .task만으로는 갱신되지 않는다.
+        .onChange(of: coordinator.path.isEmpty) { _, isRoot in
+            guard isRoot else { return }
+            Task { await viewModel.reload() }
+        }
     }
 }

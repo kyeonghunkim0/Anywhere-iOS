@@ -54,3 +54,12 @@
 
 "location.permissionTitle" = "위치 권한 필요";
 "location.openSettings" = "설정 열기";
+
+"matchResult.randomChip" = "랜덤 매칭";
+"matchResult.distanceLabel" = "거리";
+"matchResult.distanceValue" = "%.0fkm";
+"matchResult.regionLabel" = "지역";
+"matchResult.depopulatedBonus" = "인구감소지역 · 도장 보너스";
+"matchResult.confirm" = "여기로 결정";
+"matchResult.reroll" = "다른 곳 들러보기 · %d회 남음";
+"matchResult.failureTitle" = "요청 실패";

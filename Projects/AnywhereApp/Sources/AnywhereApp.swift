@@ -57,6 +57,14 @@ struct AnywhereApp: App {
                         radiusKm: radiusKm,
                         fetchRandomMatchUseCase: container.fetchRandomMatchUseCase
                     )
+                },
+                matchResultViewModelFactory: { match, radiusKm in
+                    MatchResultViewModel(
+                        match: match,
+                        radiusKm: radiusKm,
+                        fetchRandomMatchUseCase: container.fetchRandomMatchUseCase,
+                        confirmMatchUseCase: container.confirmMatchUseCase
+                    )
                 }
             )
             .onOpenURL { url in

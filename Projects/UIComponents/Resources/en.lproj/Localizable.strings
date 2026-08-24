@@ -54,3 +54,12 @@
 
 "location.permissionTitle" = "Location access needed";
 "location.openSettings" = "Open Settings";
+
+"matchResult.randomChip" = "Random match";
+"matchResult.distanceLabel" = "Distance";
+"matchResult.distanceValue" = "%.0fkm";
+"matchResult.regionLabel" = "Region";
+"matchResult.depopulatedBonus" = "Depopulated area · stamp bonus";
+"matchResult.confirm" = "Go here";
+"matchResult.reroll" = "Somewhere else · %d left";
+"matchResult.failureTitle" = "Request failed";

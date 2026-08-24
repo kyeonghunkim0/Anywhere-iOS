@@ -1,4 +1,4 @@
-public struct Region: Sendable, Identifiable, Equatable {
+public struct Region: Sendable, Identifiable, Hashable {
     public let id: String
     public let sidoName: String
     public let sigunguName: String

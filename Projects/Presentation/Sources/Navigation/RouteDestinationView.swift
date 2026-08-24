@@ -6,12 +6,14 @@
 //
 
 import SwiftUI
+import Domain
 import UIComponents
 
 struct RouteDestinationView: View {
     let route: Route
     /// 화면이 필요로 하는 ViewModel은 여기서 만들지 않는다 — DI 컨테이너를 아는 쪽이 넘겨준다.
     let matchingViewModelFactory: (Double?) -> MatchingViewModel
+    let matchResultViewModelFactory: (RandomMatch, Double?) -> MatchResultViewModel
 
     @Environment(NavigationCoordinator.self) private var coordinator
 
@@ -30,13 +32,22 @@ struct RouteDestinationView: View {
                 viewModel: matchingViewModelFactory(radiusKm),
                 onBack: { coordinator.popViewController() },
                 onMatched: { match in
-                    coordinator.pushViewController(.matchResult(matchId: match.matchId))
+                    coordinator.pushViewController(
+                        .matchResult(match: match, radiusKm: radiusKm)
+                    )
                 }
+            )
+
+        case .matchResult(let match, let radiusKm):
+            MatchResultView(
+                viewModel: matchResultViewModelFactory(match, radiusKm),
+                onClose: { coordinator.popToRootViewController() },
+                onConfirmed: { coordinator.popToRootViewController() }
             )
 
         // 아직 화면이 없는 Route는 자리표시자로 둔다 — 화면이 생기는 대로 이 case를 교체한다.
         case .profile, .passport, .ranking, .settings,
-             .matchResult, .arrivalVerification, .regionDetail, .placeDetail,
+             .arrivalVerification, .regionDetail, .placeDetail,
              .terms, .privacy:
             placeholder
         }

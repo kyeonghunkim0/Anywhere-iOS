@@ -1,6 +1,6 @@
 import Foundation
 
-public struct MatchInfo: Sendable, Equatable {
+public struct MatchInfo: Sendable, Hashable {
     /// 오늘 남은 매칭 횟수 (하루 3회 제한).
     public let remainingMatches: Int
     public let isDepopulatedBonus: Bool
@@ -12,7 +12,7 @@ public struct MatchInfo: Sendable, Equatable {
 }
 
 /// GET /api/match/random — 아직 확정되지 않은 매칭 후보.
-public struct RandomMatch: Sendable, Identifiable {
+public struct RandomMatch: Sendable, Identifiable, Hashable {
     public var id: String { matchId }
     /// "여기로 결정"(confirm) / "여정 취소"(cancel)에 쓰는 매칭 이력 ID.
     public let matchId: String

@@ -8,6 +8,7 @@
 //
 
 import Foundation
+import Domain
 
 public enum Route: Hashable, Identifiable, Sendable {
     /// 내 프로필
@@ -22,8 +23,10 @@ public enum Route: Hashable, Identifiable, Sendable {
     case tripFilter
     /// 랜덤 매칭 — 여행 시작. 조건 화면에서 고른 반경을 그대로 들고 간다.
     case matching(radiusKm: Double?)
-    /// 매칭 결과 — 확정 전 후보 장소
-    case matchResult(matchId: String)
+    /// 매칭 결과 — 확정 전 후보 장소.
+    /// 서버에 matchId로 매칭을 다시 읽는 API가 없어 결과를 그대로 싣는다.
+    /// radiusKm은 "다른 곳 들러보기"가 같은 조건으로 재매칭하는 데 쓴다.
+    case matchResult(match: RandomMatch, radiusKm: Double?)
     /// 도착 인증
     case arrivalVerification(matchId: String)
     /// 지역 상세

@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Place: Sendable, Identifiable, Equatable {
+public struct Place: Sendable, Identifiable, Hashable {
     public let id: String
     public let name: String
     public let address: String
