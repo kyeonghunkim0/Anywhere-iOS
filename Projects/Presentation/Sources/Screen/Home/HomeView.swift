@@ -228,7 +228,7 @@ public struct HomeView: View {
             .padding(.bottom, 16)
 
             ScrollView(.horizontal, showsIndicators: false) {
-                HStack(spacing: 12) {
+                HStack(alignment: .top, spacing: 12) {
                     ForEach(viewModel.seasonalBadges) { badge in
                         QuestCard(badge: badge)
                     }
@@ -275,13 +275,12 @@ private struct QuestCard: View {
                 .background(DSColor.stamp400.opacity(0.18))
                 .clipShape(RoundedRectangle(cornerRadius: DSRadius.pill, style: .continuous))
 
-            Spacer(minLength: 12)
-
             Text(badge.name)
                 .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.extrabold))
                 .foregroundStyle(DSColor.textPrimary)
                 .lineLimit(2)
                 .fixedSize(horizontal: false, vertical: true)
+                .padding(.top, 12)
 
             Text(badge.description)
                 .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.regular))
@@ -294,11 +293,14 @@ private struct QuestCard: View {
                 Text("D-\(daysRemaining)")
                     .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.extrabold))
                     .foregroundStyle(DSColor.brandAccent)
-                    .padding(.top, 8)
+                    .padding(.top, 10)
             }
         }
         .padding(16)
-        .frame(width: 200, height: 196, alignment: .topLeading)
+        // 높이를 고정하지 않는다. 고정하면 문구가 짧을 땐 빈 공간이 남고
+        // 길어지면 잘린다 — 뱃지 문구는 서버가 정하므로 어느 쪽도 못 막는다.
+        // 카드끼리의 높이는 문구 줄 수가 같으면 저절로 맞는다.
+        .frame(width: 200, alignment: .topLeading)
         .background(DSColor.surfaceSunken)
         .clipShape(RoundedRectangle(cornerRadius: DSRadius.xl, style: .continuous))
     }
