@@ -26,5 +26,9 @@ let package = Package(
             url: "https://github.com/google/GoogleSignIn-iOS",
             from: "9.2.0"
         ),
+        .package(
+            url: "https://github.com/airbnb/lottie-ios.git",
+            from: "4.5.0"
+        ),
     ]
 )

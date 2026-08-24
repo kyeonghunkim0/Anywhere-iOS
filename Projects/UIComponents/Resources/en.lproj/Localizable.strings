@@ -43,3 +43,8 @@
 "tripFilter.rangeDayTripSubtitle" = "About 250km away";
 "tripFilter.rangeAnywhereTitle" = "Anywhere";
 "tripFilter.rangeAnywhereSubtitle" = "Nationwide · no limit";
+
+"matching.title" = "Picking somewhere";
+"matching.subtitle" = "Choosing from spots across the country";
+"matching.failureTitle" = "Match failed";
+"matching.retry" = "Try again";

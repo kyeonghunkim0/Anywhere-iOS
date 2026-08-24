@@ -22,6 +22,8 @@ public enum Route: Hashable, Identifiable, Sendable {
     case tripFilter
     /// 랜덤 매칭 — 여행 시작. 조건 화면에서 고른 반경을 그대로 들고 간다.
     case matching(radiusKm: Double?)
+    /// 매칭 결과 — 확정 전 후보 장소
+    case matchResult(matchId: String)
     /// 도착 인증
     case arrivalVerification(matchId: String)
     /// 지역 상세

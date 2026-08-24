@@ -50,6 +50,12 @@ struct AnywhereApp: App {
                         fetchGrowthRegionsUseCase: container.fetchGrowthRegionsUseCase,
                         cancelMatchUseCase: container.cancelMatchUseCase
                     )
+                },
+                matchingViewModelFactory: { radiusKm in
+                    MatchingViewModel(
+                        radiusKm: radiusKm,
+                        fetchRandomMatchUseCase: container.fetchRandomMatchUseCase
+                    )
                 }
             )
             .onOpenURL { url in

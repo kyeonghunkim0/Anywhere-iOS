@@ -14,35 +14,42 @@ public struct RootView: View {
     @Bindable private var viewModel: RootViewModel
     @Bindable private var loginViewModel: LoginViewModel
     private let homeViewModelFactory: (User) -> HomeViewModel
+    private let matchingViewModelFactory: (Double?) -> MatchingViewModel
 
     @State private var coordinator = NavigationCoordinator()
 
     public init(
         viewModel: RootViewModel,
         loginViewModel: LoginViewModel,
-        homeViewModelFactory: @escaping (User) -> HomeViewModel
+        homeViewModelFactory: @escaping (User) -> HomeViewModel,
+        matchingViewModelFactory: @escaping (Double?) -> MatchingViewModel
     ) {
         self.viewModel = viewModel
         self.loginViewModel = loginViewModel
         self.homeViewModelFactory = homeViewModelFactory
+        self.matchingViewModelFactory = matchingViewModelFactory
     }
 
     public var body: some View {
         NavigationStack(path: $coordinator.path) {
             content
                 .navigationDestination(for: Route.self) { route in
-                    RouteDestinationView(route: route)
+                    destination(route)
                 }
         }
         .sheet(item: $coordinator.sheet) { route in
-            RouteDestinationView(route: route)
+            destination(route)
         }
         .fullScreenCover(item: $coordinator.fullScreenCover) { route in
-            RouteDestinationView(route: route)
+            destination(route)
         }
         // sheet/fullScreenCover보다 바깥에 둬야 한다. 안쪽에 두면 띄워진 화면은
         // 이 모디파이어의 자손이 아니라서 코디네이터를 찾지 못하고 크래시한다.
         .environment(coordinator)
+    }
+
+    private func destination(_ route: Route) -> some View {
+        RouteDestinationView(route: route, matchingViewModelFactory: matchingViewModelFactory)
     }
 
     @ViewBuilder

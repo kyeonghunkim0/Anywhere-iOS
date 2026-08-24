@@ -43,3 +43,8 @@
 "tripFilter.rangeDayTripSubtitle" = "반경 약 250km";
 "tripFilter.rangeAnywhereTitle" = "어디든지";
 "tripFilter.rangeAnywhereSubtitle" = "전국 · 반경 제한 없음";
+
+"matching.title" = "아무데나 고르는 중";
+"matching.subtitle" = "전국 곳곳에서 고르고 있어요";
+"matching.failureTitle" = "매칭 실패";
+"matching.retry" = "다시 시도";

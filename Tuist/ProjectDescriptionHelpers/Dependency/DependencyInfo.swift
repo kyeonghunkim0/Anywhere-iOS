@@ -23,6 +23,7 @@ let dependencyInfo: [DependencyInformation: [DependencyInformation]] = [
 /// 사용 가능한 상수는 ExternalDependency.swift 를 참고하세요.
 let externalDependencyInfo: [DependencyInformation: [TargetDependency]] = [
     .auth: [.googleSignIn, .firebaseAuth, .firebaseCore],
+    .presentation: [.lottie],
 ]
 
 /// 내부 모듈을 정의합니다.
