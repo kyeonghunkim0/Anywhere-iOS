@@ -286,7 +286,8 @@ private struct QuestCard: View {
             Text(badge.description)
                 .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.regular))
                 .foregroundStyle(DSColor.textSecondary)
-                .lineLimit(2)
+                .lineLimit(3)
+                .fixedSize(horizontal: false, vertical: true)
                 .padding(.top, 6)
 
             if let daysRemaining = badge.daysRemaining {
