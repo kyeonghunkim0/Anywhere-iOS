@@ -6,4 +6,6 @@ public enum MatchError: Error, Sendable {
     /// HTTP 400. "취소된 매칭" / "이미 체크인 완료" 등 서버가 준 사유.
     case rejected(message: String)
     case network(NetworkError)
+    /// 위치 권한이 없거나 측위에 실패했다. 네트워크 문제와 구분해야 안내가 정확해진다.
+    case location(LocationError)
 }

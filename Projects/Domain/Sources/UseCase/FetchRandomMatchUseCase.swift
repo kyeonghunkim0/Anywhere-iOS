@@ -13,7 +13,7 @@ public struct FetchRandomMatchUseCase: Sendable {
         do {
             coordinate = try await locationRepository.currentCoordinate()
         } catch {
-            throw .network(.unknown)
+            throw .location(error)
         }
         return try await matchRepository.fetchRandomMatch(at: coordinate, radiusKm: radiusKm, tagId: tagId)
     }

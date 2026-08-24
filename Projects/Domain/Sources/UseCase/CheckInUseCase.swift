@@ -12,7 +12,7 @@ public struct CheckInUseCase: Sendable {
         do {
             coordinate = try await locationRepository.currentCoordinate()
         } catch {
-            throw .network(.unknown)
+            throw .location(error)
         }
         return try await missionRepository.checkIn(placeId: placeId, at: coordinate)
     }

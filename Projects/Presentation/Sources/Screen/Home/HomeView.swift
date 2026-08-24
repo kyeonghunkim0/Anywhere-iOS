@@ -76,6 +76,15 @@ public struct HomeView: View {
         }
         .task { await viewModel.load() }
         .alert(
+            L10n.locationPermissionTitle,
+            isPresented: $viewModel.locationPermissionDenied
+        ) {
+            Button(L10n.locationOpenSettings) { openSettings() }
+            Button(L10n.commonCancel, role: .cancel) {}
+        } message: {
+            Text(L10n.locationPermissionDenied)
+        }
+        .alert(
             L10n.homeErrorTitle,
             isPresented: Binding(
                 get: { viewModel.errorMessage != nil },
@@ -100,6 +109,11 @@ public struct HomeView: View {
     /// NavigationStack의 기본 툴바 대신 쓴다 — iOS 26 툴바가 Button이 아닌 항목을
     /// "···" 캡슐로 접어버려서, 로고를 원하는 위치에 못 그린다. safeAreaInset은
     /// 세이프에어리어 계산은 시스템에 맡기면서 레이아웃은 그대로 직접 그릴 수 있다.
+    private func openSettings() {
+        guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
+        UIApplication.shared.open(url)
+    }
+
     private var topBar: some View {
         HStack {
             Text(L10n.homeAppName)
@@ -194,7 +208,11 @@ public struct HomeView: View {
                 .lineSpacing(DSTypography.lineSpacing(size: DSTypography.Size.base, leading: DSTypography.Leading.relaxed))
                 .padding(.top, 14)
 
-            Button(action: onStartTrip) {
+            Button {
+                Task {
+                    if await viewModel.prepareTrip() { onStartTrip() }
+                }
+            } label: {
                 HStack(spacing: 8) {
                     DSIconView(.compass, size: 18, color: DSColor.textOnBrand)
                     Text(L10n.homeStartTrip)
@@ -372,12 +390,22 @@ private extension HomeViewModel {
                 throw .unknown
             }
         }
+        struct NoopLocationRepository: LocationRepository {
+            func authorizationStatus() async -> LocationAuthorization { .authorized }
+            func requestAuthorization() async -> LocationAuthorization { .authorized }
+            func currentCoordinate() async throws(LocationError) -> Coordinate {
+                throw .unableToLocate
+            }
+        }
         return HomeViewModel(
             user: User(id: "preview", nickname: "로컬탐험가", socialType: "google", totalStamps: 12),
             fetchCurrentTripUseCase: FetchCurrentTripUseCase(matchRepository: NoopMatchRepository()),
             fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase(badgeRepository: NoopBadgeRepository()),
             fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase(regionRepository: NoopRegionRepository()),
-            cancelMatchUseCase: CancelMatchUseCase(matchRepository: NoopMatchRepository())
+            cancelMatchUseCase: CancelMatchUseCase(matchRepository: NoopMatchRepository()),
+            requestLocationPermissionUseCase: RequestLocationPermissionUseCase(
+                locationRepository: NoopLocationRepository()
+            )
         )
     }
 }

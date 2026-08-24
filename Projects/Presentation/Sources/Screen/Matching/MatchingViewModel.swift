@@ -71,6 +71,10 @@ public final class MatchingViewModel {
             message
         case .network:
             L10n.loginNetworkError
+        case .location(.authorizationDenied):
+            L10n.locationPermissionDenied
+        case .location(.unableToLocate):
+            L10n.locationUnableToLocate
         }
     }
 }

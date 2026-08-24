@@ -29,6 +29,15 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
     }
 
     func currentCoordinate() async throws(LocationError) -> Coordinate {
+        // 권한을 먼저 확보한다. .notDetermined 상태로 requestLocation()을 부르면
+        // iOS는 다이얼로그를 띄우지 않고 그대로 실패시킨다.
+        switch await requestAuthorization() {
+        case .authorized:
+            break
+        case .notDetermined, .denied, .restricted:
+            throw .authorizationDenied
+        }
+
         do {
             return try await withCheckedThrowingContinuation { continuation in
                 self.locationContinuation = continuation

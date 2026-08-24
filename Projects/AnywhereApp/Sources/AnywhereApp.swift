@@ -48,7 +48,8 @@ struct AnywhereApp: App {
                         fetchCurrentTripUseCase: container.fetchCurrentTripUseCase,
                         fetchSeasonalBadgesUseCase: container.fetchSeasonalBadgesUseCase,
                         fetchGrowthRegionsUseCase: container.fetchGrowthRegionsUseCase,
-                        cancelMatchUseCase: container.cancelMatchUseCase
+                        cancelMatchUseCase: container.cancelMatchUseCase,
+                        requestLocationPermissionUseCase: container.requestLocationPermissionUseCase
                     )
                 },
                 matchingViewModelFactory: { radiusKm in

@@ -69,6 +69,10 @@ public final class AppDependencyContainer: Sendable {
 
     // MARK: - 매칭 / 여정 / 체크인
 
+    public var requestLocationPermissionUseCase: RequestLocationPermissionUseCase {
+        RequestLocationPermissionUseCase(locationRepository: dataContainer.locationRepository)
+    }
+
     public var fetchRandomMatchUseCase: FetchRandomMatchUseCase {
         FetchRandomMatchUseCase(
             locationRepository: dataContainer.locationRepository,

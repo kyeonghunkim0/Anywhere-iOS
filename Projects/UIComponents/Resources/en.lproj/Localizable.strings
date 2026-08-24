@@ -48,3 +48,9 @@
 "matching.subtitle" = "Choosing from spots across the country";
 "matching.failureTitle" = "Match failed";
 "matching.retry" = "Try again";
+
+"location.permissionDenied" = "Location access is required. Please allow it in Settings.";
+"location.unableToLocate" = "Couldn't determine your location. Please try again shortly.";
+
+"location.permissionTitle" = "Location access needed";
+"location.openSettings" = "Open Settings";

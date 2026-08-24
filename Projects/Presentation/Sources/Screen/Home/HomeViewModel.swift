@@ -13,6 +13,8 @@ public final class HomeViewModel {
     public let nicknameInitial: String
     public private(set) var isLoading = false
     public var errorMessage: String?
+    /// 위치 권한이 거부돼 여정을 시작할 수 없는 상태. 설정으로 안내한다.
+    public var locationPermissionDenied = false
     public private(set) var currentTrip: CurrentTrip?
     public private(set) var seasonalBadges: [Badge] = []
     public private(set) var growthRegions: [GrowthRegion] = []
@@ -21,19 +23,38 @@ public final class HomeViewModel {
     private let fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase
     private let fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase
     private let cancelMatchUseCase: CancelMatchUseCase
+    private let requestLocationPermissionUseCase: RequestLocationPermissionUseCase
 
     public init(
         user: User,
         fetchCurrentTripUseCase: FetchCurrentTripUseCase,
         fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase,
         fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase,
-        cancelMatchUseCase: CancelMatchUseCase
+        cancelMatchUseCase: CancelMatchUseCase,
+        requestLocationPermissionUseCase: RequestLocationPermissionUseCase
     ) {
         self.nicknameInitial = String(user.nickname.prefix(1))
         self.fetchCurrentTripUseCase = fetchCurrentTripUseCase
         self.fetchSeasonalBadgesUseCase = fetchSeasonalBadgesUseCase
         self.fetchGrowthRegionsUseCase = fetchGrowthRegionsUseCase
         self.cancelMatchUseCase = cancelMatchUseCase
+        self.requestLocationPermissionUseCase = requestLocationPermissionUseCase
+    }
+
+    /// 여정을 시작해도 되는지 판정한다. 위치 권한은 여기서 확보한다 —
+    /// 매칭 화면에 들어간 뒤에 물으면 다트가 날아가는 도중에 다이얼로그가 뜬다.
+    /// 거부 상태면 안내 문구를 채우고 false를 돌려준다.
+    public func prepareTrip() async -> Bool {
+        switch await requestLocationPermissionUseCase.execute() {
+        case .authorized:
+            return true
+        case .denied, .restricted:
+            locationPermissionDenied = true
+            return false
+        case .notDetermined:
+            // 다이얼로그를 닫지 않고 화면을 벗어난 경우. 조용히 멈춘다.
+            return false
+        }
     }
 
     private var hasLoaded = false
@@ -103,6 +124,10 @@ public final class HomeViewModel {
             message
         case .network:
             L10n.loginNetworkError
+        case .location(.authorizationDenied):
+            L10n.locationPermissionDenied
+        case .location(.unableToLocate):
+            L10n.locationUnableToLocate
         }
     }
 }
