@@ -1,0 +1,56 @@
+"common.confirm" = "确认";
+"common.cancel" = "取消";
+"common.close" = "关闭";
+"common.back" = "返回";
+
+"login.title" = "开始使用或\n创建账号";
+"login.subtitle" = "跳过热门景点，去安静的本地名胜。抵达后用 GPS 盖章，集齐全国。";
+"login.googleButton" = "使用 Google 开始";
+"login.appleButton" = "使用 Apple 继续";
+"login.termsPrefix" = "继续即表示您同意";
+"login.termsOfService" = "服务条款";
+"login.termsConnector" = "和";
+"login.privacyPolicy" = "隐私政策";
+"login.termsSuffix" = "。";
+"login.failureTitle" = "登录失败";
+"login.sessionExpired" = "请重新登录。";
+"login.networkError" = "请检查网络连接。";
+
+"home.appName" = "Anywhere";
+"home.tripBadge" = "旅途中";
+"home.tripDistance" = "确定时距离 %.1f公里";
+"home.verifyArrival" = "用 GPS 验证位置";
+"home.cancelTrip" = "取消行程";
+"home.heroTitle" = "去哪儿？\n随便走走。";
+"home.heroSubtitle" = "我们会随机推荐一处安静的本地名胜。";
+"home.startTrip" = "随便出发";
+"home.specialQuests" = "特别任务";
+"home.limitedTime" = "限时";
+"home.trendingLocal" = "正在流行的本地";
+"home.levelUpSoon" = "即将升级";
+"home.remainingToLevelUp" = "再来 %d 人即可达到 Lv.%d";
+"home.errorTitle" = "加载失败";
+"home.navHome" = "首页";
+"home.navPassport" = "护照";
+"home.navRanking" = "排行榜";
+"home.navSettings" = "设置";
+
+"tripFilter.title" = "随便出发的条件";
+"tripFilter.distanceQuestion" = "想走多远？";
+"tripFilter.rangeNearbyTitle" = "2小时以内";
+"tripFilter.rangeNearbySubtitle" = "半径约120公里";
+"tripFilter.rangeDayTripTitle" = "当天往返";
+"tripFilter.rangeDayTripSubtitle" = "半径约250公里";
+"tripFilter.rangeAnywhereTitle" = "任何地方";
+"tripFilter.rangeAnywhereSubtitle" = "全国 · 不限半径";
+
+"matching.title" = "正在随便挑一处";
+"matching.subtitle" = "正在全国各地挑选";
+"matching.failureTitle" = "匹配失败";
+"matching.retry" = "重试";
+
+"location.permissionDenied" = "需要位置权限。请在设置中允许。";
+"location.unableToLocate" = "无法获取当前位置。请稍后重试。";
+
+"location.permissionTitle" = "需要位置权限";
+"location.openSettings" = "打开设置";

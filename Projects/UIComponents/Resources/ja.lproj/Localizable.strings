@@ -1,0 +1,56 @@
+"common.confirm" = "確認";
+"common.cancel" = "キャンセル";
+"common.close" = "閉じる";
+"common.back" = "戻る";
+
+"login.title" = "はじめる、または\nアカウントを作成";
+"login.subtitle" = "有名な観光地ではなく、静かな地元の名所へ。到着したらGPSでスタンプを押して、全国を集めましょう。";
+"login.googleButton" = "Googleではじめる";
+"login.appleButton" = "Appleで続ける";
+"login.termsPrefix" = "続行すると、";
+"login.termsOfService" = "利用規約";
+"login.termsConnector" = "および";
+"login.privacyPolicy" = "プライバシーポリシー";
+"login.termsSuffix" = "に同意したものとみなされます。";
+"login.failureTitle" = "ログインに失敗しました";
+"login.sessionExpired" = "もう一度ログインしてください。";
+"login.networkError" = "ネットワーク接続を確認してください。";
+
+"home.appName" = "Anywhere";
+"home.tripBadge" = "移動中";
+"home.tripDistance" = "確定時の距離 %.1fkm";
+"home.verifyArrival" = "GPSで位置を認証";
+"home.cancelTrip" = "旅をキャンセル";
+"home.heroTitle" = "どこ行く？\nどこでも。";
+"home.heroSubtitle" = "静かな地元の名所をランダムにおすすめします。";
+"home.startTrip" = "どこでも出発";
+"home.specialQuests" = "スペシャルクエスト";
+"home.limitedTime" = "期間限定";
+"home.trendingLocal" = "いま人気のローカル";
+"home.levelUpSoon" = "レベルアップ間近";
+"home.remainingToLevelUp" = "あと%d人でLv.%d達成";
+"home.errorTitle" = "読み込みに失敗しました";
+"home.navHome" = "ホーム";
+"home.navPassport" = "パスポート";
+"home.navRanking" = "ランキング";
+"home.navSettings" = "設定";
+
+"tripFilter.title" = "どこでも旅の条件";
+"tripFilter.distanceQuestion" = "どこまで行く？";
+"tripFilter.rangeNearbyTitle" = "2時間以内";
+"tripFilter.rangeNearbySubtitle" = "半径約120km";
+"tripFilter.rangeDayTripTitle" = "日帰り";
+"tripFilter.rangeDayTripSubtitle" = "半径約250km";
+"tripFilter.rangeAnywhereTitle" = "どこでも";
+"tripFilter.rangeAnywhereSubtitle" = "全国・半径制限なし";
+
+"matching.title" = "どこでも選び中";
+"matching.subtitle" = "全国のスポットから選んでいます";
+"matching.failureTitle" = "マッチングに失敗しました";
+"matching.retry" = "再試行";
+
+"location.permissionDenied" = "位置情報の許可が必要です。設定で許可してください。";
+"location.unableToLocate" = "現在地を取得できませんでした。しばらくしてからもう一度お試しください。";
+
+"location.permissionTitle" = "位置情報の許可が必要";
+"location.openSettings" = "設定を開く";

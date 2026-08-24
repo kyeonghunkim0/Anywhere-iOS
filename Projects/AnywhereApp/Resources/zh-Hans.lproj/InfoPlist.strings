@@ -1,0 +1,2 @@
+"CFBundleDisplayName" = "Anywhere";
+"NSLocationWhenInUseUsageDescription" = "为了随机匹配附近的景点并验证到访（签到），需要获取您的当前位置。";

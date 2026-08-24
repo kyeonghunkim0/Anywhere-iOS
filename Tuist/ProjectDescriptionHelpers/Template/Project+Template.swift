@@ -88,7 +88,7 @@ public extension Project {
     private static func options(disableBundleAccessors: Bool) -> Options {
         return Options.options(
             automaticSchemesOptions: .disabled,
-            defaultKnownRegions: ["en", "ko"],
+            defaultKnownRegions: ["en", "ko", "ja", "zh-Hans"],
             developmentRegion: "ko",
             disableBundleAccessors: !disableBundleAccessors
         )
