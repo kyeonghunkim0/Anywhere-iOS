@@ -9,9 +9,17 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
     private var authorizationContinuation: CheckedContinuation<LocationAuthorization, Never>?
     private var locationContinuation: CheckedContinuation<Coordinate, Error>?
 
+    /// 최근 좌표를 그대로 쓸 수 있는 시간. 이 앱이 좌표를 쓰는 두 곳 모두
+    /// 이 정도 오차를 견딘다 — 매칭은 반경 100km 단위로 고르고,
+    /// 도착 인증은 서버가 500m로 판정한다.
+    private static let acceptableAge: TimeInterval = 60
+
     override init() {
         super.init()
         manager.delegate = self
+        // 기본값(Best)은 GPS 픽스를 기다리느라 실내에서 수 초가 걸린다.
+        // 이 앱에 미터 단위 정밀도가 필요한 기능은 없다.
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters
     }
 
     func authorizationStatus() async -> LocationAuthorization {
@@ -36,6 +44,16 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
             break
         case .notDetermined, .denied, .restricted:
             throw .authorizationDenied
+        }
+
+        // 최근에 잡아둔 좌표가 있으면 새 픽스를 기다리지 않는다.
+        if let cached = manager.location,
+           Date().timeIntervalSince(cached.timestamp) < Self.acceptableAge,
+           cached.horizontalAccuracy >= 0 {
+            return Coordinate(
+                latitude: cached.coordinate.latitude,
+                longitude: cached.coordinate.longitude
+            )
         }
 
         do {
