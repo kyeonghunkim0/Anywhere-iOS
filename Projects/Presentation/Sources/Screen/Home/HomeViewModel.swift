@@ -36,9 +36,18 @@ public final class HomeViewModel {
         self.cancelMatchUseCase = cancelMatchUseCase
     }
 
+    private var hasLoaded = false
+
+    /// 화면 진입용. .task는 push/pop으로 홈이 다시 나타날 때마다 재실행되므로,
+    /// 이미 채워진 화면을 위해 같은 세 번의 요청을 다시 보내지 않는다.
+    public func load() async {
+        guard !hasLoaded else { return }
+        await reload()
+    }
+
     /// 세 섹션을 동시에 불러온다. 한 섹션이 실패해도 다른 섹션은 보여준다 —
     /// 대시보드 성격상 부분 실패로 화면 전체를 막을 이유가 없다.
-    public func load() async {
+    public func reload() async {
         isLoading = true
 
         async let trip = Self.loadTrip(fetchCurrentTripUseCase)
@@ -49,6 +58,7 @@ public final class HomeViewModel {
         seasonalBadges = await badges
         growthRegions = await regions
         isLoading = false
+        hasLoaded = true
     }
 
     public func cancelTrip() {

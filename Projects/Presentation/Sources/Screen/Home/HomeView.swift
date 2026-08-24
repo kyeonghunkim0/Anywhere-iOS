@@ -57,7 +57,7 @@ public struct HomeView: View {
                     }
                 }
             }
-            .refreshable { await viewModel.load() }
+            .refreshable { await viewModel.reload() }
             .background(Color.white)
             .safeAreaInset(edge: .top, spacing: 0) { topBar }
 

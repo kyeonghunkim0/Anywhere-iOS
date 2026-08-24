@@ -50,15 +50,8 @@ public struct RootView: View {
             case .restoring:
                 splash
             case .authenticated(let user):
-                HomeView(
-                    viewModel: homeViewModelFactory(user),
-                    onStartTrip: { coordinator.pushViewController(.matching) },
-                    onVerifyArrival: { coordinator.pushViewController(.arrivalVerification(matchId: $0)) },
-                    onOpenProfile: { coordinator.pushViewController(.profile) },
-                    onOpenPassport: { coordinator.pushViewController(.passport) },
-                    onOpenRanking: { coordinator.pushViewController(.ranking) },
-                    onOpenSettings: { coordinator.pushViewController(.settings) }
-                )
+                HomeScreen(viewModel: homeViewModelFactory(user), coordinator: coordinator)
+                    .id(user.id)
             case .unauthenticated:
                 LoginView(
                     viewModel: loginViewModel,
@@ -86,5 +79,30 @@ public struct RootView: View {
         ProgressView()
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .background(Color.white)
+    }
+}
+
+/// HomeViewModel을 @State로 소유한다. RootView body는 push/pop마다 다시 평가되는데,
+/// 그때마다 새 ViewModel이 붙으면 진행 중이던 로드 결과가 버려진 인스턴스에 담겨
+/// 화면이 빈 채로 남는다. 사용자가 바뀌면 .id(user.id)로 통째로 갈아끼운다.
+private struct HomeScreen: View {
+    @State private var viewModel: HomeViewModel
+    private let coordinator: NavigationCoordinator
+
+    init(viewModel: HomeViewModel, coordinator: NavigationCoordinator) {
+        _viewModel = State(wrappedValue: viewModel)
+        self.coordinator = coordinator
+    }
+
+    var body: some View {
+        HomeView(
+            viewModel: viewModel,
+            onStartTrip: { coordinator.pushViewController(.matching) },
+            onVerifyArrival: { coordinator.pushViewController(.arrivalVerification(matchId: $0)) },
+            onOpenProfile: { coordinator.pushViewController(.profile) },
+            onOpenPassport: { coordinator.pushViewController(.passport) },
+            onOpenRanking: { coordinator.pushViewController(.ranking) },
+            onOpenSettings: { coordinator.pushViewController(.settings) }
+        )
     }
 }
