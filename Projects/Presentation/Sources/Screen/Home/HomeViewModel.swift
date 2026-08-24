@@ -23,13 +23,13 @@ public final class HomeViewModel {
     private let cancelMatchUseCase: CancelMatchUseCase
 
     public init(
-        session: AuthSession,
+        user: User,
         fetchCurrentTripUseCase: FetchCurrentTripUseCase,
         fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase,
         fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase,
         cancelMatchUseCase: CancelMatchUseCase
     ) {
-        self.nicknameInitial = String(session.user.nickname.prefix(1))
+        self.nicknameInitial = String(user.nickname.prefix(1))
         self.fetchCurrentTripUseCase = fetchCurrentTripUseCase
         self.fetchSeasonalBadgesUseCase = fetchSeasonalBadgesUseCase
         self.fetchGrowthRegionsUseCase = fetchGrowthRegionsUseCase

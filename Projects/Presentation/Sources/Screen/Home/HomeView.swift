@@ -14,7 +14,7 @@ import UIComponents
 public struct HomeView: View {
     @Bindable private var viewModel: HomeViewModel
     private let onStartTrip: () -> Void
-    private let onVerifyArrival: () -> Void
+    private let onVerifyArrival: (String) -> Void
     private let onOpenProfile: () -> Void
     private let onOpenPassport: () -> Void
     private let onOpenRanking: () -> Void
@@ -25,7 +25,7 @@ public struct HomeView: View {
     public init(
         viewModel: HomeViewModel,
         onStartTrip: @escaping () -> Void = {},
-        onVerifyArrival: @escaping () -> Void = {},
+        onVerifyArrival: @escaping (String) -> Void = { _ in },
         onOpenProfile: @escaping () -> Void = {},
         onOpenPassport: @escaping () -> Void = {},
         onOpenRanking: @escaping () -> Void = {},
@@ -42,30 +42,28 @@ public struct HomeView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            NavigationStack {
-                ScrollView {
-                    VStack(alignment: .leading, spacing: 0) {
-                        if let trip = viewModel.currentTrip {
-                            tripCard(trip)
-                        } else {
-                            heroCard
-                        }
-                        if !viewModel.seasonalBadges.isEmpty {
-                            specialQuests
-                        }
-                        if !viewModel.growthRegions.isEmpty {
-                            trendingLocal
-                        }
+            ScrollView {
+                VStack(alignment: .leading, spacing: 0) {
+                    if let trip = viewModel.currentTrip {
+                        tripCard(trip)
+                    } else {
+                        heroCard
+                    }
+                    if !viewModel.seasonalBadges.isEmpty {
+                        specialQuests
+                    }
+                    if !viewModel.growthRegions.isEmpty {
+                        trendingLocal
                     }
                 }
-                .refreshable { await viewModel.load() }
-                .background(Color.white)
-                .toolbar(.hidden, for: .navigationBar)
-                .safeAreaInset(edge: .top, spacing: 0) { topBar }
             }
+            .refreshable { await viewModel.load() }
+            .background(Color.white)
+            .safeAreaInset(edge: .top, spacing: 0) { topBar }
 
             DSBottomNav(items: navItems, selection: $selectedTab)
         }
+        .toolbar(.hidden, for: .navigationBar)
         .background(Color.white)
         .ignoresSafeArea(edges: .bottom)
         .onChange(of: selectedTab) { _, tab in
@@ -153,7 +151,7 @@ public struct HomeView: View {
                 .foregroundStyle(DSColor.textSecondary)
                 .padding(.top, 6)
 
-            Button(action: onVerifyArrival) {
+            Button { onVerifyArrival(trip.matchId) } label: {
                 Text(L10n.homeVerifyArrival)
                     .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.bold))
                     .foregroundStyle(DSColor.textOnBrand)
@@ -269,12 +267,13 @@ private struct QuestCard: View {
 
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            Circle()
-                .fill(Color.white.opacity(0.9))
-                .frame(width: 44, height: 44)
-                .overlay {
-                    DSIconView(DSIcon(rawValue: badge.icon) ?? .star, size: 20, color: DSColor.brandPrimary)
-                }
+            Text(L10n.homeLimitedTime)
+                .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.extrabold))
+                .foregroundStyle(DSColor.brandAccent)
+                .padding(.horizontal, 10)
+                .padding(.vertical, 5)
+                .background(DSColor.stamp400.opacity(0.18))
+                .clipShape(RoundedRectangle(cornerRadius: DSRadius.pill, style: .continuous))
 
             Spacer(minLength: 12)
 
@@ -370,13 +369,8 @@ private extension HomeViewModel {
                 throw .unknown
             }
         }
-        let session = AuthSession(
-            token: "preview",
-            user: User(id: "preview", nickname: "로컬탐험가", socialType: "google", totalStamps: 12),
-            isNewUser: false
-        )
         return HomeViewModel(
-            session: session,
+            user: User(id: "preview", nickname: "로컬탐험가", socialType: "google", totalStamps: 12),
             fetchCurrentTripUseCase: FetchCurrentTripUseCase(matchRepository: NoopMatchRepository()),
             fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase(badgeRepository: NoopBadgeRepository()),
             fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase(regionRepository: NoopRegionRepository()),

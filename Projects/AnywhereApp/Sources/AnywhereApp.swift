@@ -24,16 +24,27 @@ final class AnywhereAppDelegate: NSObject, UIApplicationDelegate {
 struct AnywhereApp: App {
     @UIApplicationDelegateAdaptor(AnywhereAppDelegate.self) private var appDelegate
 
-    /// 개발 서버 주소. 실기기는 localhost로 붙을 수 없어 맥의 LAN IP로 바꿔야 한다.
-    private let container = AppDependencyContainer(baseURL: URL(string: "http://172.20.10.2:3000")!)
+    private let container: AppDependencyContainer
+    // body가 다시 평가돼도 세션 복구 상태가 초기화되지 않도록 @State로 소유한다.
+    @State private var rootViewModel: RootViewModel
+    @State private var loginViewModel: LoginViewModel
+
+    init() {
+        /// 개발 서버 주소. 실기기는 localhost로 붙을 수 없어 맥의 LAN IP로 바꿔야 한다.
+        let container = AppDependencyContainer(baseURL: URL(string: "http://172.20.10.3:3000")!)
+        self.container = container
+        _rootViewModel = State(wrappedValue: RootViewModel(restoreSessionUseCase: container.restoreSessionUseCase))
+        _loginViewModel = State(wrappedValue: LoginViewModel(signInUseCase: container.signInUseCase))
+    }
 
     var body: some Scene {
         WindowGroup {
             RootView(
-                loginViewModel: LoginViewModel(signInUseCase: container.signInUseCase),
-                homeViewModelFactory: { session in
+                viewModel: rootViewModel,
+                loginViewModel: loginViewModel,
+                homeViewModelFactory: { user in
                     HomeViewModel(
-                        session: session,
+                        user: user,
                         fetchCurrentTripUseCase: container.fetchCurrentTripUseCase,
                         fetchSeasonalBadgesUseCase: container.fetchSeasonalBadgesUseCase,
                         fetchGrowthRegionsUseCase: container.fetchGrowthRegionsUseCase,
