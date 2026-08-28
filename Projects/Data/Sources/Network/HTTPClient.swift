@@ -15,12 +15,21 @@ actor HTTPClient {
     init(
         configuration: APIConfiguration,
         tokenProvider: @escaping @Sendable () async -> String?,
-        session: URLSession = .shared
+        session: URLSession? = nil
     ) {
         self.configuration = configuration
         self.tokenProvider = tokenProvider
-        self.session = session
+        self.session = session ?? Self.defaultSession
     }
+
+    /// URLSession 기본 타임아웃 60초는 서버가 꺼져 있을 때 화면이 1분간
+    /// 스피너로 멈춰 있는 것과 같다. 이 앱의 요청은 전부 사용자가 화면 앞에서
+    /// 기다리는 것들이라 짧게 끊고 실패를 보여주는 쪽이 맞다.
+    private static let defaultSession: URLSession = {
+        let configuration = URLSessionConfiguration.default
+        configuration.timeoutIntervalForRequest = 15
+        return URLSession(configuration: configuration)
+    }()
 
     func request<T: Decodable & Sendable>(_ api: some BaseAPI, as type: T.Type) async throws(TransportError) -> HTTPResponseEnvelope<T> {
         let token = await tokenProvider()
