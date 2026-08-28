@@ -31,7 +31,7 @@ struct AnywhereApp: App {
 
     init() {
         /// 개발 서버 주소. 실기기는 localhost로 붙을 수 없어 맥의 LAN IP로 바꿔야 한다.
-        let container = AppDependencyContainer(baseURL: URL(string: "http://192.168.219.105:3000")!)
+        let container = AppDependencyContainer(baseURL: URL(string: "http://192.168.219.106:3000")!)
         self.container = container
         _rootViewModel = State(wrappedValue: RootViewModel(restoreSessionUseCase: container.restoreSessionUseCase))
         _loginViewModel = State(wrappedValue: LoginViewModel(signInUseCase: container.signInUseCase))
