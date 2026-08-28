@@ -37,6 +37,9 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
     }
 
     func currentCoordinate() async throws(LocationError) -> Coordinate {
+        // 테스트용 고정 좌표가 켜져 있으면 측위를 건너뛴다 — 권한도 GPS 픽스도 기다리지 않는다.
+        if let fixed = DebugLocationOverride.coordinate { return fixed }
+
         // 권한을 먼저 확보한다. .notDetermined 상태로 requestLocation()을 부르면
         // iOS는 다이얼로그를 띄우지 않고 그대로 실패시킨다.
         switch await requestAuthorization() {
@@ -102,4 +105,17 @@ final class LocationRepositoryImpl: NSObject, LocationRepository, CLLocationMana
             .denied
         }
     }
+}
+
+/// 테스트용 현재 위치 고정.
+///
+/// 서버에 데이터가 깔린 좌표에서만 매칭이 나오므로, 시뮬레이터 위치와 무관하게
+/// 항상 `lat=37.503&lng=126.793`으로 요청이 나가게 한다.
+/// 실제 측위로 되돌리려면 `coordinate`를 nil로 바꾼다(릴리즈 빌드는 이미 nil이다).
+enum DebugLocationOverride {
+#if DEBUG
+    static let coordinate: Coordinate? = Coordinate(latitude: 37.503, longitude: 126.793)
+#else
+    static let coordinate: Coordinate? = nil
+#endif
 }
