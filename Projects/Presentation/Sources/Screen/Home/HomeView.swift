@@ -15,65 +15,35 @@ public struct HomeView: View {
     @Bindable private var viewModel: HomeViewModel
     private let onStartTrip: () -> Void
     private let onVerifyArrival: (Place) -> Void
-    private let onOpenProfile: () -> Void
-    private let onOpenPassport: () -> Void
-    private let onOpenRanking: () -> Void
-    private let onOpenSettings: () -> Void
-
-    @State private var selectedTab = "home"
 
     public init(
         viewModel: HomeViewModel,
         onStartTrip: @escaping () -> Void = {},
-        onVerifyArrival: @escaping (Place) -> Void = { _ in },
-        onOpenProfile: @escaping () -> Void = {},
-        onOpenPassport: @escaping () -> Void = {},
-        onOpenRanking: @escaping () -> Void = {},
-        onOpenSettings: @escaping () -> Void = {}
+        onVerifyArrival: @escaping (Place) -> Void = { _ in }
     ) {
         self.viewModel = viewModel
         self.onStartTrip = onStartTrip
         self.onVerifyArrival = onVerifyArrival
-        self.onOpenProfile = onOpenProfile
-        self.onOpenPassport = onOpenPassport
-        self.onOpenRanking = onOpenRanking
-        self.onOpenSettings = onOpenSettings
     }
 
     public var body: some View {
-        VStack(spacing: 0) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    if let trip = viewModel.currentTrip {
-                        tripCard(trip)
-                    } else {
-                        heroCard
-                    }
-                    if !viewModel.seasonalBadges.isEmpty {
-                        specialQuests
-                    }
-                    if !viewModel.growthRegions.isEmpty {
-                        trendingLocal
-                    }
+        ScrollView {
+            VStack(alignment: .leading, spacing: 0) {
+                if let trip = viewModel.currentTrip {
+                    tripCard(trip)
+                } else {
+                    heroCard
+                }
+                if !viewModel.seasonalBadges.isEmpty {
+                    specialQuests
+                }
+                if !viewModel.growthRegions.isEmpty {
+                    trendingLocal
                 }
             }
-            .refreshable { await viewModel.reload() }
-            .background(Color.white)
-            .safeAreaInset(edge: .top, spacing: 0) { topBar }
-
-            DSBottomNav(items: navItems, selection: $selectedTab)
         }
-        .toolbar(.hidden, for: .navigationBar)
+        .refreshable { await viewModel.reload() }
         .background(Color.white)
-        .ignoresSafeArea(edges: .bottom)
-        .onChange(of: selectedTab) { _, tab in
-            switch tab {
-            case "passport": onOpenPassport()
-            case "ranking": onOpenRanking()
-            case "settings": onOpenSettings()
-            default: break
-            }
-        }
         .task { await viewModel.load() }
         .alert(
             L10n.locationPermissionTitle,
@@ -97,47 +67,9 @@ public struct HomeView: View {
         }
     }
 
-    private var navItems: [DSBottomNavItem] {
-        [
-            .init(id: "home", icon: .home, label: L10n.homeNavHome),
-            .init(id: "passport", icon: .passport, label: L10n.homeNavPassport),
-            .init(id: "ranking", icon: .flame, label: L10n.homeNavRanking),
-            .init(id: "settings", icon: .settings, label: L10n.homeNavSettings),
-        ]
-    }
-
-    /// NavigationStack의 기본 툴바 대신 쓴다 — iOS 26 툴바가 Button이 아닌 항목을
-    /// "···" 캡슐로 접어버려서, 로고를 원하는 위치에 못 그린다. safeAreaInset은
-    /// 세이프에어리어 계산은 시스템에 맡기면서 레이아웃은 그대로 직접 그릴 수 있다.
     private func openSettings() {
         guard let url = URL(string: UIApplication.openSettingsURLString) else { return }
         UIApplication.shared.open(url)
-    }
-
-    private var topBar: some View {
-        HStack {
-            Text(L10n.homeAppName)
-                .font(DSTypography.font(22, weight: DSTypography.Weight.extrabold))
-                .foregroundStyle(DSColor.brandPrimary)
-
-            Spacer()
-
-            Button(action: onOpenProfile) {
-                Circle()
-                    .fill(DSColor.green50)
-                    .frame(width: 38, height: 38)
-                    .overlay {
-                        Text(viewModel.nicknameInitial)
-                            .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.extrabold))
-                            .foregroundStyle(DSColor.brandPrimary)
-                    }
-            }
-            .buttonStyle(DSPressStyle())
-        }
-        .padding(.horizontal, DSSpacing.s6)
-        .padding(.top, DSSpacing.s3)
-        .padding(.bottom, DSSpacing.s2)
-        .background(Color.white)
     }
 
     private func tripCard(_ trip: CurrentTrip) -> some View {

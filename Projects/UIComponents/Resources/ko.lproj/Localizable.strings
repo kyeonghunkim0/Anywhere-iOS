@@ -1,6 +1,7 @@
 "common.confirm" = "확인";
 "common.cancel" = "취소";
 "common.close" = "닫기";
+"common.comingSoon" = "준비 중인 화면입니다.";
 "common.back" = "뒤로";
 
 "login.title" = "시작하거나\n계정 만들기";
@@ -62,6 +63,21 @@
 "pickedPlace.chip" = "내가 고른 곳";
 "pickedPlace.addressLabel" = "주소";
 "pickedPlace.pickAgain" = "다시 고르기";
+
+"passport.title" = "디지털 여권";
+"passport.cardLabel" = "전국 도장 깨기";
+"passport.outOf" = "/ %d곳";
+"passport.lastStamp" = "지난 도장 · %@ (%@)";
+"passport.boardTitle" = "기초자치단체 수집판";
+"passport.badgeTitle" = "스페셜 · 히든 뱃지";
+"passport.badgeSubtitle" = "특정 장소, 특정 시간에만 등장하는 희귀 전리품";
+"passport.emptyBadges" = "아직 얻은 뱃지가 없어요.";
+"passport.emptyRegions" = "아직 찍은 도장이 없어요. 첫 여행을 떠나보세요.";
+"passport.detailRegionSummary" = "%d곳 방문 · 전체 %d곳";
+"passport.detailBadgeSummary" = "%d개 획득 · 전체 %d개";
+"passport.badgeEarned" = "획득 완료";
+"passport.badgeLocked" = "조건 미달성";
+"passport.badgeOutOfSeason" = "시즌 아님";
 
 "matching.title" = "아무데나 고르는 중";
 "matching.subtitle" = "전국 곳곳에서 고르고 있어요";

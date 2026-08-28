@@ -1,6 +1,7 @@
 "common.confirm" = "確認";
 "common.cancel" = "キャンセル";
 "common.close" = "閉じる";
+"common.comingSoon" = "準備中の画面です。";
 "common.back" = "戻る";
 
 "login.title" = "はじめる、または\nアカウントを作成";
@@ -62,6 +63,21 @@
 "pickedPlace.chip" = "選んだ場所";
 "pickedPlace.addressLabel" = "住所";
 "pickedPlace.pickAgain" = "選び直す";
+
+"passport.title" = "デジタルパスポート";
+"passport.cardLabel" = "全国スタンプ集め";
+"passport.outOf" = "/ %d カ所";
+"passport.lastStamp" = "前回のスタンプ · %@ (%@)";
+"passport.boardTitle" = "市区町村コレクション";
+"passport.badgeTitle" = "スペシャル · ヒドゥンバッジ";
+"passport.badgeSubtitle" = "特定の場所、特定の時間にだけ現れる希少な戦利品";
+"passport.emptyBadges" = "まだ獲得したバッジがありません。";
+"passport.emptyRegions" = "まだスタンプがありません。最初の旅に出かけましょう。";
+"passport.detailRegionSummary" = "%d カ所訪問 · 全 %d カ所";
+"passport.detailBadgeSummary" = "%d 個獲得 · 全 %d 個";
+"passport.badgeEarned" = "獲得済み";
+"passport.badgeLocked" = "条件未達成";
+"passport.badgeOutOfSeason" = "シーズン外";
 
 "matching.title" = "どこでも選び中";
 "matching.subtitle" = "全国のスポットから選んでいます";

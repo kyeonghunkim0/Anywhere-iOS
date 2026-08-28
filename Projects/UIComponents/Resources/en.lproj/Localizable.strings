@@ -1,6 +1,7 @@
 "common.confirm" = "Confirm";
 "common.cancel" = "Cancel";
 "common.close" = "Close";
+"common.comingSoon" = "Coming soon.";
 "common.back" = "Back";
 
 "login.title" = "Start or\nCreate an Account";
@@ -62,6 +63,21 @@
 "pickedPlace.chip" = "Your pick";
 "pickedPlace.addressLabel" = "Address";
 "pickedPlace.pickAgain" = "Pick another";
+
+"passport.title" = "Digital passport";
+"passport.cardLabel" = "Stamps across the country";
+"passport.outOf" = "/ %d places";
+"passport.lastStamp" = "Last stamp · %@ (%@)";
+"passport.boardTitle" = "Municipality collection";
+"passport.badgeTitle" = "Special · hidden badges";
+"passport.badgeSubtitle" = "Rare finds that appear only in certain places, at certain times";
+"passport.emptyBadges" = "No badges earned yet.";
+"passport.emptyRegions" = "No stamps yet. Take your first trip.";
+"passport.detailRegionSummary" = "%d visited · %d total";
+"passport.detailBadgeSummary" = "%d earned · %d total";
+"passport.badgeEarned" = "Earned";
+"passport.badgeLocked" = "Not yet met";
+"passport.badgeOutOfSeason" = "Out of season";
 
 "matching.title" = "Picking somewhere";
 "matching.subtitle" = "Choosing from spots across the country";

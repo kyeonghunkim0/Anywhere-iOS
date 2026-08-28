@@ -13,8 +13,6 @@ import Domain
 public enum Route: Hashable, Identifiable, Sendable {
     /// 내 프로필
     case profile
-    /// 여권(도장 모음)
-    case passport
     /// 지역 랭킹
     case ranking
     /// 설정
@@ -36,6 +34,8 @@ public enum Route: Hashable, Identifiable, Sendable {
     case arrivalVerification(place: PlaceRef)
     /// 후기 남기기 — 체크인 직후 한 줄 후기.
     case review(place: PlaceRef)
+    /// 여권 전체 목록 — 아직 못 간 지역과 못 얻은 뱃지까지 함께 본다.
+    case passportDetail(userId: String, section: PassportSection)
     /// 지역 상세
     case regionDetail(regionId: String)
     /// 장소 상세

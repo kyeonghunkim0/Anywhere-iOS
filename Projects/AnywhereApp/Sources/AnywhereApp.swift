@@ -87,6 +87,13 @@ struct AnywhereApp: App {
                         fetchSearchablePlacesUseCase: container.fetchSearchablePlacesUseCase
                     )
                 },
+                passport: { userId in
+                    PassportViewModel(
+                        userId: userId,
+                        fetchPassportUseCase: container.fetchPassportUseCase,
+                        fetchMyBadgesUseCase: container.fetchMyBadgesUseCase
+                    )
+                },
                 arrivalVerification: { place in
                     ArrivalVerificationViewModel(
                         place: place,

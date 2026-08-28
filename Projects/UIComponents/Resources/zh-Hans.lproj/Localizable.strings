@@ -1,6 +1,7 @@
 "common.confirm" = "确认";
 "common.cancel" = "取消";
 "common.close" = "关闭";
+"common.comingSoon" = "敬请期待。";
 "common.back" = "返回";
 
 "login.title" = "开始使用或\n创建账号";
@@ -62,6 +63,21 @@
 "pickedPlace.chip" = "我选的地方";
 "pickedPlace.addressLabel" = "地址";
 "pickedPlace.pickAgain" = "重新选择";
+
+"passport.title" = "数字护照";
+"passport.cardLabel" = "全国集章";
+"passport.outOf" = "/ %d 处";
+"passport.lastStamp" = "上一个印章 · %@（%@）";
+"passport.boardTitle" = "基层行政区收集板";
+"passport.badgeTitle" = "特别 · 隐藏徽章";
+"passport.badgeSubtitle" = "只在特定地点、特定时间出现的稀有战利品";
+"passport.emptyBadges" = "还没有获得徽章。";
+"passport.emptyRegions" = "还没有印章，去开始第一次旅行吧。";
+"passport.detailRegionSummary" = "已访问 %d 处 · 共 %d 处";
+"passport.detailBadgeSummary" = "已获得 %d 个 · 共 %d 个";
+"passport.badgeEarned" = "已获得";
+"passport.badgeLocked" = "条件未达成";
+"passport.badgeOutOfSeason" = "非当季";
 
 "matching.title" = "正在随便挑一处";
 "matching.subtitle" = "正在全国各地挑选";

@@ -81,8 +81,15 @@ struct RouteDestinationView: View {
                 onSubmitted: { coordinator.popToRootViewController() }
             )
 
+        case .passportDetail(let userId, let section):
+            PassportDetailView(
+                viewModel: factory.passport(userId),
+                section: section,
+                onBack: { coordinator.popViewController() }
+            )
+
         // 아직 화면이 없는 Route는 자리표시자로 둔다 — 화면이 생기는 대로 이 case를 교체한다.
-        case .profile, .passport, .ranking, .settings,
+        case .profile, .ranking, .settings,
              .regionDetail, .placeDetail, .terms, .privacy:
             placeholder
         }

@@ -59,7 +59,7 @@ public struct RootView: View {
             case .restoring:
                 splash
             case .authenticated(let user):
-                HomeScreen(viewModel: factory.home(user), coordinator: coordinator)
+                MainScreen(user: user, factory: factory, coordinator: coordinator)
                     .id(user.id)
             case .unauthenticated:
                 LoginView(
@@ -91,39 +91,35 @@ public struct RootView: View {
     }
 }
 
-/// HomeViewModel을 @State로 소유한다. RootView body는 push/pop마다 다시 평가되는데,
+/// ViewModel을 @State로 소유한다. RootView body는 push/pop마다 다시 평가되는데,
 /// 그때마다 새 ViewModel이 붙으면 진행 중이던 로드 결과가 버려진 인스턴스에 담겨
 /// 화면이 빈 채로 남는다. 사용자가 바뀌면 .id(user.id)로 통째로 갈아끼운다.
-private struct HomeScreen: View {
-    @State private var viewModel: HomeViewModel
+private struct MainScreen: View {
+    private let user: User
+    private let factory: ViewModelFactory
     private let coordinator: NavigationCoordinator
 
     @Environment(TripPlanModel.self) private var plan
 
-    init(viewModel: HomeViewModel, coordinator: NavigationCoordinator) {
-        _viewModel = State(wrappedValue: viewModel)
+    init(user: User, factory: ViewModelFactory, coordinator: NavigationCoordinator) {
+        self.user = user
+        self.factory = factory
         self.coordinator = coordinator
     }
 
     var body: some View {
-        HomeView(
-            viewModel: viewModel,
+        MainTabView(
+            homeViewModel: factory.home(user),
+            passportViewModel: factory.passport(user.id),
+            userID: user.id,
+            nicknameInitial: String(user.nickname.prefix(1)),
             onStartTrip: {
                 // 홈에서 새로 들어올 때마다 지난 선택은 지운다.
                 plan.reset()
                 coordinator.pushViewController(.tripFilter)
             },
             onVerifyArrival: { coordinator.pushViewController(.arrivalVerification(place: PlaceRef($0))) },
-            onOpenProfile: { coordinator.pushViewController(.profile) },
-            onOpenPassport: { coordinator.pushViewController(.passport) },
-            onOpenRanking: { coordinator.pushViewController(.ranking) },
-            onOpenSettings: { coordinator.pushViewController(.settings) }
+            onOpenProfile: { coordinator.pushViewController(.profile) }
         )
-        // 루트로 돌아온 시점은 여정이 확정·취소됐을 수 있는 시점이다.
-        // load()의 hasLoaded 가드 때문에 .task만으로는 갱신되지 않는다.
-        .onChange(of: coordinator.path.isEmpty) { _, isRoot in
-            guard isRoot else { return }
-            Task { await viewModel.reload() }
-        }
     }
 }
