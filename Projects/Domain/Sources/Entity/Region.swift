@@ -12,6 +12,9 @@ public struct Region: Sendable, Identifiable, Hashable {
     }
 
     public var fullName: String { "\(sidoName) \(sigunguName)" }
+
+    /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
+    public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
 }
 
 /// GET /api/regions/growth — 레벨업이 임박한 인구감소지역.
@@ -49,6 +52,9 @@ public struct GrowthRegion: Sendable, Identifiable, Equatable {
     }
 
     public var fullName: String { "\(sidoName) \(sigunguName)" }
+
+    /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
+    public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
 }
 
 public struct RegionLevelRow: Sendable, Identifiable, Equatable {
@@ -115,4 +121,7 @@ public struct RegionDetail: Sendable, Identifiable {
     }
 
     public var fullName: String { "\(sidoName) \(sigunguName)" }
+
+    /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
+    public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
 }

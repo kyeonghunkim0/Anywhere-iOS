@@ -37,6 +37,9 @@ public struct PassportRegion: Sendable, Identifiable, Equatable {
     }
 
     public var fullName: String { "\(sidoName) \(sigunguName)" }
+
+    /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
+    public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
 }
 
 /// GET /api/passport/{userId} — 전국 기초자치단체 도장 수집 현황.

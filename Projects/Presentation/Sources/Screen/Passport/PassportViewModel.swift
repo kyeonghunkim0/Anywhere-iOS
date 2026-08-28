@@ -95,7 +95,7 @@ public final class PassportViewModel {
         guard let region = collectedStamps.first,
               let visitedAt = region.lastVisitedAt
         else { return nil }
-        return L10n.passportLastStamp(region.fullName, Self.dateFormatter.string(from: visitedAt))
+        return L10n.passportLastStamp(region.displayName, Self.dateFormatter.string(from: visitedAt))
     }
 
     private static let dateFormatter: DateFormatter = {

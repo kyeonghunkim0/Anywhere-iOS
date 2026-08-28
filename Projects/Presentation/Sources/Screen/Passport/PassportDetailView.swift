@@ -86,7 +86,7 @@ struct PassportDetailView: View {
             ForEach(viewModel.allStamps) { region in
                 DSStampTile(
                     icon: region.stampIcon,
-                    name: region.sigunguName,
+                    name: region.displayName,
                     isCollected: region.isVisited,
                     visitorNumber: region.visitorNumber
                 )

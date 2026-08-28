@@ -135,7 +135,7 @@ struct MatchResultView: View {
                 .lineSpacing(DSTypography.lineSpacing(size: 38, leading: 1.1))
                 .fixedSize(horizontal: false, vertical: true)
 
-            Text(viewModel.match.region.fullName)
+            Text(viewModel.match.region.displayName)
                 .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.semibold))
                 .foregroundStyle(Color.white.opacity(0.88))
         }
@@ -154,7 +154,7 @@ struct MatchResultView: View {
             )
             statColumn(
                 label: L10n.matchResultRegionLabel,
-                value: viewModel.match.region.sigunguName
+                value: viewModel.match.region.displayName
             )
         }
         .padding(.horizontal, DSSpacing.s6)

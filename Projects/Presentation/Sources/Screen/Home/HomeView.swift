@@ -92,7 +92,7 @@ public struct HomeView: View {
                 .foregroundStyle(DSColor.textPrimary)
                 .padding(.top, 16)
 
-            Text(trip.region.fullName)
+            Text(trip.region.displayName)
                 .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.regular))
                 .foregroundStyle(DSColor.textSecondary)
                 .padding(.top, 6)
@@ -269,7 +269,7 @@ private struct GrowthRegionRow: View {
                 }
 
             VStack(alignment: .leading, spacing: 6) {
-                Text(region.fullName)
+                Text(region.displayName)
                     .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.extrabold))
                     .foregroundStyle(DSColor.textPrimary)
 

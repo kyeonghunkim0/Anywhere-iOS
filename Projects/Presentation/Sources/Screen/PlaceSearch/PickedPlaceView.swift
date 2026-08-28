@@ -40,7 +40,7 @@ struct PickedPlaceView: View {
                         .fixedSize(horizontal: false, vertical: true)
                         .padding(.top, 12)
 
-                    Text("\(place.sidoName) \(place.sigunguName)")
+                    Text(place.displayName)
                         .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.semibold))
                         .foregroundStyle(DSColor.textSecondary)
                         .padding(.top, 6)

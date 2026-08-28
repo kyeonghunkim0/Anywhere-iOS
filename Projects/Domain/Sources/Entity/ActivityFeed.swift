@@ -31,6 +31,9 @@ public struct FeedItem: Sendable, Identifiable, Equatable {
         self.checkedInAt = checkedInAt
         self.message = message
     }
+
+    /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
+    public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
 }
 
 public struct ActivityFeed: Sendable {

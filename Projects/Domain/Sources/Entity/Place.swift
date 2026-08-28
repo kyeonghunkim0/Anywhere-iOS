@@ -43,6 +43,9 @@ public struct TaggedPlace: Sendable, Identifiable, Hashable {
         self.sigunguName = sigunguName
         self.isDepopulated = isDepopulated
     }
+
+    /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
+    public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
 }
 
 /// 체크인·후기가 실제로 쓰는 최소 정보. 좌표 없는 목록형 장소(`TaggedPlace`)도

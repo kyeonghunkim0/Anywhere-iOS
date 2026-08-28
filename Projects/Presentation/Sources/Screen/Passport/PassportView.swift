@@ -143,7 +143,7 @@ struct PassportView: View {
                     ForEach(viewModel.collectedStamps) { region in
                         DSStampTile(
                             icon: region.stampIcon,
-                            name: region.sigunguName,
+                            name: region.displayName,
                             isCollected: true,
                             visitorNumber: region.visitorNumber
                         )

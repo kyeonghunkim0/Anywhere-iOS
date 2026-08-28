@@ -165,7 +165,7 @@ struct PlaceSearchView: View {
                         .foregroundStyle(isPicked ? DSColor.brandPrimary : DSColor.textPrimary)
                         .lineLimit(1)
 
-                    Text("\(place.sidoName) \(place.sigunguName) · \(place.address)")
+                    Text("\(place.displayName) · \(place.address)")
                         .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.regular))
                         .foregroundStyle(DSColor.sand600)
                         .lineLimit(1)
