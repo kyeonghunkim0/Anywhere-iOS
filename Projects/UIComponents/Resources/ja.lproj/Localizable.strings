@@ -38,11 +38,30 @@
 "tripFilter.title" = "どこでも旅の条件";
 "tripFilter.distanceQuestion" = "どこまで行く？";
 "tripFilter.rangeNearbyTitle" = "2時間以内";
-"tripFilter.rangeNearbySubtitle" = "半径約120km";
+"tripFilter.rangeNearbySubtitle" = "半径約100km";
 "tripFilter.rangeDayTripTitle" = "日帰り";
-"tripFilter.rangeDayTripSubtitle" = "半径約250km";
+"tripFilter.rangeDayTripSubtitle" = "半径約200km";
 "tripFilter.rangeAnywhereTitle" = "どこでも";
 "tripFilter.rangeAnywhereSubtitle" = "全国・半径制限なし";
+
+"tripFilter.rangeCustomTitle" = "自分で選ぶ";
+"tripFilter.rangeCustomSubtitle" = "ランダムなしで行きたい場所を直接選びます";
+"tripFilter.customHintPicked" = "%@ · 今選んでいる場所です。もう一度押すと変更できます。";
+"tripFilter.customHintEmpty" = "「自分で選ぶ」をもう一度押して行きたい場所を選んでください。";
+"tripFilter.pickPrompt" = "行きたい場所を選ぶ";
+"tripFilter.startCustom" = "%@へ出発";
+
+"placeSearch.fieldPlaceholder" = "地域や場所で検索";
+"placeSearch.headingRecommended" = "人の少ないおすすめ地域";
+"placeSearch.headingResults" = "検索結果";
+"placeSearch.pickDone" = "%@ を選択";
+"placeSearch.empty" = "その名前はまだありません。\n地域名で探してみてください。";
+"placeSearch.failureTitle" = "読み込み失敗";
+"placeSearch.retry" = "再試行";
+
+"pickedPlace.chip" = "選んだ場所";
+"pickedPlace.addressLabel" = "住所";
+"pickedPlace.pickAgain" = "選び直す";
 
 "matching.title" = "どこでも選び中";
 "matching.subtitle" = "全国のスポットから選んでいます";
@@ -54,3 +73,31 @@
 
 "location.permissionTitle" = "位置情報の許可が必要";
 "location.openSettings" = "設定を開く";
+
+"matchResult.randomChip" = "ランダムマッチ";
+"matchResult.distanceLabel" = "距離";
+"matchResult.distanceValue" = "%.0fkm";
+"matchResult.regionLabel" = "地域";
+"matchResult.depopulatedBonus" = "人口減少地域 · スタンプボーナス";
+"matchResult.confirm" = "ここに決定";
+"matchResult.reroll" = "他の場所を見る · 残り%d回";
+"matchResult.failureTitle" = "リクエストに失敗しました";
+
+"arrival.checkingIn" = "到着を確認しています";
+"arrival.stamped" = "スタンプを押しました";
+"arrival.visitorPrefix" = "あなたはこの町の";
+"arrival.visitorNumber" = "#%d番目";
+"arrival.visitorSuffix" = "の訪問者です";
+"arrival.rewardStamps" = "スタンプ%d個獲得 · 合計%d個";
+"arrival.rewardBonus" = "人口減少地域 · スタンプ%d倍";
+"arrival.rewardRegionLevelUp" = "%@ Lv.%d 達成";
+"arrival.rewardBadge" = "%@ バッジ獲得";
+"arrival.writeReview" = "レビューを書く";
+"arrival.goHome" = "ホームに戻る";
+"arrival.failureTitle" = "認証に失敗しました";
+"arrival.retry" = "再試行";
+
+"review.titleFormat" = "%@ のレビュー";
+"review.placeholder" = "次の人にひと言だけ残すなら？";
+"review.submit" = "登録する";
+"review.failureTitle" = "登録に失敗しました";

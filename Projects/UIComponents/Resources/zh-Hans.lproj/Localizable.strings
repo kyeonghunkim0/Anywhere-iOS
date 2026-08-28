@@ -38,11 +38,30 @@
 "tripFilter.title" = "随便出发的条件";
 "tripFilter.distanceQuestion" = "想走多远？";
 "tripFilter.rangeNearbyTitle" = "2小时以内";
-"tripFilter.rangeNearbySubtitle" = "半径约120公里";
+"tripFilter.rangeNearbySubtitle" = "半径约100公里";
 "tripFilter.rangeDayTripTitle" = "当天往返";
-"tripFilter.rangeDayTripSubtitle" = "半径约250公里";
+"tripFilter.rangeDayTripSubtitle" = "半径约200公里";
 "tripFilter.rangeAnywhereTitle" = "任何地方";
 "tripFilter.rangeAnywhereSubtitle" = "全国 · 不限半径";
+
+"tripFilter.rangeCustomTitle" = "我自己选";
+"tripFilter.rangeCustomSubtitle" = "不用随机，自己挑想去的地方";
+"tripFilter.customHintPicked" = "%@ · 这是你现在选的地方。再按一次可以更换。";
+"tripFilter.customHintEmpty" = "再按一次「我自己选」来挑想去的地方。";
+"tripFilter.pickPrompt" = "挑一个想去的地方";
+"tripFilter.startCustom" = "出发去%@";
+
+"placeSearch.fieldPlaceholder" = "按地区或地点搜索";
+"placeSearch.headingRecommended" = "人少的推荐地区";
+"placeSearch.headingResults" = "搜索结果";
+"placeSearch.pickDone" = "已选择 %@";
+"placeSearch.empty" = "还没有这个名字。\n试试用地区名搜索。";
+"placeSearch.failureTitle" = "加载失败";
+"placeSearch.retry" = "重试";
+
+"pickedPlace.chip" = "我选的地方";
+"pickedPlace.addressLabel" = "地址";
+"pickedPlace.pickAgain" = "重新选择";
 
 "matching.title" = "正在随便挑一处";
 "matching.subtitle" = "正在全国各地挑选";
@@ -54,3 +73,31 @@
 
 "location.permissionTitle" = "需要位置权限";
 "location.openSettings" = "打开设置";
+
+"matchResult.randomChip" = "随机匹配";
+"matchResult.distanceLabel" = "距离";
+"matchResult.distanceValue" = "%.0fkm";
+"matchResult.regionLabel" = "地区";
+"matchResult.depopulatedBonus" = "人口减少地区 · 印章奖励";
+"matchResult.confirm" = "就去这里";
+"matchResult.reroll" = "换个地方 · 剩余%d次";
+"matchResult.failureTitle" = "请求失败";
+
+"arrival.checkingIn" = "正在确认你的到达";
+"arrival.stamped" = "已盖章";
+"arrival.visitorPrefix" = "你是这座城市的";
+"arrival.visitorNumber" = "第%d位";
+"arrival.visitorSuffix" = "访客";
+"arrival.rewardStamps" = "获得%d个印章 · 共%d个";
+"arrival.rewardBonus" = "人口减少地区 · 印章%d倍";
+"arrival.rewardRegionLevelUp" = "%@ 达成 Lv.%d";
+"arrival.rewardBadge" = "获得 %@ 徽章";
+"arrival.writeReview" = "写点评";
+"arrival.goHome" = "返回首页";
+"arrival.failureTitle" = "认证失败";
+"arrival.retry" = "重试";
+
+"review.titleFormat" = "%@ 点评";
+"review.placeholder" = "只留一句话给下一个人？";
+"review.submit" = "提交";
+"review.failureTitle" = "提交失败";

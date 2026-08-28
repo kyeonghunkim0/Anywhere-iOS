@@ -14,7 +14,7 @@ import UIComponents
 public struct HomeView: View {
     @Bindable private var viewModel: HomeViewModel
     private let onStartTrip: () -> Void
-    private let onVerifyArrival: (String) -> Void
+    private let onVerifyArrival: (Place) -> Void
     private let onOpenProfile: () -> Void
     private let onOpenPassport: () -> Void
     private let onOpenRanking: () -> Void
@@ -25,7 +25,7 @@ public struct HomeView: View {
     public init(
         viewModel: HomeViewModel,
         onStartTrip: @escaping () -> Void = {},
-        onVerifyArrival: @escaping (String) -> Void = { _ in },
+        onVerifyArrival: @escaping (Place) -> Void = { _ in },
         onOpenProfile: @escaping () -> Void = {},
         onOpenPassport: @escaping () -> Void = {},
         onOpenRanking: @escaping () -> Void = {},
@@ -165,7 +165,7 @@ public struct HomeView: View {
                 .foregroundStyle(DSColor.textSecondary)
                 .padding(.top, 6)
 
-            Button { onVerifyArrival(trip.matchId) } label: {
+            Button { onVerifyArrival(trip.place) } label: {
                 Text(L10n.homeVerifyArrival)
                     .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.bold))
                     .foregroundStyle(DSColor.textOnBrand)

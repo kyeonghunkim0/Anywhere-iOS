@@ -38,11 +38,30 @@
 "tripFilter.title" = "아무데나 떠날 조건";
 "tripFilter.distanceQuestion" = "얼마나 멀리 갈래?";
 "tripFilter.rangeNearbyTitle" = "2시간 이내";
-"tripFilter.rangeNearbySubtitle" = "반경 약 120km";
+"tripFilter.rangeNearbySubtitle" = "반경 약 100km";
 "tripFilter.rangeDayTripTitle" = "당일치기";
-"tripFilter.rangeDayTripSubtitle" = "반경 약 250km";
+"tripFilter.rangeDayTripSubtitle" = "반경 약 200km";
 "tripFilter.rangeAnywhereTitle" = "어디든지";
 "tripFilter.rangeAnywhereSubtitle" = "전국 · 반경 제한 없음";
+
+"tripFilter.rangeCustomTitle" = "내 맘대로";
+"tripFilter.rangeCustomSubtitle" = "랜덤 없이 가고 싶은 곳을 직접 고를게요";
+"tripFilter.customHintPicked" = "%@ · 지금 고른 곳이에요. 다시 누르면 바꿀 수 있어요.";
+"tripFilter.customHintEmpty" = "내 맘대로를 다시 눌러 가고 싶은 곳을 골라보세요.";
+"tripFilter.pickPrompt" = "가고 싶은 곳을 골라요";
+"tripFilter.startCustom" = "%@으로 떠나기";
+
+"placeSearch.fieldPlaceholder" = "지역이나 장소로 검색";
+"placeSearch.headingRecommended" = "사람 적은 추천 지역";
+"placeSearch.headingResults" = "검색 결과";
+"placeSearch.pickDone" = "%@ 선택 완료";
+"placeSearch.empty" = "그런 이름은 아직 없어요.\n지역명으로 다시 찾아보세요.";
+"placeSearch.failureTitle" = "불러오기 실패";
+"placeSearch.retry" = "다시 시도";
+
+"pickedPlace.chip" = "내가 고른 곳";
+"pickedPlace.addressLabel" = "주소";
+"pickedPlace.pickAgain" = "다시 고르기";
 
 "matching.title" = "아무데나 고르는 중";
 "matching.subtitle" = "전국 곳곳에서 고르고 있어요";
@@ -63,3 +82,22 @@
 "matchResult.confirm" = "여기로 결정";
 "matchResult.reroll" = "다른 곳 들러보기 · %d회 남음";
 "matchResult.failureTitle" = "요청 실패";
+
+"arrival.checkingIn" = "도착을 확인하고 있어요";
+"arrival.stamped" = "도장을 찍었어요";
+"arrival.visitorPrefix" = "당신은 이 도시의 ";
+"arrival.visitorNumber" = "#%d번째";
+"arrival.visitorSuffix" = " 방문자입니다";
+"arrival.rewardStamps" = "도장 %d개 획득 · 총 %d개";
+"arrival.rewardBonus" = "인구감소지역 · 도장 %d배";
+"arrival.rewardRegionLevelUp" = "%@ Lv.%d 달성";
+"arrival.rewardBadge" = "%@ 뱃지 획득";
+"arrival.writeReview" = "후기 남기기";
+"arrival.goHome" = "홈으로 돌아가기";
+"arrival.failureTitle" = "인증 실패";
+"arrival.retry" = "다시 시도";
+
+"review.titleFormat" = "%@ 후기";
+"review.placeholder" = "다음 사람에게 딱 한마디만 남긴다면?";
+"review.submit" = "등록하기";
+"review.failureTitle" = "등록 실패";

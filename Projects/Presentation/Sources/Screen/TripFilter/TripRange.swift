@@ -12,6 +12,8 @@ enum TripRange: CaseIterable, Identifiable, Sendable {
     case nearby
     case dayTrip
     case anywhere
+    /// 랜덤을 쓰지 않고 직접 장소를 고르는 길. 거리 조건이 아니라 다른 화면으로 가는 입구다.
+    case custom
 
     /// 조건 화면을 처음 열었을 때 골라져 있는 값.
     static let `default`: TripRange = .dayTrip
@@ -20,17 +22,21 @@ enum TripRange: CaseIterable, Identifiable, Sendable {
 
     var radiusKm: Double? {
         switch self {
-        case .nearby: return 120
-        case .dayTrip: return 250
-        case .anywhere: return nil
+        case .nearby: return 100
+        case .dayTrip: return 200
+        case .anywhere, .custom: return nil
         }
     }
+
+    /// 이 행을 누르면 거리를 고르는 게 아니라 장소 검색으로 넘어간다.
+    var opensPlaceSearch: Bool { self == .custom }
 
     var title: String {
         switch self {
         case .nearby: return L10n.tripFilterRangeNearbyTitle
         case .dayTrip: return L10n.tripFilterRangeDayTripTitle
         case .anywhere: return L10n.tripFilterRangeAnywhereTitle
+        case .custom: return L10n.tripFilterRangeCustomTitle
         }
     }
 
@@ -39,6 +45,7 @@ enum TripRange: CaseIterable, Identifiable, Sendable {
         case .nearby: return L10n.tripFilterRangeNearbySubtitle
         case .dayTrip: return L10n.tripFilterRangeDayTripSubtitle
         case .anywhere: return L10n.tripFilterRangeAnywhereSubtitle
+        case .custom: return L10n.tripFilterRangeCustomSubtitle
         }
     }
 }

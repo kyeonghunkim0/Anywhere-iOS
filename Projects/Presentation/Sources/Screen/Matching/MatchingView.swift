@@ -12,7 +12,10 @@ import Domain
 import UIComponents
 
 struct MatchingView: View {
-    @Bindable private var viewModel: MatchingViewModel
+    /// ViewModel은 이 뷰가 소유한다. 부모(RouteDestinationView) body가 다시 평가될 때마다
+    /// 팩토리가 새 인스턴스를 만드는데, 참조만 들고 있으면 진행 중이던 상태가 통째로 버려진다
+    /// — 화면은 로딩에서 멈추고 .task는 identity가 같아 다시 돌지도 않는다.
+    @State private var viewModel: MatchingViewModel
     private let onBack: () -> Void
     private let onMatched: (RandomMatch) -> Void
 
@@ -24,14 +27,14 @@ struct MatchingView: View {
         onBack: @escaping () -> Void = {},
         onMatched: @escaping (RandomMatch) -> Void = { _ in }
     ) {
-        self.viewModel = viewModel
+        _viewModel = State(wrappedValue: viewModel)
         self.onBack = onBack
         self.onMatched = onMatched
     }
 
     var body: some View {
         VStack(spacing: 0) {
-            backBar
+            BackBar(onBack: onBack)
 
             LottieView(animation: .named("dart-throw-map", bundle: Bundle.module))
                 .resizable()
@@ -65,22 +68,6 @@ struct MatchingView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
-    }
-
-    private var backBar: some View {
-        HStack {
-            // 왼쪽 셰브론이 따로 없어 chevronRight를 뒤집어 쓴다 — TripFilterView와 같은 방식이다.
-            Button(action: onBack) {
-                DSIconView(.chevronRight, size: 19, color: DSColor.ink900)
-                    .rotationEffect(.degrees(180))
-                    .frame(width: 44, height: 44)
-            }
-            .buttonStyle(DSPressStyle())
-            .accessibilityLabel(L10n.commonBack)
-
-            Spacer()
-        }
-        .padding(.horizontal, 12)
     }
 
     private var caption: some View {

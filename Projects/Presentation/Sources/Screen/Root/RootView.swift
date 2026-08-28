@@ -13,24 +13,20 @@ import Domain
 public struct RootView: View {
     @Bindable private var viewModel: RootViewModel
     @Bindable private var loginViewModel: LoginViewModel
-    private let homeViewModelFactory: (User) -> HomeViewModel
-    private let matchingViewModelFactory: (Double?) -> MatchingViewModel
-    private let matchResultViewModelFactory: (RandomMatch, Double?) -> MatchResultViewModel
+    private let factory: ViewModelFactory
 
     @State private var coordinator = NavigationCoordinator()
+    /// 조건 화면과 장소 검색 화면이 나눠 쓰는 선택 상태. 코디네이터와 같은 이유로 여기서 소유한다.
+    @State private var tripPlan = TripPlanModel()
 
     public init(
         viewModel: RootViewModel,
         loginViewModel: LoginViewModel,
-        homeViewModelFactory: @escaping (User) -> HomeViewModel,
-        matchingViewModelFactory: @escaping (Double?) -> MatchingViewModel,
-        matchResultViewModelFactory: @escaping (RandomMatch, Double?) -> MatchResultViewModel
+        factory: ViewModelFactory
     ) {
         self.viewModel = viewModel
         self.loginViewModel = loginViewModel
-        self.homeViewModelFactory = homeViewModelFactory
-        self.matchingViewModelFactory = matchingViewModelFactory
-        self.matchResultViewModelFactory = matchResultViewModelFactory
+        self.factory = factory
     }
 
     public var body: some View {
@@ -49,14 +45,11 @@ public struct RootView: View {
         // sheet/fullScreenCover보다 바깥에 둬야 한다. 안쪽에 두면 띄워진 화면은
         // 이 모디파이어의 자손이 아니라서 코디네이터를 찾지 못하고 크래시한다.
         .environment(coordinator)
+        .environment(tripPlan)
     }
 
     private func destination(_ route: Route) -> some View {
-        RouteDestinationView(
-            route: route,
-            matchingViewModelFactory: matchingViewModelFactory,
-            matchResultViewModelFactory: matchResultViewModelFactory
-        )
+        RouteDestinationView(route: route, factory: factory)
     }
 
     @ViewBuilder
@@ -66,7 +59,7 @@ public struct RootView: View {
             case .restoring:
                 splash
             case .authenticated(let user):
-                HomeScreen(viewModel: homeViewModelFactory(user), coordinator: coordinator)
+                HomeScreen(viewModel: factory.home(user), coordinator: coordinator)
                     .id(user.id)
             case .unauthenticated:
                 LoginView(
@@ -105,6 +98,8 @@ private struct HomeScreen: View {
     @State private var viewModel: HomeViewModel
     private let coordinator: NavigationCoordinator
 
+    @Environment(TripPlanModel.self) private var plan
+
     init(viewModel: HomeViewModel, coordinator: NavigationCoordinator) {
         _viewModel = State(wrappedValue: viewModel)
         self.coordinator = coordinator
@@ -113,8 +108,12 @@ private struct HomeScreen: View {
     var body: some View {
         HomeView(
             viewModel: viewModel,
-            onStartTrip: { coordinator.pushViewController(.tripFilter) },
-            onVerifyArrival: { coordinator.pushViewController(.arrivalVerification(matchId: $0)) },
+            onStartTrip: {
+                // 홈에서 새로 들어올 때마다 지난 선택은 지운다.
+                plan.reset()
+                coordinator.pushViewController(.tripFilter)
+            },
+            onVerifyArrival: { coordinator.pushViewController(.arrivalVerification(place: PlaceRef($0))) },
             onOpenProfile: { coordinator.pushViewController(.profile) },
             onOpenPassport: { coordinator.pushViewController(.passport) },
             onOpenRanking: { coordinator.pushViewController(.ranking) },

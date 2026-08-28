@@ -17,7 +17,7 @@ public struct Place: Sendable, Identifiable, Hashable {
 }
 
 /// GET /api/tags/{tagId}/places — 좌표 없이 지역 라벨만 함께 오는 목록용 표현.
-public struct TaggedPlace: Sendable, Identifiable, Equatable {
+public struct TaggedPlace: Sendable, Identifiable, Hashable {
     public let id: String
     public let name: String
     public let address: String
@@ -42,5 +42,25 @@ public struct TaggedPlace: Sendable, Identifiable, Equatable {
         self.sidoName = sidoName
         self.sigunguName = sigunguName
         self.isDepopulated = isDepopulated
+    }
+}
+
+/// 체크인·후기가 실제로 쓰는 최소 정보. 좌표 없는 목록형 장소(`TaggedPlace`)도
+/// 같은 화면으로 보낼 수 있게, 두 표현이 공통으로 가진 id와 이름만 들고 다닌다.
+public struct PlaceRef: Sendable, Identifiable, Hashable {
+    public let id: String
+    public let name: String
+
+    public init(id: String, name: String) {
+        self.id = id
+        self.name = name
+    }
+
+    public init(_ place: Place) {
+        self.init(id: place.id, name: place.name)
+    }
+
+    public init(_ place: TaggedPlace) {
+        self.init(id: place.id, name: place.name)
     }
 }

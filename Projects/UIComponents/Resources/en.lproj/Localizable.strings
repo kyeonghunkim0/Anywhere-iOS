@@ -38,11 +38,30 @@
 "tripFilter.title" = "Where to wander";
 "tripFilter.distanceQuestion" = "How far will you go?";
 "tripFilter.rangeNearbyTitle" = "Under 2 hours";
-"tripFilter.rangeNearbySubtitle" = "About 120km away";
+"tripFilter.rangeNearbySubtitle" = "About 100km away";
 "tripFilter.rangeDayTripTitle" = "Day trip";
-"tripFilter.rangeDayTripSubtitle" = "About 250km away";
+"tripFilter.rangeDayTripSubtitle" = "About 200km away";
 "tripFilter.rangeAnywhereTitle" = "Anywhere";
 "tripFilter.rangeAnywhereSubtitle" = "Nationwide · no limit";
+
+"tripFilter.rangeCustomTitle" = "My own pick";
+"tripFilter.rangeCustomSubtitle" = "Skip the shuffle and choose where to go";
+"tripFilter.customHintPicked" = "%@ · your pick right now. Tap again to change it.";
+"tripFilter.customHintEmpty" = "Tap My own pick again to choose a destination.";
+"tripFilter.pickPrompt" = "Choose where to go";
+"tripFilter.startCustom" = "Head to %@";
+
+"placeSearch.fieldPlaceholder" = "Search by region or place";
+"placeSearch.headingRecommended" = "Quiet regions we recommend";
+"placeSearch.headingResults" = "Search results";
+"placeSearch.pickDone" = "%@ selected";
+"placeSearch.empty" = "No such name yet.\nTry searching by region.";
+"placeSearch.failureTitle" = "Couldn't load";
+"placeSearch.retry" = "Try again";
+
+"pickedPlace.chip" = "Your pick";
+"pickedPlace.addressLabel" = "Address";
+"pickedPlace.pickAgain" = "Pick another";
 
 "matching.title" = "Picking somewhere";
 "matching.subtitle" = "Choosing from spots across the country";
@@ -63,3 +82,22 @@
 "matchResult.confirm" = "Go here";
 "matchResult.reroll" = "Somewhere else · %d left";
 "matchResult.failureTitle" = "Request failed";
+
+"arrival.checkingIn" = "Checking your arrival";
+"arrival.stamped" = "Stamp collected";
+"arrival.visitorPrefix" = "You are visitor ";
+"arrival.visitorNumber" = "#%d";
+"arrival.visitorSuffix" = " of this town";
+"arrival.rewardStamps" = "%d stamps earned · %d total";
+"arrival.rewardBonus" = "Depopulated area · %dx stamps";
+"arrival.rewardRegionLevelUp" = "%@ reached Lv.%d";
+"arrival.rewardBadge" = "Earned the %@ badge";
+"arrival.writeReview" = "Leave a review";
+"arrival.goHome" = "Back to home";
+"arrival.failureTitle" = "Check-in failed";
+"arrival.retry" = "Try again";
+
+"review.titleFormat" = "Review of %@";
+"review.placeholder" = "One line for the next traveler?";
+"review.submit" = "Submit";
+"review.failureTitle" = "Couldn't submit";
