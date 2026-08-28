@@ -31,7 +31,7 @@ struct AnywhereApp: App {
 
     init() {
         /// 개발 서버 주소. 실기기는 localhost로 붙을 수 없어 맥의 LAN IP로 바꿔야 한다.
-        let container = AppDependencyContainer(baseURL: URL(string: "http://172.20.10.3:3000")!)
+        let container = AppDependencyContainer(baseURL: URL(string: "http://192.168.219.105:3000")!)
         self.container = container
         _rootViewModel = State(wrappedValue: RootViewModel(restoreSessionUseCase: container.restoreSessionUseCase))
         _loginViewModel = State(wrappedValue: LoginViewModel(signInUseCase: container.signInUseCase))
@@ -39,10 +39,26 @@ struct AnywhereApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView(
-                viewModel: rootViewModel,
-                loginViewModel: loginViewModel,
-                homeViewModelFactory: { user in
+            // ⚠️ 임시. DEBUG_SCREEN 환경변수가 있으면 그 화면만 가짜 응답으로 띄운다.
+            // 서버·로그인 없이 화면을 눈으로 보기 위한 우회로다 — 확인이 끝나면 지운다.
+            #if DEBUG
+            if let debugScreen = DebugScreenView(rawValue: ProcessInfo.processInfo.environment["DEBUG_SCREEN"]) {
+                debugScreen
+            } else {
+                rootView
+            }
+            #else
+            rootView
+            #endif
+        }
+    }
+
+    private var rootView: some View {
+        RootView(
+            viewModel: rootViewModel,
+            loginViewModel: loginViewModel,
+            factory: ViewModelFactory(
+                home: { user in
                     HomeViewModel(
                         user: user,
                         fetchCurrentTripUseCase: container.fetchCurrentTripUseCase,
@@ -52,24 +68,41 @@ struct AnywhereApp: App {
                         requestLocationPermissionUseCase: container.requestLocationPermissionUseCase
                     )
                 },
-                matchingViewModelFactory: { radiusKm in
+                matching: { radiusKm in
                     MatchingViewModel(
                         radiusKm: radiusKm,
                         fetchRandomMatchUseCase: container.fetchRandomMatchUseCase
                     )
                 },
-                matchResultViewModelFactory: { match, radiusKm in
+                matchResult: { match, radiusKm in
                     MatchResultViewModel(
                         match: match,
                         radiusKm: radiusKm,
                         fetchRandomMatchUseCase: container.fetchRandomMatchUseCase,
                         confirmMatchUseCase: container.confirmMatchUseCase
                     )
+                },
+                placeSearch: {
+                    PlaceSearchViewModel(
+                        fetchSearchablePlacesUseCase: container.fetchSearchablePlacesUseCase
+                    )
+                },
+                arrivalVerification: { place in
+                    ArrivalVerificationViewModel(
+                        place: place,
+                        checkInUseCase: container.checkInUseCase
+                    )
+                },
+                review: { place in
+                    ReviewViewModel(
+                        place: place,
+                        createReviewUseCase: container.createReviewUseCase
+                    )
                 }
             )
-            .onOpenURL { url in
-                AppDependencyContainer.handleSocialAuthURL(url)
-            }
+        )
+        .onOpenURL { url in
+            AppDependencyContainer.handleSocialAuthURL(url)
         }
     }
 }
