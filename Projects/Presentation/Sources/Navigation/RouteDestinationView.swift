@@ -109,8 +109,22 @@ struct RouteDestinationView: View {
         case .privacy:
             LegalDocumentView(document: .privacy, onClose: { close() })
 
+        case .profile:
+            ProfileView(
+                viewModel: factory.profile(),
+                onEdit: { coordinator.pushViewController(.profileEdit(nickname: $0)) },
+                onBack: { coordinator.popViewController() }
+            )
+
+        case .profileEdit(let nickname):
+            ProfileEditView(
+                viewModel: factory.profileEdit(nickname),
+                onSaved: { coordinator.popViewController() },
+                onBack: { coordinator.popViewController() }
+            )
+
         // 아직 화면이 없는 Route는 자리표시자로 둔다 — 화면이 생기는 대로 이 case를 교체한다.
-        case .profile, .ranking, .settings:
+        case .ranking, .settings:
             placeholder
         }
     }

@@ -37,7 +37,12 @@ public final class SettingsViewModel {
     }
 
     public func load() async {
-        guard !hasLoaded, !isLoading else { return }
+        guard !hasLoaded else { return }
+        await reload()
+    }
+
+    public func reload() async {
+        guard !isLoading else { return }
         isLoading = true
         defer { isLoading = false }
 

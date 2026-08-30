@@ -116,6 +116,28 @@
 "settings.appVersion" = "앱 버전";
 "settings.signOut" = "로그아웃";
 
+"profile.joined" = "%@ 가입";
+"profile.statLevel" = "현재 레벨";
+"profile.statRegions" = "수집 도시";
+"profile.statRegionsNote" = "전국 %d곳 중";
+"profile.statDepopulated" = "소멸지역 방문";
+"profile.statDistance" = "누적 이동";
+"profile.unitPlaces" = "곳";
+"profile.contributionTitle" = "인구 소멸 지역 기여도";
+"profile.contributionOf" = "/ %d곳이 인구 소멸 지역";
+"profile.contributionNote" = "방문한 %d곳 중 %d곳이 생활인구 지원이 필요한 지역이었어요.";
+"profile.recordsTitle" = "기록";
+"profile.recordRecentStamp" = "최근 도장";
+"profile.recordBadges" = "획득 뱃지";
+"profile.recordRank" = "전국 랭킹";
+"profile.recordReviews" = "남긴 로컬 후기";
+"profile.countItems" = "%d개";
+"profileEdit.title" = "프로필 편집";
+"profileEdit.save" = "저장";
+"profileEdit.nickname" = "닉네임";
+"profileEdit.nicknameHint" = "한글·영문·숫자 %d자까지 쓸 수 있어요.";
+"profileEdit.failureTitle" = "저장 실패";
+
 "matching.title" = "아무데나 고르는 중";
 "matching.subtitle" = "전국 곳곳에서 고르고 있어요";
 "matching.failureTitle" = "매칭 실패";

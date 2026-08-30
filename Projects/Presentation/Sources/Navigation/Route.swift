@@ -13,6 +13,8 @@ import Domain
 public enum Route: Hashable, Identifiable, Sendable {
     /// 내 프로필
     case profile
+    /// 프로필 편집. 편집 화면이 처음 보여줄 닉네임을 들고 간다.
+    case profileEdit(nickname: String)
     /// 지역 랭킹
     case ranking
     /// 설정

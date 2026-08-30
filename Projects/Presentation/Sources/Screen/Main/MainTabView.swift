@@ -71,6 +71,8 @@ struct MainTabView: View {
         .onChange(of: coordinator.path.isEmpty) { _, isRoot in
             guard isRoot else { return }
             Task { await homeViewModel.reload() }
+            // 프로필 편집에서 닉네임이 바뀌었을 수 있다.
+            Task { await settingsViewModel.reload() }
         }
     }
 

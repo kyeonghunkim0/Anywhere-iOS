@@ -116,6 +116,28 @@
 "settings.appVersion" = "应用版本";
 "settings.signOut" = "退出登录";
 
+"profile.joined" = "%@ 加入";
+"profile.statLevel" = "当前等级";
+"profile.statRegions" = "收集城市";
+"profile.statRegionsNote" = "全国 %d 处中";
+"profile.statDepopulated" = "人口减少地区";
+"profile.statDistance" = "累计移动";
+"profile.unitPlaces" = "处";
+"profile.contributionTitle" = "对人口减少地区的贡献";
+"profile.contributionOf" = "/ %d 处为人口减少地区";
+"profile.contributionNote" = "你走过的 %d 处中有 %d 处需要更多访客。";
+"profile.recordsTitle" = "记录";
+"profile.recordRecentStamp" = "最近的印章";
+"profile.recordBadges" = "获得徽章";
+"profile.recordRank" = "全国排名";
+"profile.recordReviews" = "写过的评价";
+"profile.countItems" = "%d 个";
+"profileEdit.title" = "编辑资料";
+"profileEdit.save" = "保存";
+"profileEdit.nickname" = "昵称";
+"profileEdit.nicknameHint" = "最多 %d 个字符。";
+"profileEdit.failureTitle" = "保存失败";
+
 "matching.title" = "正在随便挑一处";
 "matching.subtitle" = "正在全国各地挑选";
 "matching.failureTitle" = "匹配失败";

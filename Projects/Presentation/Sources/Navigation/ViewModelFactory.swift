@@ -18,6 +18,8 @@ public struct ViewModelFactory {
     let passport: (String) -> PassportViewModel
     let ranking: () -> RankingViewModel
     let settings: () -> SettingsViewModel
+    let profile: () -> ProfileViewModel
+    let profileEdit: (String) -> ProfileEditViewModel
     let placeDetail: (String) -> PlaceDetailViewModel
     let regionDetail: (String) -> RegionDetailViewModel
     let rankerDetail: (String) -> RankerDetailViewModel
@@ -32,6 +34,8 @@ public struct ViewModelFactory {
         passport: @escaping (String) -> PassportViewModel,
         ranking: @escaping () -> RankingViewModel,
         settings: @escaping () -> SettingsViewModel,
+        profile: @escaping () -> ProfileViewModel,
+        profileEdit: @escaping (String) -> ProfileEditViewModel,
         placeDetail: @escaping (String) -> PlaceDetailViewModel,
         regionDetail: @escaping (String) -> RegionDetailViewModel,
         rankerDetail: @escaping (String) -> RankerDetailViewModel,
@@ -45,6 +49,8 @@ public struct ViewModelFactory {
         self.passport = passport
         self.ranking = ranking
         self.settings = settings
+        self.profile = profile
+        self.profileEdit = profileEdit
         self.placeDetail = placeDetail
         self.regionDetail = regionDetail
         self.rankerDetail = rankerDetail

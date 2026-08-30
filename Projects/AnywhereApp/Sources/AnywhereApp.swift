@@ -114,6 +114,18 @@ struct AnywhereApp: App {
                         signOutUseCase: container.signOutUseCase
                     )
                 },
+                profile: {
+                    ProfileViewModel(
+                        fetchMyProfileUseCase: container.fetchMyProfileUseCase,
+                        fetchProfileStatsUseCase: container.fetchProfileStatsUseCase
+                    )
+                },
+                profileEdit: { nickname in
+                    ProfileEditViewModel(
+                        nickname: nickname,
+                        updateProfileUseCase: container.updateProfileUseCase
+                    )
+                },
                 placeDetail: { placeId in
                     PlaceDetailViewModel(
                         placeId: placeId,

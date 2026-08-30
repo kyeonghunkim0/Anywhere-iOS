@@ -116,6 +116,28 @@
 "settings.appVersion" = "App version";
 "settings.signOut" = "Sign out";
 
+"profile.joined" = "Joined %@";
+"profile.statLevel" = "Level";
+"profile.statRegions" = "Regions";
+"profile.statRegionsNote" = "of %d nationwide";
+"profile.statDepopulated" = "Shrinking regions";
+"profile.statDistance" = "Distance";
+"profile.unitPlaces" = "places";
+"profile.contributionTitle" = "Support for shrinking regions";
+"profile.contributionOf" = "/ %d were shrinking regions";
+"profile.contributionNote" = "%d of the %d places you visited needed more visitors.";
+"profile.recordsTitle" = "Records";
+"profile.recordRecentStamp" = "Latest stamp";
+"profile.recordBadges" = "Badges";
+"profile.recordRank" = "National rank";
+"profile.recordReviews" = "Reviews written";
+"profile.countItems" = "%d";
+"profileEdit.title" = "Edit profile";
+"profileEdit.save" = "Save";
+"profileEdit.nickname" = "Nickname";
+"profileEdit.nicknameHint" = "Up to %d characters.";
+"profileEdit.failureTitle" = "Could not save";
+
 "matching.title" = "Picking somewhere";
 "matching.subtitle" = "Choosing from spots across the country";
 "matching.failureTitle" = "Match failed";

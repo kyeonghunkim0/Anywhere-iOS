@@ -116,6 +116,28 @@
 "settings.appVersion" = "アプリバージョン";
 "settings.signOut" = "ログアウト";
 
+"profile.joined" = "%@ 登録";
+"profile.statLevel" = "現在のレベル";
+"profile.statRegions" = "収集した都市";
+"profile.statRegionsNote" = "全国 %d カ所中";
+"profile.statDepopulated" = "人口減少地域";
+"profile.statDistance" = "累計移動";
+"profile.unitPlaces" = "カ所";
+"profile.contributionTitle" = "人口減少地域への貢献";
+"profile.contributionOf" = "/ %d カ所が人口減少地域";
+"profile.contributionNote" = "訪れた %d カ所のうち %d カ所が支援を必要とする地域でした。";
+"profile.recordsTitle" = "記録";
+"profile.recordRecentStamp" = "最近のスタンプ";
+"profile.recordBadges" = "獲得バッジ";
+"profile.recordRank" = "全国ランキング";
+"profile.recordReviews" = "書いたレビュー";
+"profile.countItems" = "%d 個";
+"profileEdit.title" = "プロフィール編集";
+"profileEdit.save" = "保存";
+"profileEdit.nickname" = "ニックネーム";
+"profileEdit.nicknameHint" = "%d 文字まで使えます。";
+"profileEdit.failureTitle" = "保存失敗";
+
 "matching.title" = "どこでも選び中";
 "matching.subtitle" = "全国のスポットから選んでいます";
 "matching.failureTitle" = "マッチングに失敗しました";
