@@ -16,6 +16,7 @@ public struct ViewModelFactory {
     let matchResult: (RandomMatch, Double?) -> MatchResultViewModel
     let placeSearch: () -> PlaceSearchViewModel
     let passport: (String) -> PassportViewModel
+    let ranking: () -> RankingViewModel
     let arrivalVerification: (PlaceRef) -> ArrivalVerificationViewModel
     let review: (PlaceRef) -> ReviewViewModel
 
@@ -25,6 +26,7 @@ public struct ViewModelFactory {
         matchResult: @escaping (RandomMatch, Double?) -> MatchResultViewModel,
         placeSearch: @escaping () -> PlaceSearchViewModel,
         passport: @escaping (String) -> PassportViewModel,
+        ranking: @escaping () -> RankingViewModel,
         arrivalVerification: @escaping (PlaceRef) -> ArrivalVerificationViewModel,
         review: @escaping (PlaceRef) -> ReviewViewModel
     ) {
@@ -33,6 +35,7 @@ public struct ViewModelFactory {
         self.matchResult = matchResult
         self.placeSearch = placeSearch
         self.passport = passport
+        self.ranking = ranking
         self.arrivalVerification = arrivalVerification
         self.review = review
     }

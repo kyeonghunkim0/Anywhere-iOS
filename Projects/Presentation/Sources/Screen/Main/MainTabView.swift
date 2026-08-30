@@ -18,6 +18,7 @@ struct MainTabView: View {
 
     @State private var homeViewModel: HomeViewModel
     @State private var passportViewModel: PassportViewModel
+    @State private var rankingViewModel: RankingViewModel
     @State private var tab: Tab = .home
 
     @Environment(NavigationCoordinator.self) private var coordinator
@@ -31,6 +32,7 @@ struct MainTabView: View {
     init(
         homeViewModel: HomeViewModel,
         passportViewModel: PassportViewModel,
+        rankingViewModel: RankingViewModel,
         userID: String,
         nicknameInitial: String,
         onStartTrip: @escaping () -> Void = {},
@@ -39,6 +41,7 @@ struct MainTabView: View {
     ) {
         _homeViewModel = State(wrappedValue: homeViewModel)
         _passportViewModel = State(wrappedValue: passportViewModel)
+        _rankingViewModel = State(wrappedValue: rankingViewModel)
         self.userID = userID
         self.nicknameInitial = nicknameInitial
         self.onStartTrip = onStartTrip
@@ -78,7 +81,9 @@ struct MainTabView: View {
             PassportView(viewModel: passportViewModel) { section in
                 coordinator.pushViewController(.passportDetail(userId: userID, section: section))
             }
-        case .ranking, .settings:
+        case .ranking:
+            RankingView(viewModel: rankingViewModel)
+        case .settings:
             comingSoon
         }
     }

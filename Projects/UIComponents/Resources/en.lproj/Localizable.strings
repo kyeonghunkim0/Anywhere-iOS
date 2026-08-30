@@ -79,6 +79,19 @@
 "passport.badgeLocked" = "Not yet met";
 "passport.badgeOutOfSeason" = "Out of season";
 
+"ranking.title" = "Growth & ranking";
+"ranking.tabCity" = "City growth";
+"ranking.tabUser" = "User ranking";
+"ranking.cityIntro" = "Visit local cities losing their visitors and level them up.";
+"ranking.levelTag" = "Lv.%d";
+"ranking.myRankLabel" = "Your rank right now";
+"ranking.rankValue" = "#%d";
+"ranking.myRankTop" = "Top %.1f%% · %d travelers";
+"ranking.topWanderers" = "Top wanderers";
+"ranking.stampCount" = "%d stamps";
+"ranking.emptyRegions" = "No regions growing yet.";
+"ranking.emptyUsers" = "No rankings yet.";
+
 "matching.title" = "Picking somewhere";
 "matching.subtitle" = "Choosing from spots across the country";
 "matching.failureTitle" = "Match failed";

@@ -111,6 +111,7 @@ private struct MainScreen: View {
         MainTabView(
             homeViewModel: factory.home(user),
             passportViewModel: factory.passport(user.id),
+            rankingViewModel: factory.ranking(),
             userID: user.id,
             nicknameInitial: String(user.nickname.prefix(1)),
             onStartTrip: {

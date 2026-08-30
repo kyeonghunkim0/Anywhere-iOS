@@ -100,6 +100,13 @@ struct AnywhereApp: App {
                         fetchMyBadgesUseCase: container.fetchMyBadgesUseCase
                     )
                 },
+                ranking: {
+                    RankingViewModel(
+                        fetchGrowthRegionsUseCase: container.fetchGrowthRegionsUseCase,
+                        fetchUserRankingUseCase: container.fetchUserRankingUseCase,
+                        fetchMyRankUseCase: container.fetchMyRankUseCase
+                    )
+                },
                 arrivalVerification: { place in
                     ArrivalVerificationViewModel(
                         place: place,

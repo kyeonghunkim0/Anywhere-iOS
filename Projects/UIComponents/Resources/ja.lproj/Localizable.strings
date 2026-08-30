@@ -79,6 +79,19 @@
 "passport.badgeLocked" = "条件未達成";
 "passport.badgeOutOfSeason" = "シーズン外";
 
+"ranking.title" = "成長 & ランキング";
+"ranking.tabCity" = "都市の成長ゲージ";
+"ranking.tabUser" = "ユーザーランキング";
+"ranking.cityIntro" = "訪問者が減っているローカル都市を訪れてレベルを上げましょう。";
+"ranking.levelTag" = "Lv.%d";
+"ranking.myRankLabel" = "現在の自分の順位";
+"ranking.rankValue" = "%d位";
+"ranking.myRankTop" = "上位 %.1f%% · 全 %d 人";
+"ranking.topWanderers" = "Top 放浪者";
+"ranking.stampCount" = "スタンプ %d 個";
+"ranking.emptyRegions" = "まだ成長中の地域がありません。";
+"ranking.emptyUsers" = "まだ順位がありません。";
+
 "matching.title" = "どこでも選び中";
 "matching.subtitle" = "全国のスポットから選んでいます";
 "matching.failureTitle" = "マッチングに失敗しました";

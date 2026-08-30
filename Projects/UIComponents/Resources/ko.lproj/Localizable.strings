@@ -79,6 +79,19 @@
 "passport.badgeLocked" = "조건 미달성";
 "passport.badgeOutOfSeason" = "시즌 아님";
 
+"ranking.title" = "성장 & 랭킹";
+"ranking.tabCity" = "도시 성장 게이지";
+"ranking.tabUser" = "유저 랭킹";
+"ranking.cityIntro" = "방문객이 줄어드는 로컬 도시에 방문해서 레벨을 올려주세요.";
+"ranking.levelTag" = "Lv.%d";
+"ranking.myRankLabel" = "나의 현재 순위";
+"ranking.rankValue" = "%d위";
+"ranking.myRankTop" = "상위 %.1f%% · 전체 %d명";
+"ranking.topWanderers" = "Top 방랑자";
+"ranking.stampCount" = "도장 %d개";
+"ranking.emptyRegions" = "아직 성장 중인 지역이 없어요.";
+"ranking.emptyUsers" = "아직 순위가 없어요.";
+
 "matching.title" = "아무데나 고르는 중";
 "matching.subtitle" = "전국 곳곳에서 고르고 있어요";
 "matching.failureTitle" = "매칭 실패";

@@ -79,6 +79,19 @@
 "passport.badgeLocked" = "条件未达成";
 "passport.badgeOutOfSeason" = "非当季";
 
+"ranking.title" = "成长 & 排行";
+"ranking.tabCity" = "城市成长值";
+"ranking.tabUser" = "用户排行";
+"ranking.cityIntro" = "去访问客流减少的地方城市，帮它们升级吧。";
+"ranking.levelTag" = "Lv.%d";
+"ranking.myRankLabel" = "我当前的排名";
+"ranking.rankValue" = "第 %d 名";
+"ranking.myRankTop" = "前 %.1f%% · 共 %d 人";
+"ranking.topWanderers" = "Top 漫游者";
+"ranking.stampCount" = "%d 个印章";
+"ranking.emptyRegions" = "还没有正在成长的地区。";
+"ranking.emptyUsers" = "还没有排名。";
+
 "matching.title" = "正在随便挑一处";
 "matching.subtitle" = "正在全国各地挑选";
 "matching.failureTitle" = "匹配失败";

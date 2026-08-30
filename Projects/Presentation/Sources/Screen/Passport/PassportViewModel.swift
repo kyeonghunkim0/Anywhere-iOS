@@ -114,13 +114,7 @@ public final class PassportViewModel {
 }
 
 public extension PassportRegion {
-    /// 서버는 지역 아이콘을 주지 않는다. 같은 지역이 늘 같은 그림을 갖도록
-    /// regionId로 고정 해시를 만들어 지역 아이콘 세트에서 고른다.
-    var stampIcon: DSIcon {
-        let pool: [DSIcon] = [.temple, .tree, .bridge, .leaf, .sparkles, .cheese, .train, .wind, .baseball, .fish]
-        let seed = regionId.unicodeScalars.reduce(0) { ($0 &* 31 &+ Int($1.value)) % 100_003 }
-        return pool[abs(seed) % pool.count]
-    }
+    var stampIcon: DSIcon { regionId.regionIcon }
 }
 
 public extension Badge {
