@@ -105,9 +105,7 @@ struct PassportDetailView: View {
     private func badgeRow(_ badge: Badge) -> some View {
         HStack(spacing: 14) {
             BadgeIcon(badge: badge, diameter: 48)
-            .background(badge.isUnlocked ? Color.white : DSColor.sand100)
-            .clipShape(Circle())
-            .opacity(badge.isUnlocked ? 1 : 0.55)
+                .opacity(badge.isUnlocked ? 1 : 0.55)
 
             VStack(alignment: .leading, spacing: 4) {
                 Text(badge.name)

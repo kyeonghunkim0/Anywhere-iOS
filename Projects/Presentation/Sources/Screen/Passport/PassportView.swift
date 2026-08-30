@@ -222,9 +222,7 @@ struct PassportView: View {
     private func badgeCard(_ badge: Badge) -> some View {
         VStack(spacing: 0) {
             BadgeIcon(badge: badge, diameter: 56)
-            .background(Color.white)
-            .clipShape(Circle())
-            .opacity(badge.isUnlocked ? 1 : 0.45)
+                .opacity(badge.isUnlocked ? 1 : 0.45)
 
             Text(badge.name)
                 .font(DSTypography.font(14, weight: DSTypography.Weight.extrabold))
