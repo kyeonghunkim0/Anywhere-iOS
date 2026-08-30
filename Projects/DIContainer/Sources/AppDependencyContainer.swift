@@ -151,6 +151,10 @@ public final class AppDependencyContainer: Sendable {
         FetchSearchablePlacesUseCase(tagRepository: dataContainer.tagRepository)
     }
 
+    public var fetchPlaceDetailUseCase: FetchPlaceDetailUseCase {
+        FetchPlaceDetailUseCase(placeRepository: dataContainer.placeRepository)
+    }
+
     public var createReviewUseCase: CreateReviewUseCase {
         CreateReviewUseCase(reviewRepository: dataContainer.reviewRepository)
     }

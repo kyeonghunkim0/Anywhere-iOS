@@ -52,6 +52,11 @@
 "tripFilter.pickPrompt" = "行きたい場所を選ぶ";
 "tripFilter.startCustom" = "%@へ出発";
 
+"placeDetail.stampCount" = "スタンプ";
+"placeDetail.reviewCount" = "レビュー";
+"placeDetail.reviewsTitle" = "訪れた人たち";
+"placeDetail.noReviews" = "まだレビューがありません。最初のひとことをどうぞ。";
+"placeSearch.depopulated" = "人口減少";
 "placeSearch.fieldPlaceholder" = "地域や場所で検索";
 "placeSearch.headingRecommended" = "人の少ないおすすめ地域";
 "placeSearch.headingResults" = "検索結果";

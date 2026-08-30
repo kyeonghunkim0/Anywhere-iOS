@@ -114,6 +114,12 @@ struct AnywhereApp: App {
                         signOutUseCase: container.signOutUseCase
                     )
                 },
+                placeDetail: { placeId in
+                    PlaceDetailViewModel(
+                        placeId: placeId,
+                        fetchPlaceDetailUseCase: container.fetchPlaceDetailUseCase
+                    )
+                },
                 regionDetail: { regionId in
                     RegionDetailViewModel(
                         regionId: regionId,

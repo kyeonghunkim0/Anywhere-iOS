@@ -52,6 +52,11 @@
 "tripFilter.pickPrompt" = "挑一个想去的地方";
 "tripFilter.startCustom" = "出发去%@";
 
+"placeDetail.stampCount" = "印章";
+"placeDetail.reviewCount" = "评价";
+"placeDetail.reviewsTitle" = "去过的人";
+"placeDetail.noReviews" = "还没有评价，来写第一条吧。";
+"placeSearch.depopulated" = "人口减少";
 "placeSearch.fieldPlaceholder" = "按地区或地点搜索";
 "placeSearch.headingRecommended" = "人少的推荐地区";
 "placeSearch.headingResults" = "搜索结果";

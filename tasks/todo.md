@@ -218,3 +218,20 @@
 
 ## 다음
 - `GET /api/places/{id}`가 서버에 생겼다(확인 완료). 장소 상세를 만들 수 있다.
+
+---
+
+# 장소 상세 (GET /api/places/{id})
+
+## 할 일
+- [x] Domain — `PlaceDetail`·`PlaceTag` 엔티티, `PlaceRepository`, `FetchPlaceDetailUseCase`
+- [x] Data — `PlaceAPI.detail`, `PlaceDetailDTO`, 매퍼, `PlaceRepositoryImpl`, `DataContainer` 등록
+- [x] `PlaceDetailView` — 지도 히어로 / 도장·후기 수 / 태그 / 주소 / 후기 목록
+- [x] `PickedPlaceView` 삭제 — 좌표도 후기도 없는 텍스트 화면이었다. 이제 진짜 상세가 그 자리를 대신한다
+- [x] 컴파일 통과 + 시뮬레이터 실서버 확인 (부천시 "[테스트] 코앞 스팟", 도장 1 · 후기 1 · "굿굿")
+
+## 결정
+- 프로토타입에 없는 화면이라 매칭 결과 화면(지도 히어로 + 통계 줄)의 언어를 그대로 따랐다.
+- `Route.placeDetail(placeId:showsArrivalAction:)` — "내 맘대로"로 고른 목적지도 같은 화면으로 오고, 그때만 GPS 인증 버튼이 붙는다. 화면을 두 개로 나누지 않기 위함.
+- 후기가 상세 응답에 함께 오므로 후기 API를 따로 부르지 않는다. 요청은 하나뿐이다.
+- `mapX`가 경도, `mapY`가 위도인 서버 함정은 매퍼에서 뒤집어 흡수한다(기존 PlaceDTO와 같은 방식).

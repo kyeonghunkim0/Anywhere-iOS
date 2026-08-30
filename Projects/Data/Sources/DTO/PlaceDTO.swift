@@ -31,3 +31,24 @@ struct TaggedPlaceDTO: Decodable, Sendable {
     let sigunguName: String
     let isDepopulated: Bool
 }
+
+struct PlaceTagDTO: Decodable, Sendable {
+    let id: String
+    let label: String
+    let emoji: String?
+}
+
+/// GET /api/places/{placeId}.
+struct PlaceDetailDTO: Decodable, Sendable {
+    let id: String
+    let name: String
+    let address: String
+    let thumbnail: String?
+    let mapX: Double
+    let mapY: Double
+    let region: RegionDTO
+    let tags: [PlaceTagDTO]
+    let stampCount: Int
+    let reviewCount: Int
+    let reviews: [PlaceReviewDTO]
+}

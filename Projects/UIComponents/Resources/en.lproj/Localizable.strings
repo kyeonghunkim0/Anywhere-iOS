@@ -52,6 +52,11 @@
 "tripFilter.pickPrompt" = "Choose where to go";
 "tripFilter.startCustom" = "Head to %@";
 
+"placeDetail.stampCount" = "Stamps";
+"placeDetail.reviewCount" = "Reviews";
+"placeDetail.reviewsTitle" = "People who went";
+"placeDetail.noReviews" = "No reviews yet. Leave the first one.";
+"placeSearch.depopulated" = "Shrinking";
 "placeSearch.fieldPlaceholder" = "Search by region or place";
 "placeSearch.headingRecommended" = "Quiet regions we recommend";
 "placeSearch.headingResults" = "Search results";

@@ -52,6 +52,11 @@
 "tripFilter.pickPrompt" = "가고 싶은 곳을 골라요";
 "tripFilter.startCustom" = "%@으로 떠나기";
 
+"placeDetail.stampCount" = "찍힌 도장";
+"placeDetail.reviewCount" = "후기";
+"placeDetail.reviewsTitle" = "다녀온 사람들";
+"placeDetail.noReviews" = "아직 후기가 없어요. 첫 한마디를 남겨보세요.";
+"placeSearch.depopulated" = "인구감소";
 "placeSearch.fieldPlaceholder" = "지역이나 장소로 검색";
 "placeSearch.headingRecommended" = "사람 적은 추천 지역";
 "placeSearch.headingResults" = "검색 결과";

@@ -27,8 +27,6 @@ public enum Route: Hashable, Identifiable, Sendable {
     case matchResult(match: RandomMatch, radiusKm: Double?)
     /// 내 맘대로 고르기 — 랜덤 대신 직접 목적지를 검색한다.
     case placeSearch
-    /// 검색에서 고른 장소의 결과 창. 좌표가 없는 목록형 장소라 TaggedPlace를 그대로 싣는다.
-    case pickedPlace(place: TaggedPlace)
     /// 도착 인증 — GPS 체크인으로 도장을 찍는다.
     /// 체크인 API가 matchId가 아니라 placeId를 받으므로 장소 식별자만 싣는다.
     case arrivalVerification(place: PlaceRef)
@@ -40,8 +38,9 @@ public enum Route: Hashable, Identifiable, Sendable {
     case regionDetail(regionId: String)
     /// 랭커 상세. 순위는 상세 API가 주지 않아 목록에서 눌린 값을 들고 간다.
     case rankerDetail(userId: String, rank: Int)
-    /// 장소 상세
-    case placeDetail(placeId: String)
+    /// 장소 상세. "내 맘대로"로 고른 목적지도 이 화면으로 오고,
+    /// 그때만(showsArrivalAction) 도착 인증 버튼이 붙는다.
+    case placeDetail(placeId: String, showsArrivalAction: Bool = false)
     /// 이용약관
     case terms
     /// 개인정보 처리방침

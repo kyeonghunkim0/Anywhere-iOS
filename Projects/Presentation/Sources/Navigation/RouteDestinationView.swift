@@ -28,7 +28,9 @@ struct RouteDestinationView: View {
                 onPickMyself: { coordinator.pushViewController(.placeSearch) },
                 onStartCustom: {
                     guard let picked = plan.pickedPlace else { return }
-                    coordinator.pushViewController(.pickedPlace(place: picked))
+                    coordinator.pushViewController(
+                        .placeDetail(placeId: picked.id, showsArrivalAction: true)
+                    )
                 }
             )
 
@@ -57,13 +59,13 @@ struct RouteDestinationView: View {
                 onDone: { coordinator.popViewController() }
             )
 
-        case .pickedPlace(let place):
-            PickedPlaceView(
-                place: place,
-                onBack: { coordinator.popViewController() },
-                onVerifyArrival: {
-                    coordinator.pushViewController(.arrivalVerification(place: PlaceRef(place)))
-                }
+        case .placeDetail(let placeId, let showsArrivalAction):
+            PlaceDetailView(
+                viewModel: factory.placeDetail(placeId),
+                onVerifyArrival: showsArrivalAction
+                    ? { coordinator.pushViewController(.arrivalVerification(place: $0)) }
+                    : nil,
+                onBack: { coordinator.popViewController() }
             )
 
         case .arrivalVerification(let place):
@@ -108,7 +110,7 @@ struct RouteDestinationView: View {
             LegalDocumentView(document: .privacy, onClose: { close() })
 
         // 아직 화면이 없는 Route는 자리표시자로 둔다 — 화면이 생기는 대로 이 case를 교체한다.
-        case .profile, .ranking, .settings, .placeDetail:
+        case .profile, .ranking, .settings:
             placeholder
         }
     }

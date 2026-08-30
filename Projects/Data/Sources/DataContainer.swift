@@ -30,6 +30,7 @@ public final class DataContainer: Sendable {
     public var badgeRepository: BadgeRepository { BadgeRepositoryImpl(httpClient: httpClient) }
     public var regionRepository: RegionRepository { RegionRepositoryImpl(httpClient: httpClient) }
     public var tagRepository: TagRepository { TagRepositoryImpl(httpClient: httpClient) }
+    public var placeRepository: PlaceRepository { PlaceRepositoryImpl(httpClient: httpClient) }
     public var reviewRepository: ReviewRepository { ReviewRepositoryImpl(httpClient: httpClient) }
     public var appRepository: AppRepository { AppRepositoryImpl(httpClient: httpClient) }
     public var locationRepository: LocationRepository { sharedLocationRepository }

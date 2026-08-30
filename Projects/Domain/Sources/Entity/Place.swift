@@ -67,3 +67,56 @@ public struct PlaceRef: Sendable, Identifiable, Hashable {
         self.init(id: place.id, name: place.name)
     }
 }
+
+/// 장소에 붙은 큐레이션 태그. 목록 API의 CurationTag와 달리 placeCount가 없다.
+public struct PlaceTag: Sendable, Identifiable, Hashable {
+    public let id: String
+    public let label: String
+    public let emoji: String?
+
+    public init(id: String, label: String, emoji: String?) {
+        self.id = id
+        self.label = label
+        self.emoji = emoji
+    }
+}
+
+/// GET /api/places/{placeId} — 좌표·지역·태그·도장수·후기를 한 번에 준다.
+public struct PlaceDetail: Sendable, Identifiable {
+    public let id: String
+    public let name: String
+    public let address: String
+    public let thumbnailURL: URL?
+    public let coordinate: Coordinate
+    public let region: Region
+    public let tags: [PlaceTag]
+    /// 이 장소에서 발급된 도장 수.
+    public let stampCount: Int
+    public let reviewCount: Int
+    /// 서버가 함께 실어 보내는 최근 후기 — 따로 후기 API를 부르지 않아도 된다.
+    public let reviews: [PlaceReview]
+
+    public init(
+        id: String,
+        name: String,
+        address: String,
+        thumbnailURL: URL?,
+        coordinate: Coordinate,
+        region: Region,
+        tags: [PlaceTag],
+        stampCount: Int,
+        reviewCount: Int,
+        reviews: [PlaceReview]
+    ) {
+        self.id = id
+        self.name = name
+        self.address = address
+        self.thumbnailURL = thumbnailURL
+        self.coordinate = coordinate
+        self.region = region
+        self.tags = tags
+        self.stampCount = stampCount
+        self.reviewCount = reviewCount
+        self.reviews = reviews
+    }
+}
