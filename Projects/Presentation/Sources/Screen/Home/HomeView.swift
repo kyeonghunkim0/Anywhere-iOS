@@ -267,12 +267,7 @@ private struct GrowthRegionRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            Circle()
-                .fill(DSColor.green50)
-                .frame(width: 64, height: 64)
-                .overlay {
-                    DSIconView(.sprout, size: 26, color: DSColor.brandPrimary)
-                }
+            RegionBadgeIcon(badge: region.badge, diameter: 64)
 
             VStack(alignment: .leading, spacing: 6) {
                 Text(region.displayName)

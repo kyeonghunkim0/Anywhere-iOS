@@ -7,6 +7,12 @@ extension RegionDTO {
     }
 }
 
+extension RegionBadgeDTO {
+    func toEntity() -> RegionBadge {
+        RegionBadge(key: key, name: name, description: description, iconURL: URL(string: icon))
+    }
+}
+
 extension GrowthRegionDTO {
     func toEntity() -> GrowthRegion {
         GrowthRegion(
@@ -17,7 +23,8 @@ extension GrowthRegionDTO {
             level: level,
             current: current,
             target: target,
-            remaining: remaining
+            remaining: remaining,
+            badge: badge?.toEntity()
         )
     }
 }

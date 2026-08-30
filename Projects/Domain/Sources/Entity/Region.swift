@@ -19,6 +19,22 @@ public struct Region: Sendable, Identifiable, Hashable {
     public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
 }
 
+/// 지역마다 하나씩 걸린 기초자치단체 뱃지. 목록·상세 응답에 함께 실려 온다.
+public struct RegionBadge: Sendable, Equatable {
+    public let key: String
+    public let name: String
+    public let description: String
+    /// 서버가 내려주는 뱃지 이미지 URL.
+    public let iconURL: URL?
+
+    public init(key: String, name: String, description: String, iconURL: URL?) {
+        self.key = key
+        self.name = name
+        self.description = description
+        self.iconURL = iconURL
+    }
+}
+
 /// GET /api/regions/growth — 레벨업이 임박한 인구감소지역.
 public struct GrowthRegion: Sendable, Identifiable, Equatable {
     public var id: String { regionId }
@@ -32,6 +48,8 @@ public struct GrowthRegion: Sendable, Identifiable, Equatable {
     /// 다음 레벨까지 필요한 누적 방문 수.
     public let target: Int
     public let remaining: Int
+    /// 이 지역의 기초자치단체 뱃지. 아직 안 내려주는 지역이 있을 수 있어 옵셔널이다.
+    public let badge: RegionBadge?
 
     public init(
         regionId: String,
@@ -41,7 +59,8 @@ public struct GrowthRegion: Sendable, Identifiable, Equatable {
         level: Int,
         current: Int,
         target: Int,
-        remaining: Int
+        remaining: Int,
+        badge: RegionBadge? = nil
     ) {
         self.regionId = regionId
         self.sidoName = sidoName
@@ -51,6 +70,7 @@ public struct GrowthRegion: Sendable, Identifiable, Equatable {
         self.current = current
         self.target = target
         self.remaining = remaining
+        self.badge = badge
     }
 
     public var fullName: String { "\(sidoName) \(sigunguName)" }
