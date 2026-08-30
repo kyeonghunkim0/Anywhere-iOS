@@ -39,7 +39,9 @@ struct RankerDetailView: View {
                         .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.semibold))
                         .foregroundStyle(DSColor.textSecondary)
 
-                    Button(L10n.arrivalRetry) { Task { await viewModel.retry() } }
+                    Button(L10n.arrivalRetry) {
+                        Task { await viewModel.retry() }
+                    }
                         .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.bold))
                         .foregroundStyle(DSColor.brandPrimary)
                 }
@@ -191,8 +193,8 @@ struct RankerDetailView: View {
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(ranker.stamps) { stamp in
                     VStack(spacing: 8) {
-                        DSIconView(stamp.regionId.regionIcon, size: 24, color: DSColor.brandPrimary)
-                            .frame(width: 60, height: 60)
+                        DSIconView(stamp.regionId.regionIcon, size: 22, color: DSColor.brandPrimary)
+                            .frame(width: 56, height: 56)
                             .background(DSColor.green50)
                             .clipShape(Circle())
                             .overlay {
