@@ -221,12 +221,7 @@ struct PassportView: View {
 
     private func badgeCard(_ badge: Badge) -> some View {
         VStack(spacing: 0) {
-            DSIconView(
-                badge.stampIcon,
-                size: 26,
-                color: badge.isUnlocked ? DSColor.brandAccent : DSColor.textMuted
-            )
-            .frame(width: 56, height: 56)
+            BadgeIcon(badge: badge, diameter: 56)
             .background(Color.white)
             .clipShape(Circle())
             .opacity(badge.isUnlocked ? 1 : 0.45)

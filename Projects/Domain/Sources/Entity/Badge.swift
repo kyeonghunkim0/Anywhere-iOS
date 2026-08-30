@@ -18,7 +18,8 @@ public struct Badge: Sendable, Identifiable {
     public let key: String
     public let name: String
     public let description: String
-    /// 서버가 정한 아이콘 식별자 문자열 (URL이 아니다).
+    /// 서버가 준 뱃지 아이콘. 완전한 이미지 URL(`http…/static/badges/*.png`)로 내려온다.
+    /// 구버전 식별자 문자열이 섞여 올 수 있어 URL 변환은 `iconURL`에서 방어적으로 한다.
     public let icon: String
     public let type: BadgeType
     public let status: BadgeStatus
@@ -62,5 +63,11 @@ public struct Badge: Sendable, Identifiable {
         self.radiusM = radiusM
         self.regionId = regionId
         self.placeId = placeId
+    }
+
+    /// 뱃지 아이콘 이미지 URL. `icon`이 URL이 아니면(구버전 식별자) nil.
+    public var iconURL: URL? {
+        guard icon.hasPrefix("http") else { return nil }
+        return URL(string: icon)
     }
 }
