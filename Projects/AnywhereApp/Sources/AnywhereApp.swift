@@ -30,8 +30,14 @@ struct AnywhereApp: App {
     @State private var loginViewModel: LoginViewModel
 
     init() {
+        #if DEBUG
         /// 개발 서버 주소. 실기기는 localhost로 붙을 수 없어 맥의 LAN IP로 바꿔야 한다.
-        let container = AppDependencyContainer(baseURL: URL(string: "http://192.168.219.106:3000")!)
+        let baseURL = URL(string: "http://192.168.219.106:3000")!
+        #else
+        /// 운영 서버 주소.
+        let baseURL = URL(string: "http://161.33.223.198")!
+        #endif
+        let container = AppDependencyContainer(baseURL: baseURL)
         self.container = container
         _rootViewModel = State(wrappedValue: RootViewModel(restoreSessionUseCase: container.restoreSessionUseCase))
         _loginViewModel = State(wrappedValue: LoginViewModel(signInUseCase: container.signInUseCase))
