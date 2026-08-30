@@ -92,6 +92,17 @@
 "ranking.emptyRegions" = "まだ成長中の地域がありません。";
 "ranking.emptyUsers" = "まだ順位がありません。";
 
+"regionDetail.level" = "Lv.%d";
+"regionDetail.levelDepopulated" = "Lv.%d · 人口減少地域";
+"regionDetail.visitors" = "訪問 %d 人";
+"regionDetail.target" = "目標 %d 人";
+"regionDetail.levelsTitle" = "レベル達成状況";
+"regionDetail.quoteTitle" = "住民のひとこと";
+"regionDetail.imageCredit" = "© %@";
+
+"rankerDetail.monthlyTitle" = "今月の活動";
+"rankerDetail.stampsTitle" = "代表スタンプ";
+
 "matching.title" = "どこでも選び中";
 "matching.subtitle" = "全国のスポットから選んでいます";
 "matching.failureTitle" = "マッチングに失敗しました";

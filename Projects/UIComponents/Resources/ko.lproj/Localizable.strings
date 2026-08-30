@@ -92,6 +92,17 @@
 "ranking.emptyRegions" = "아직 성장 중인 지역이 없어요.";
 "ranking.emptyUsers" = "아직 순위가 없어요.";
 
+"regionDetail.level" = "Lv.%d";
+"regionDetail.levelDepopulated" = "Lv.%d · 인구 소멸 지역";
+"regionDetail.visitors" = "방문 %d명";
+"regionDetail.target" = "목표 %d명";
+"regionDetail.levelsTitle" = "레벨 달성 현황";
+"regionDetail.quoteTitle" = "주민 한마디";
+"regionDetail.imageCredit" = "© %@";
+
+"rankerDetail.monthlyTitle" = "이번 달 활동";
+"rankerDetail.stampsTitle" = "대표 도장";
+
 "matching.title" = "아무데나 고르는 중";
 "matching.subtitle" = "전국 곳곳에서 고르고 있어요";
 "matching.failureTitle" = "매칭 실패";

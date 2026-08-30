@@ -1,3 +1,4 @@
+import Foundation
 import Domain
 
 extension RegionDTO {
@@ -34,6 +35,8 @@ extension RegionDetailDTO {
             progressLabel: progressLabel,
             remainLabel: remainLabel,
             quote: quote,
+            imageURL: imageUrl.flatMap(URL.init(string:)),
+            imageCredit: imageCredit,
             stats: stats.map { $0.toEntity() },
             levels: levels.map {
                 RegionLevelRow(level: $0.level, label: $0.label, reward: $0.reward, achieved: $0.achieved)

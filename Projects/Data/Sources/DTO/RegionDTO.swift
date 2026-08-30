@@ -37,6 +37,8 @@ struct RegionDetailDTO: Decodable, Sendable {
     let progressLabel: String
     let remainLabel: String
     let quote: String?
+    let imageUrl: String?
+    let imageCredit: String?
     let stats: [LabeledValueDTO]
     let levels: [RegionLevelRowDTO]
 }

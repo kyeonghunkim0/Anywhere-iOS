@@ -1,3 +1,5 @@
+import Foundation
+
 public struct Region: Sendable, Identifiable, Hashable {
     public let id: String
     public let sidoName: String
@@ -89,6 +91,9 @@ public struct RegionDetail: Sendable, Identifiable {
     public let remainLabel: String
     /// 주민 한마디. 없을 수 있다.
     public let quote: String?
+    /// 지역 대표 사진과 그 저작자. 서버가 한국관광공사 이미지를 내려준다.
+    public let imageURL: URL?
+    public let imageCredit: String?
     public let stats: [LabeledValue]
     public let levels: [RegionLevelRow]
 
@@ -103,6 +108,8 @@ public struct RegionDetail: Sendable, Identifiable {
         progressLabel: String,
         remainLabel: String,
         quote: String?,
+        imageURL: URL?,
+        imageCredit: String?,
         stats: [LabeledValue],
         levels: [RegionLevelRow]
     ) {
@@ -116,6 +123,8 @@ public struct RegionDetail: Sendable, Identifiable {
         self.progressLabel = progressLabel
         self.remainLabel = remainLabel
         self.quote = quote
+        self.imageURL = imageURL
+        self.imageCredit = imageCredit
         self.stats = stats
         self.levels = levels
     }

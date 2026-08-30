@@ -92,6 +92,17 @@
 "ranking.emptyRegions" = "还没有正在成长的地区。";
 "ranking.emptyUsers" = "还没有排名。";
 
+"regionDetail.level" = "Lv.%d";
+"regionDetail.levelDepopulated" = "Lv.%d · 人口减少地区";
+"regionDetail.visitors" = "访问 %d 人";
+"regionDetail.target" = "目标 %d 人";
+"regionDetail.levelsTitle" = "等级达成情况";
+"regionDetail.quoteTitle" = "居民寄语";
+"regionDetail.imageCredit" = "© %@";
+
+"rankerDetail.monthlyTitle" = "本月活动";
+"rankerDetail.stampsTitle" = "代表印章";
+
 "matching.title" = "正在随便挑一处";
 "matching.subtitle" = "正在全国各地挑选";
 "matching.failureTitle" = "匹配失败";

@@ -107,6 +107,18 @@ struct AnywhereApp: App {
                         fetchMyRankUseCase: container.fetchMyRankUseCase
                     )
                 },
+                regionDetail: { regionId in
+                    RegionDetailViewModel(
+                        regionId: regionId,
+                        fetchRegionDetailUseCase: container.fetchRegionDetailUseCase
+                    )
+                },
+                rankerDetail: { userId in
+                    RankerDetailViewModel(
+                        userId: userId,
+                        fetchRankerDetailUseCase: container.fetchRankerDetailUseCase
+                    )
+                },
                 arrivalVerification: { place in
                     ArrivalVerificationViewModel(
                         place: place,

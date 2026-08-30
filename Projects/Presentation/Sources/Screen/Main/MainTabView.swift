@@ -75,14 +75,21 @@ struct MainTabView: View {
             HomeView(
                 viewModel: homeViewModel,
                 onStartTrip: onStartTrip,
-                onVerifyArrival: onVerifyArrival
+                onVerifyArrival: onVerifyArrival,
+                onOpenRegion: { coordinator.pushViewController(.regionDetail(regionId: $0)) }
             )
         case .passport:
             PassportView(viewModel: passportViewModel) { section in
                 coordinator.pushViewController(.passportDetail(userId: userID, section: section))
             }
         case .ranking:
-            RankingView(viewModel: rankingViewModel)
+            RankingView(
+                viewModel: rankingViewModel,
+                onOpenRegion: { coordinator.pushViewController(.regionDetail(regionId: $0)) },
+                onOpenRanker: {
+                    coordinator.pushViewController(.rankerDetail(userId: $0.userId, rank: $0.rank))
+                }
+            )
         case .settings:
             comingSoon
         }

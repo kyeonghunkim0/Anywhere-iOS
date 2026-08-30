@@ -92,6 +92,17 @@
 "ranking.emptyRegions" = "No regions growing yet.";
 "ranking.emptyUsers" = "No rankings yet.";
 
+"regionDetail.level" = "Lv.%d";
+"regionDetail.levelDepopulated" = "Lv.%d · shrinking region";
+"regionDetail.visitors" = "%d visits";
+"regionDetail.target" = "Goal %d";
+"regionDetail.levelsTitle" = "Level progress";
+"regionDetail.quoteTitle" = "A word from a local";
+"regionDetail.imageCredit" = "© %@";
+
+"rankerDetail.monthlyTitle" = "This month";
+"rankerDetail.stampsTitle" = "Signature stamps";
+
 "matching.title" = "Picking somewhere";
 "matching.subtitle" = "Choosing from spots across the country";
 "matching.failureTitle" = "Match failed";

@@ -13,11 +13,19 @@ import UIComponents
 
 struct RankingView: View {
     @State private var viewModel: RankingViewModel
+    private let onOpenRegion: (String) -> Void
+    private let onOpenRanker: (UserRankItem) -> Void
     /// 프로토타입 기본값과 같다 — 이 앱이 미는 건 사람 순위가 아니라 지역 성장이다.
     @State private var segment = Segment.city.rawValue
 
-    init(viewModel: RankingViewModel) {
+    init(
+        viewModel: RankingViewModel,
+        onOpenRegion: @escaping (String) -> Void = { _ in },
+        onOpenRanker: @escaping (UserRankItem) -> Void = { _ in }
+    ) {
         _viewModel = State(wrappedValue: viewModel)
+        self.onOpenRegion = onOpenRegion
+        self.onOpenRanker = onOpenRanker
     }
 
     private enum Segment: String {
@@ -72,7 +80,10 @@ struct RankingView: View {
             } else {
                 VStack(spacing: 12) {
                     ForEach(viewModel.growthRegions) { region in
-                        growthCard(region)
+                        Button { onOpenRegion(region.regionId) } label: {
+                            growthCard(region)
+                        }
+                        .buttonStyle(DSPressStyle())
                     }
                 }
                 .padding(.top, 26)
@@ -90,7 +101,7 @@ struct RankingView: View {
                 .background(DSColor.green100)
                 .clipShape(RoundedRectangle(cornerRadius: 7, style: .continuous))
 
-            Text(region.fullName)
+            Text(region.displayName)
                 .font(DSTypography.font(22, weight: DSTypography.Weight.extrabold))
                 .foregroundStyle(DSColor.textPrimary)
                 .padding(.top, 14)
@@ -142,7 +153,10 @@ struct RankingView: View {
             } else {
                 VStack(spacing: 0) {
                     ForEach(viewModel.rankers) { ranker in
-                        rankerRow(ranker)
+                        Button { onOpenRanker(ranker) } label: {
+                            rankerRow(ranker)
+                        }
+                        .buttonStyle(DSPressStyle())
                     }
                 }
             }
@@ -204,6 +218,8 @@ struct RankingView: View {
                     .foregroundStyle(DSColor.textSecondary)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
+
+            DSIconView(.chevronRight, size: 14, color: DSColor.textMuted)
         }
         .padding(.vertical, 16)
         .overlay(alignment: .top) {

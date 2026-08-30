@@ -38,6 +38,8 @@ public enum Route: Hashable, Identifiable, Sendable {
     case passportDetail(userId: String, section: PassportSection)
     /// 지역 상세
     case regionDetail(regionId: String)
+    /// 랭커 상세. 순위는 상세 API가 주지 않아 목록에서 눌린 값을 들고 간다.
+    case rankerDetail(userId: String, rank: Int)
     /// 장소 상세
     case placeDetail(placeId: String)
     /// 이용약관

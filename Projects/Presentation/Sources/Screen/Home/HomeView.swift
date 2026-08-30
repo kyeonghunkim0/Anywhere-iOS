@@ -15,15 +15,18 @@ public struct HomeView: View {
     @Bindable private var viewModel: HomeViewModel
     private let onStartTrip: () -> Void
     private let onVerifyArrival: (Place) -> Void
+    private let onOpenRegion: (String) -> Void
 
     public init(
         viewModel: HomeViewModel,
         onStartTrip: @escaping () -> Void = {},
-        onVerifyArrival: @escaping (Place) -> Void = { _ in }
+        onVerifyArrival: @escaping (Place) -> Void = { _ in },
+        onOpenRegion: @escaping (String) -> Void = { _ in }
     ) {
         self.viewModel = viewModel
         self.onStartTrip = onStartTrip
         self.onVerifyArrival = onVerifyArrival
+        self.onOpenRegion = onOpenRegion
     }
 
     public var body: some View {
@@ -204,7 +207,10 @@ public struct HomeView: View {
             .padding(.bottom, 16)
 
             ForEach(viewModel.growthRegions) { region in
-                GrowthRegionRow(region: region)
+                Button { onOpenRegion(region.regionId) } label: {
+                    GrowthRegionRow(region: region)
+                }
+                .buttonStyle(DSPressStyle())
             }
         }
         .padding(.top, 36)
