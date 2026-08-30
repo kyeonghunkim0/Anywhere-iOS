@@ -12,12 +12,22 @@ public struct DSStampTile: View {
     private let name: String
     private let isCollected: Bool
     private let visitorNumber: Int?
+    /// 서버가 준 뱃지 이미지. 있으면 원 안 아이콘 대신 이 이미지를 채운다.
+    /// 미방문이면 흑백 + 반투명으로 "자리만" 보여준다.
+    private let imageURL: URL?
 
-    public init(icon: DSIcon, name: String, isCollected: Bool, visitorNumber: Int? = nil) {
+    public init(
+        icon: DSIcon,
+        name: String,
+        isCollected: Bool,
+        visitorNumber: Int? = nil,
+        imageURL: URL? = nil
+    ) {
         self.icon = icon
         self.name = name
         self.isCollected = isCollected
         self.visitorNumber = visitorNumber
+        self.imageURL = imageURL
     }
 
     public var body: some View {
@@ -32,20 +42,20 @@ public struct DSStampTile: View {
 
     private var stamp: some View {
         ZStack {
-            Circle()
-                .fill(isCollected ? DSColor.brandPrimary : DSColor.surfaceSunken)
-                .overlay {
-                    if !isCollected {
-                        Circle()
-                            .strokeBorder(
-                                DSColor.borderStrong,
-                                style: StrokeStyle(lineWidth: 2, dash: [4, 3])
-                            )
-                    }
+            if let imageURL {
+                AsyncImage(url: imageURL) { image in
+                    image
+                        .resizable()
+                        .scaledToFit()
+                } placeholder: {
+                    placeholderCircle
                 }
-                .dsShadow(isCollected ? DSShadow.sm : .none)
-
-            DSIconView(icon, size: 22, color: isCollected ? Color.white : DSColor.borderStrong)
+                .saturation(isCollected ? 1 : 0)
+                .opacity(isCollected ? 1 : 0.4)
+            } else {
+                placeholderCircle
+                DSIconView(icon, size: 22, color: isCollected ? Color.white : DSColor.borderStrong)
+            }
         }
         .frame(width: 56, height: 56)
         // 도장/자물쇠 표식은 원 밖으로 삐져나온다 — 타일 크기는 원 그대로 두고 겹쳐 얹는다.
@@ -53,6 +63,21 @@ public struct DSStampTile: View {
             marker
                 .offset(x: 8, y: 4)
         }
+    }
+
+    private var placeholderCircle: some View {
+        Circle()
+            .fill(isCollected ? DSColor.brandPrimary : DSColor.surfaceSunken)
+            .overlay {
+                if !isCollected {
+                    Circle()
+                        .strokeBorder(
+                            DSColor.borderStrong,
+                            style: StrokeStyle(lineWidth: 2, dash: [4, 3])
+                        )
+                }
+            }
+            .dsShadow(isCollected ? DSShadow.sm : .none)
     }
 
     @ViewBuilder

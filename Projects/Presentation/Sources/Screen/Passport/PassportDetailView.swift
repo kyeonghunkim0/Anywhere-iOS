@@ -88,7 +88,8 @@ struct PassportDetailView: View {
                     icon: region.stampIcon,
                     name: region.displayName,
                     isCollected: region.isVisited,
-                    visitorNumber: region.visitorNumber
+                    visitorNumber: region.visitorNumber,
+                    imageURL: region.badge?.iconURL
                 )
             }
         }

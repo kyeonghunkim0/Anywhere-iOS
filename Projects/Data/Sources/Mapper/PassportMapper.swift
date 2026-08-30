@@ -19,7 +19,8 @@ extension PassportDTO {
                     visitCount: dto.visitCount,
                     lastVisitedAt: dto.lastVisitedAt,
                     level: dto.level,
-                    visitorNumber: dto.visitorNumber
+                    visitorNumber: dto.visitorNumber,
+                    badge: dto.badge?.toEntity()
                 )
             }
         )

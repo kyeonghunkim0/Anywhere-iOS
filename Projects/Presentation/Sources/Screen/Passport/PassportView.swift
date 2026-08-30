@@ -145,7 +145,8 @@ struct PassportView: View {
                             icon: region.stampIcon,
                             name: region.displayName,
                             isCollected: true,
-                            visitorNumber: region.visitorNumber
+                            visitorNumber: region.visitorNumber,
+                            imageURL: region.badge?.iconURL
                         )
                     }
                 }

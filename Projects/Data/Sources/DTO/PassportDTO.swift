@@ -10,6 +10,8 @@ struct PassportRegionDTO: Decodable, Sendable {
     let lastVisitedAt: Date?
     let level: Int
     let visitorNumber: Int?
+    /// 이 칸에 들어갈 기초자치단체 뱃지. 뱃지 없는 지역은 null.
+    let badge: RegionBadgeDTO?
 }
 
 /// GET /api/passport/{userId}.

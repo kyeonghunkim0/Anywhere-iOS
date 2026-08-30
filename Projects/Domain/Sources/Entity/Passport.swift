@@ -13,6 +13,9 @@ public struct PassportRegion: Sendable, Identifiable, Equatable {
     public let level: Int
     /// 내가 그 지역의 몇 번째 방문자였는지 (최초 방문 기준). 미방문이면 nil.
     public let visitorNumber: Int?
+    /// 이 칸에 들어갈 기초자치단체 뱃지. 방문 여부와 무관하게 채워지며,
+    /// 아직 뱃지가 없는 지역은 nil이다.
+    public let badge: RegionBadge?
 
     public init(
         regionId: String,
@@ -23,7 +26,8 @@ public struct PassportRegion: Sendable, Identifiable, Equatable {
         visitCount: Int,
         lastVisitedAt: Date?,
         level: Int,
-        visitorNumber: Int?
+        visitorNumber: Int?,
+        badge: RegionBadge? = nil
     ) {
         self.regionId = regionId
         self.sidoName = sidoName
@@ -34,6 +38,7 @@ public struct PassportRegion: Sendable, Identifiable, Equatable {
         self.lastVisitedAt = lastVisitedAt
         self.level = level
         self.visitorNumber = visitorNumber
+        self.badge = badge
     }
 
     public var fullName: String { "\(sidoName) \(sigunguName)" }
