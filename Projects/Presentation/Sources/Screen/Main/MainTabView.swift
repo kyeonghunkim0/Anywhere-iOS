@@ -19,6 +19,7 @@ struct MainTabView: View {
     @State private var homeViewModel: HomeViewModel
     @State private var passportViewModel: PassportViewModel
     @State private var rankingViewModel: RankingViewModel
+    @State private var settingsViewModel: SettingsViewModel
     @State private var tab: Tab = .home
 
     @Environment(NavigationCoordinator.self) private var coordinator
@@ -28,25 +29,30 @@ struct MainTabView: View {
     private let onStartTrip: () -> Void
     private let onVerifyArrival: (Place) -> Void
     private let onOpenProfile: () -> Void
+    private let onSignOut: () -> Void
 
     init(
         homeViewModel: HomeViewModel,
         passportViewModel: PassportViewModel,
         rankingViewModel: RankingViewModel,
+        settingsViewModel: SettingsViewModel,
         userID: String,
         nicknameInitial: String,
         onStartTrip: @escaping () -> Void = {},
         onVerifyArrival: @escaping (Place) -> Void = { _ in },
-        onOpenProfile: @escaping () -> Void = {}
+        onOpenProfile: @escaping () -> Void = {},
+        onSignOut: @escaping () -> Void = {}
     ) {
         _homeViewModel = State(wrappedValue: homeViewModel)
         _passportViewModel = State(wrappedValue: passportViewModel)
         _rankingViewModel = State(wrappedValue: rankingViewModel)
+        _settingsViewModel = State(wrappedValue: settingsViewModel)
         self.userID = userID
         self.nicknameInitial = nicknameInitial
         self.onStartTrip = onStartTrip
         self.onVerifyArrival = onVerifyArrival
         self.onOpenProfile = onOpenProfile
+        self.onSignOut = onSignOut
     }
 
     var body: some View {
@@ -91,7 +97,13 @@ struct MainTabView: View {
                 }
             )
         case .settings:
-            comingSoon
+            SettingsView(
+                viewModel: settingsViewModel,
+                onOpenDocument: { document in
+                    coordinator.pushViewController(document == .terms ? .terms : .privacy)
+                },
+                onSignOut: onSignOut
+            )
         }
     }
 

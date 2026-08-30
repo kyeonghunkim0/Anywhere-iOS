@@ -59,8 +59,16 @@ public struct RootView: View {
             case .restoring:
                 splash
             case .authenticated(let user):
-                MainScreen(user: user, factory: factory, coordinator: coordinator)
-                    .id(user.id)
+                MainScreen(
+                    user: user,
+                    factory: factory,
+                    coordinator: coordinator,
+                    onSignOut: {
+                        coordinator.reset()
+                        viewModel.signOut()
+                    }
+                )
+                .id(user.id)
             case .unauthenticated:
                 LoginView(
                     viewModel: loginViewModel,
@@ -98,13 +106,20 @@ private struct MainScreen: View {
     private let user: User
     private let factory: ViewModelFactory
     private let coordinator: NavigationCoordinator
+    private let onSignOut: () -> Void
 
     @Environment(TripPlanModel.self) private var plan
 
-    init(user: User, factory: ViewModelFactory, coordinator: NavigationCoordinator) {
+    init(
+        user: User,
+        factory: ViewModelFactory,
+        coordinator: NavigationCoordinator,
+        onSignOut: @escaping () -> Void
+    ) {
         self.user = user
         self.factory = factory
         self.coordinator = coordinator
+        self.onSignOut = onSignOut
     }
 
     var body: some View {
@@ -112,6 +127,7 @@ private struct MainScreen: View {
             homeViewModel: factory.home(user),
             passportViewModel: factory.passport(user.id),
             rankingViewModel: factory.ranking(),
+            settingsViewModel: factory.settings(),
             userID: user.id,
             nicknameInitial: String(user.nickname.prefix(1)),
             onStartTrip: {
@@ -120,7 +136,8 @@ private struct MainScreen: View {
                 coordinator.pushViewController(.tripFilter)
             },
             onVerifyArrival: { coordinator.pushViewController(.arrivalVerification(place: PlaceRef($0))) },
-            onOpenProfile: { coordinator.pushViewController(.profile) }
+            onOpenProfile: { coordinator.pushViewController(.profile) },
+            onSignOut: onSignOut
         )
     }
 }

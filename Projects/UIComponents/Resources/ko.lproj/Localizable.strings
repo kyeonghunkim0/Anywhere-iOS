@@ -103,6 +103,14 @@
 "rankerDetail.monthlyTitle" = "이번 달 활동";
 "rankerDetail.stampsTitle" = "대표 도장";
 
+"settings.title" = "설정";
+"settings.connectedWith" = "%@ 연결";
+"settings.groupNotification" = "알림";
+"settings.groupInfo" = "정보";
+"settings.pushNotification" = "푸시 알림";
+"settings.appVersion" = "앱 버전";
+"settings.signOut" = "로그아웃";
+
 "matching.title" = "아무데나 고르는 중";
 "matching.subtitle" = "전국 곳곳에서 고르고 있어요";
 "matching.failureTitle" = "매칭 실패";

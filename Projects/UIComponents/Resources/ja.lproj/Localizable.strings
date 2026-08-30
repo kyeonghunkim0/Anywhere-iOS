@@ -103,6 +103,14 @@
 "rankerDetail.monthlyTitle" = "今月の活動";
 "rankerDetail.stampsTitle" = "代表スタンプ";
 
+"settings.title" = "設定";
+"settings.connectedWith" = "%@ 連携";
+"settings.groupNotification" = "通知";
+"settings.groupInfo" = "情報";
+"settings.pushNotification" = "プッシュ通知";
+"settings.appVersion" = "アプリバージョン";
+"settings.signOut" = "ログアウト";
+
 "matching.title" = "どこでも選び中";
 "matching.subtitle" = "全国のスポットから選んでいます";
 "matching.failureTitle" = "マッチングに失敗しました";

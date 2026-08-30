@@ -103,6 +103,14 @@
 "rankerDetail.monthlyTitle" = "This month";
 "rankerDetail.stampsTitle" = "Signature stamps";
 
+"settings.title" = "Settings";
+"settings.connectedWith" = "%@ connected";
+"settings.groupNotification" = "Notifications";
+"settings.groupInfo" = "About";
+"settings.pushNotification" = "Push notifications";
+"settings.appVersion" = "App version";
+"settings.signOut" = "Sign out";
+
 "matching.title" = "Picking somewhere";
 "matching.subtitle" = "Choosing from spots across the country";
 "matching.failureTitle" = "Match failed";

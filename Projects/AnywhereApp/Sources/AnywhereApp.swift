@@ -107,6 +107,13 @@ struct AnywhereApp: App {
                         fetchMyRankUseCase: container.fetchMyRankUseCase
                     )
                 },
+                settings: {
+                    SettingsViewModel(
+                        fetchMyProfileUseCase: container.fetchMyProfileUseCase,
+                        updateSettingsUseCase: container.updateSettingsUseCase,
+                        signOutUseCase: container.signOutUseCase
+                    )
+                },
                 regionDetail: { regionId in
                     RegionDetailViewModel(
                         regionId: regionId,

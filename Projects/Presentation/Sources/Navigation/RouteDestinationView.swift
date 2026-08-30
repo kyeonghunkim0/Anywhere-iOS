@@ -101,10 +101,24 @@ struct RouteDestinationView: View {
                 onBack: { coordinator.popViewController() }
             )
 
+        case .terms:
+            LegalDocumentView(document: .terms, onClose: { close() })
+
+        case .privacy:
+            LegalDocumentView(document: .privacy, onClose: { close() })
+
         // 아직 화면이 없는 Route는 자리표시자로 둔다 — 화면이 생기는 대로 이 case를 교체한다.
-        case .profile, .ranking, .settings,
-             .placeDetail, .terms, .privacy:
+        case .profile, .ranking, .settings, .placeDetail:
             placeholder
+        }
+    }
+
+    /// 로그인 화면에서는 시트로, 설정에서는 푸시로 열린다 — 어느 쪽으로 떠 있든 닫는다.
+    private func close() {
+        if coordinator.sheet != nil || coordinator.fullScreenCover != nil {
+            coordinator.dismiss()
+        } else {
+            coordinator.popViewController()
         }
     }
 

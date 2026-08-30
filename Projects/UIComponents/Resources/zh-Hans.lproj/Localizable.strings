@@ -103,6 +103,14 @@
 "rankerDetail.monthlyTitle" = "本月活动";
 "rankerDetail.stampsTitle" = "代表印章";
 
+"settings.title" = "设置";
+"settings.connectedWith" = "已连接 %@";
+"settings.groupNotification" = "通知";
+"settings.groupInfo" = "信息";
+"settings.pushNotification" = "推送通知";
+"settings.appVersion" = "应用版本";
+"settings.signOut" = "退出登录";
+
 "matching.title" = "正在随便挑一处";
 "matching.subtitle" = "正在全国各地挑选";
 "matching.failureTitle" = "匹配失败";

@@ -39,4 +39,9 @@ public final class RootViewModel {
     public func authenticate(_ user: User) {
         state = .authenticated(user)
     }
+
+    /// 로그아웃. 토큰을 지우는 건 UseCase가 하고, 화면 전환 권한은 여기 있다.
+    public func signOut() {
+        state = .unauthenticated
+    }
 }
