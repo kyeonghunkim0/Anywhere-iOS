@@ -106,13 +106,10 @@ struct RankingView: View {
                 .foregroundStyle(DSColor.textPrimary)
                 .padding(.top, 14)
 
-            DSProgressBar(value: region.progress, height: 6)
-                .padding(.top, 14)
-
             Text(L10n.homeRemainingToLevelUp(region.remaining, region.level + 1))
                 .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.semibold))
                 .foregroundStyle(DSColor.textSecondary)
-                .padding(.top, 10)
+                .padding(.top, 12)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
         .padding(20)
@@ -121,7 +118,7 @@ struct RankingView: View {
         .background(alignment: .bottomTrailing) {
             ZStack(alignment: .bottomTrailing) {
                 DSColor.surfaceSunken
-                DSIconView(region.regionId.regionIcon, size: 126, color: DSColor.brandPrimary)
+                RegionBadgeIcon(badge: region.badge, diameter: 126)
                     .opacity(0.13)
                     .offset(x: 10, y: 16)
             }

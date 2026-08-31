@@ -75,11 +75,3 @@ public final class RankingViewModel {
         }
     }
 }
-
-public extension GrowthRegion {
-    /// 레벨업까지 얼마나 왔는지. 서버는 progressLabel을 성장 목록엔 주지 않아 직접 계산한다.
-    var progress: Double {
-        guard target > 0 else { return 0 }
-        return min(max(Double(current) / Double(target) * 100, 0), 100)
-    }
-}
