@@ -25,7 +25,6 @@ struct MainTabView: View {
     @Environment(NavigationCoordinator.self) private var coordinator
 
     private let userID: String
-    private let nicknameInitial: String
     private let onStartTrip: () -> Void
     private let onVerifyArrival: (Place) -> Void
     private let onOpenProfile: () -> Void
@@ -37,7 +36,6 @@ struct MainTabView: View {
         rankingViewModel: RankingViewModel,
         settingsViewModel: SettingsViewModel,
         userID: String,
-        nicknameInitial: String,
         onStartTrip: @escaping () -> Void = {},
         onVerifyArrival: @escaping (Place) -> Void = { _ in },
         onOpenProfile: @escaping () -> Void = {},
@@ -48,7 +46,6 @@ struct MainTabView: View {
         _rankingViewModel = State(wrappedValue: rankingViewModel)
         _settingsViewModel = State(wrappedValue: settingsViewModel)
         self.userID = userID
-        self.nicknameInitial = nicknameInitial
         self.onStartTrip = onStartTrip
         self.onVerifyArrival = onVerifyArrival
         self.onOpenProfile = onOpenProfile
@@ -138,9 +135,7 @@ struct MainTabView: View {
                     .fill(DSColor.green50)
                     .frame(width: 38, height: 38)
                     .overlay {
-                        Text(nicknameInitial)
-                            .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.extrabold))
-                            .foregroundStyle(DSColor.brandPrimary)
+                        DSIconView(.profile, size: 20, color: DSColor.brandPrimary)
                     }
             }
             .buttonStyle(DSPressStyle())

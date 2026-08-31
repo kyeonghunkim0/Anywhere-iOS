@@ -35,7 +35,7 @@ enum DSIconElement {
 public enum DSIcon: String, CaseIterable, Sendable {
     // 시스템 세트
     case home, pin, passport, sprout, settings, target, compass, lock, flame
-    case check, chevronRight, close, star, quote, car, backpack, clock, chat
+    case check, chevronRight, close, star, quote, car, backpack, clock, chat, profile
     // 지역/뱃지 세트
     case ranking, tree, bridge, leaf, sparkles, cheese, train, wind, temple, baseball, fish
     // 시즌 뱃지 세트 — 서버가 자유 문자열로 내려주는 icon 키 중 실제로 쓰인 것만 그때그때 추가한다.
@@ -83,6 +83,11 @@ public enum DSIcon: String, CaseIterable, Sendable {
             return [.rect(x: 5, y: 10.5, w: 14, h: 9.5, rx: 2.2), .path("M7.8 10.5V8a4.2 4.2 0 0 1 8.4 0v2.5")]
         case .flame:
             return [.path("M12 2.5c1.2 3.4-2.6 4.6-2.6 8.4a2.6 2.6 0 0 0 5.2 0c0-.9-.3-1.6-.7-2.1.7 1.7 1.9 2.6 1.9 4.9A5.8 5.8 0 1 1 5 13.7c0-4.6 4.4-5.9 7-11.2Z")]
+        case .profile:
+            return [
+                .circle(cx: 12, cy: 8.6, r: 3.7),
+                .path("M5.5 19.6c.9-3.6 3.4-5.4 6.5-5.4s5.6 1.8 6.5 5.4"),
+            ]
         case .check:
             return [.path("M5 12.5l4.5 4.5L19 7.5")]
         case .chevronRight:

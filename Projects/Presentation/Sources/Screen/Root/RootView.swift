@@ -129,7 +129,6 @@ private struct MainScreen: View {
             rankingViewModel: factory.ranking(),
             settingsViewModel: factory.settings(),
             userID: user.id,
-            nicknameInitial: String(user.nickname.prefix(1)),
             onStartTrip: {
                 // 홈에서 새로 들어올 때마다 지난 선택은 지운다.
                 plan.reset()
