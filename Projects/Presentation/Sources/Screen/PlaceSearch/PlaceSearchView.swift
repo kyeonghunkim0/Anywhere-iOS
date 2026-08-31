@@ -74,12 +74,21 @@ struct PlaceSearchView: View {
             HStack(spacing: 10) {
                 DSIconView(.target, size: 16, color: DSColor.sand600)
 
-                TextField(L10n.placeSearchFieldPlaceholder, text: $viewModel.keyword)
+                TextField("", text: $viewModel.keyword)
                     .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.semibold))
                     .foregroundStyle(DSColor.textPrimary)
                     .focused($isFieldFocused)
                     .submitLabel(.search)
                     .autocorrectionDisabled()
+                    // 기본 placeholder 색이 sunken 배경 위에서 거의 안 보여 직접 겹쳐 둔다.
+                    .overlay(alignment: .leading) {
+                        if !viewModel.hasKeyword {
+                            Text(L10n.placeSearchFieldPlaceholder)
+                                .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.semibold))
+                                .foregroundStyle(DSColor.textSecondary)
+                                .allowsHitTesting(false)
+                        }
+                    }
 
                 if viewModel.hasKeyword {
                     Button {
