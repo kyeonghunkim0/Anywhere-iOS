@@ -3,29 +3,32 @@
 //  UIComponents
 //
 //  원본: components/collection/StampTile.jsx
+//  수집판 한 칸. 뱃지 그림·레벨 링·잠금은 DSRegionBadge가 그리고,
+//  여기서는 이름표와 칸 위에 얹는 표식(방문자 번호 / 자물쇠)만 맡는다.
 //
 
 import SwiftUI
 
 public struct DSStampTile: View {
-    private let icon: DSIcon
     private let name: String
+    private let seed: String
     private let isCollected: Bool
+    private let level: Int?
     private let visitorNumber: Int?
-    /// 서버가 준 뱃지 이미지. 있으면 원 안 아이콘 대신 이 이미지를 채운다.
-    /// 미방문이면 흑백 + 반투명으로 "자리만" 보여준다.
     private let imageURL: URL?
 
     public init(
-        icon: DSIcon,
         name: String,
+        seed: String,
         isCollected: Bool,
+        level: Int? = nil,
         visitorNumber: Int? = nil,
         imageURL: URL? = nil
     ) {
-        self.icon = icon
         self.name = name
+        self.seed = seed
         self.isCollected = isCollected
+        self.level = level
         self.visitorNumber = visitorNumber
         self.imageURL = imageURL
     }
@@ -41,43 +44,19 @@ public struct DSStampTile: View {
     }
 
     private var stamp: some View {
-        ZStack {
-            if let imageURL {
-                AsyncImage(url: imageURL) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    placeholderCircle
-                }
-                .saturation(isCollected ? 1 : 0)
-                .opacity(isCollected ? 1 : 0.4)
-            } else {
-                placeholderCircle
-                DSIconView(icon, size: 22, color: isCollected ? Color.white : DSColor.borderStrong)
-            }
-        }
-        .frame(width: 56, height: 56)
+        DSRegionBadge(
+            imageURL: imageURL,
+            name: name,
+            seed: seed,
+            level: level,
+            isLocked: !isCollected,
+            diameter: 56
+        )
         // 도장/자물쇠 표식은 원 밖으로 삐져나온다 — 타일 크기는 원 그대로 두고 겹쳐 얹는다.
         .overlay(alignment: .bottomTrailing) {
             marker
                 .offset(x: 8, y: 4)
         }
-    }
-
-    private var placeholderCircle: some View {
-        Circle()
-            .fill(isCollected ? DSColor.brandPrimary : DSColor.surfaceSunken)
-            .overlay {
-                if !isCollected {
-                    Circle()
-                        .strokeBorder(
-                            DSColor.borderStrong,
-                            style: StrokeStyle(lineWidth: 2, dash: [4, 3])
-                        )
-                }
-            }
-            .dsShadow(isCollected ? DSShadow.sm : .none)
     }
 
     @ViewBuilder
@@ -104,9 +83,9 @@ public struct DSStampTile: View {
 
 #Preview {
     HStack(spacing: 12) {
-        DSStampTile(icon: .temple, name: "부여", isCollected: true, visitorNumber: 86)
-        DSStampTile(icon: .tree, name: "영양", isCollected: true, visitorNumber: 1_204)
-        DSStampTile(icon: .wind, name: "양양", isCollected: false)
+        DSStampTile(name: "부여군", seed: "a", isCollected: true, level: 3, visitorNumber: 86)
+        DSStampTile(name: "영양군", seed: "b", isCollected: true, level: 5, visitorNumber: 1_204)
+        DSStampTile(name: "양양군", seed: "c", isCollected: false, level: 2)
     }
     .padding(DSSpacing.s6)
     .background(Color.white)

@@ -206,10 +206,31 @@ struct RegionDetailView: View {
 
     private func levels(_ region: RegionDetail) -> some View {
         VStack(alignment: .leading, spacing: 0) {
-            Text(L10n.regionDetailLevelsTitle)
-                .font(DSTypography.font(DSTypography.Size.lg, weight: DSTypography.Weight.extrabold))
-                .foregroundStyle(DSColor.textPrimary)
-                .padding(.bottom, 16)
+            // 레벨마다 뱃지를 새로 만들지 않는다 — 뱃지는 한 장이고,
+            // 둘레의 5칸 링이 차오르는 것으로 레벨을 보여준다.
+            // 그래서 서버가 주는 레벨별 보상 문구(row.reward: "한정판 뱃지" 등)는
+            // 지킬 수 없는 약속이라 그리지 않는다.
+            HStack(spacing: 14) {
+                RegionBadgeIcon(
+                    badge: region.badge,
+                    name: region.displayName,
+                    seed: region.regionId,
+                    level: region.level,
+                    diameter: 68
+                )
+
+                VStack(alignment: .leading, spacing: 4) {
+                    Text(L10n.regionDetailLevelsTitle)
+                        .font(DSTypography.font(DSTypography.Size.lg, weight: DSTypography.Weight.extrabold))
+                        .foregroundStyle(DSColor.textPrimary)
+
+                    // 히어로가 이미 레벨을 말하므로 여기서는 링이 몇 칸짜리인지만 밝힌다.
+                    Text("\(L10n.regionDetailLevel(region.level)) / \(DSRegionBadge.maxLevel)")
+                        .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.semibold))
+                        .foregroundStyle(DSColor.textSecondary)
+                }
+            }
+            .padding(.bottom, 16)
 
             ForEach(region.levels) { row in
                 HStack(spacing: 12) {
@@ -223,10 +244,6 @@ struct RegionDetailView: View {
                         .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.semibold))
                         .foregroundStyle(row.achieved ? DSColor.textPrimary : DSColor.textMuted)
                         .frame(maxWidth: .infinity, alignment: .leading)
-
-                    Text(row.reward)
-                        .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.semibold))
-                        .foregroundStyle(DSColor.textSecondary)
                 }
                 .padding(.vertical, 16)
                 .overlay(alignment: .top) {

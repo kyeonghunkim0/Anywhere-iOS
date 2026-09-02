@@ -2,9 +2,9 @@
 //  RegionBadgeIcon.swift
 //  Presentation
 //
-//  지역 뱃지 이미지 자리.
-//  뱃지 PNG는 자체 배경(흰 사각형)을 갖고 오므로 뒤에 원을 깔지 않는다 —
-//  깔면 흰 사각형이 색 원 위에 떠 보인다. 원은 이미지가 없을 때의 폴백 전용이다.
+//  도메인 뱃지를 디자인 시스템 메달리온(DSRegionBadge)에 넘기는 얇은 어댑터.
+//  그리는 규칙(잘라내기·레벨 링·타이포 토큰)은 전부 DSRegionBadge가 갖는다 —
+//  화면마다 뱃지가 달라 보이지 않게 하려면 규칙이 한 곳에만 있어야 한다.
 //
 
 import SwiftUI
@@ -13,31 +13,22 @@ import UIComponents
 
 struct RegionBadgeIcon: View {
     let badge: RegionBadge?
+    /// 뱃지 그림이 없을 때 타이포 토큰에 새길 지역명과, 색을 고정하는 시드.
+    let name: String
+    let seed: String
+    /// 지역 성장 레벨. nil이면 링 없이 그림만 그린다.
+    var level: Int?
+    var isLocked = false
     var diameter: CGFloat = 64
 
     var body: some View {
-        Group {
-            if let url = badge?.iconURL {
-                AsyncImage(url: url) { image in
-                    image
-                        .resizable()
-                        .scaledToFit()
-                } placeholder: {
-                    // 로딩 중에 원을 깔면 이미지로 바뀔 때 배경이 튄다. 자리만 비워 둔다.
-                    Color.clear
-                }
-            } else {
-                fallback
-            }
-        }
-        .frame(width: diameter, height: diameter)
-    }
-
-    private var fallback: some View {
-        Circle()
-            .fill(DSColor.green50)
-            .overlay {
-                DSIconView(.sprout, size: diameter * (26.0 / 64.0), color: DSColor.brandPrimary)
-            }
+        DSRegionBadge(
+            imageURL: badge?.iconURL,
+            name: badge?.name ?? name,
+            seed: seed,
+            level: level,
+            isLocked: isLocked,
+            diameter: diameter
+        )
     }
 }

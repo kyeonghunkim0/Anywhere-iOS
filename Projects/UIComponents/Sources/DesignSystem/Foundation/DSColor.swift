@@ -68,6 +68,15 @@ public enum DSColor {
     public static let brandAccent = stamp500
     public static let kakao = yellowKakao
 
+    // MARK: - Semantic — Region tier
+
+    /// 지역 레벨 게이지(DSRegionBadge의 링). 아직 못 채운 칸과 채운 칸,
+    /// 그리고 최고 레벨에만 쓰는 골드 한 쌍.
+    public static let tierTrack = border
+    public static let tierFill = brandPrimary
+    public static let tierMax = yellowKakao
+    public static let tierMaxDeep = stamp500
+
     // MARK: - Semantic — Status
 
     public static let success = green500

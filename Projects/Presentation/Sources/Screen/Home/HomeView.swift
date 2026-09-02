@@ -267,7 +267,13 @@ private struct GrowthRegionRow: View {
 
     var body: some View {
         HStack(spacing: 14) {
-            RegionBadgeIcon(badge: region.badge, diameter: 64)
+            RegionBadgeIcon(
+                badge: region.badge,
+                name: region.displayName,
+                seed: region.regionId,
+                level: region.level,
+                diameter: 64
+            )
 
             VStack(alignment: .leading, spacing: 6) {
                 Text(region.displayName)

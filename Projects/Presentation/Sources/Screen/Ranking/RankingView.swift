@@ -118,7 +118,13 @@ struct RankingView: View {
         .background(alignment: .bottomTrailing) {
             ZStack(alignment: .bottomTrailing) {
                 DSColor.surfaceSunken
-                RegionBadgeIcon(badge: region.badge, diameter: 126)
+                // 카드 뒤에 깔리는 장식이라 레벨 링은 붙이지 않는다.
+                RegionBadgeIcon(
+                    badge: region.badge,
+                    name: region.displayName,
+                    seed: region.regionId,
+                    diameter: 126
+                )
                     .opacity(0.13)
                     .offset(x: 10, y: 16)
             }

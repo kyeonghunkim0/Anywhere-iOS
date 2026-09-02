@@ -48,6 +48,7 @@ struct RegionDetailDTO: Decodable, Sendable {
     let quote: String?
     let imageUrl: String?
     let imageCredit: String?
+    let badge: RegionBadgeDTO?
     let stats: [LabeledValueDTO]
     let levels: [RegionLevelRowDTO]
 }

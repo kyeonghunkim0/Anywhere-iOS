@@ -44,6 +44,7 @@ extension RegionDetailDTO {
             quote: quote,
             imageURL: imageUrl.flatMap(URL.init(string:)),
             imageCredit: imageCredit,
+            badge: badge?.toEntity(),
             stats: stats.map { $0.toEntity() },
             levels: levels.map {
                 RegionLevelRow(level: $0.level, label: $0.label, reward: $0.reward, achieved: $0.achieved)

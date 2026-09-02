@@ -114,6 +114,8 @@ public struct RegionDetail: Sendable, Identifiable {
     /// 지역 대표 사진과 그 저작자. 서버가 한국관광공사 이미지를 내려준다.
     public let imageURL: URL?
     public let imageCredit: String?
+    /// 이 지역의 기초자치단체 뱃지. 아직 없는 지역은 nil이다.
+    public let badge: RegionBadge?
     public let stats: [LabeledValue]
     public let levels: [RegionLevelRow]
 
@@ -130,6 +132,7 @@ public struct RegionDetail: Sendable, Identifiable {
         quote: String?,
         imageURL: URL?,
         imageCredit: String?,
+        badge: RegionBadge? = nil,
         stats: [LabeledValue],
         levels: [RegionLevelRow]
     ) {
@@ -145,6 +148,7 @@ public struct RegionDetail: Sendable, Identifiable {
         self.quote = quote
         self.imageURL = imageURL
         self.imageCredit = imageCredit
+        self.badge = badge
         self.stats = stats
         self.levels = levels
     }

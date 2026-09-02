@@ -113,10 +113,6 @@ public final class PassportViewModel {
     }
 }
 
-public extension PassportRegion {
-    var stampIcon: DSIcon { regionId.regionIcon }
-}
-
 public extension Badge {
     var stampIcon: DSIcon { DSIcon(rawValue: icon) ?? .star }
 

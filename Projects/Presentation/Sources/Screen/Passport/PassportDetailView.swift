@@ -85,9 +85,10 @@ struct PassportDetailView: View {
         LazyVGrid(columns: columns, spacing: 22) {
             ForEach(viewModel.allStamps) { region in
                 DSStampTile(
-                    icon: region.stampIcon,
                     name: region.displayName,
+                    seed: region.regionId,
                     isCollected: region.isVisited,
+                    level: region.level,
                     visitorNumber: region.visitorNumber,
                     imageURL: region.badge?.iconURL
                 )
