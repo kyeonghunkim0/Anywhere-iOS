@@ -9,6 +9,7 @@
 
 import SwiftUI
 import Domain
+import UIComponents
 
 public struct RootView: View {
     @Bindable private var viewModel: RootViewModel
@@ -46,6 +47,22 @@ public struct RootView: View {
         // 이 모디파이어의 자손이 아니라서 코디네이터를 찾지 못하고 크래시한다.
         .environment(coordinator)
         .environment(tripPlan)
+        // 강제 업데이트는 로그인/홈/네비게이션 위를 통째로 덮고, 닫을 수단을 주지 않는다.
+        .dsModal(
+            isPresented: Binding(
+                get: { viewModel.forceUpdate != nil },
+                set: { _ in }
+            ),
+            title: L10n.forceUpdateTitle,
+            message: viewModel.forceUpdate?.message ?? L10n.forceUpdateMessage,
+            actions: [
+                DSModalAction(label: L10n.forceUpdateButton, isEmphasized: true) {
+                    guard let url = viewModel.forceUpdate?.storeURL else { return }
+                    UIApplication.shared.open(url)
+                }
+            ],
+            showsCloseButton: false
+        )
     }
 
     private func destination(_ route: Route) -> some View {

@@ -5,7 +5,7 @@ public struct FetchAppInfoUseCase: Sendable {
         self.appRepository = appRepository
     }
 
-    public func execute(version: String?) async throws(NetworkError) -> AppInfo {
-        try await appRepository.fetchAppInfo(version: version)
+    public func execute(version: String?, platform: String?) async throws(NetworkError) -> AppInfo {
+        try await appRepository.fetchAppInfo(version: version, platform: platform)
     }
 }

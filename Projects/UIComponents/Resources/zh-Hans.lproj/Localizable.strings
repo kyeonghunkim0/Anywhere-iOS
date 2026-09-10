@@ -189,3 +189,7 @@
 "review.placeholder" = "只留一句话给下一个人？";
 "review.submit" = "提交";
 "review.failureTitle" = "提交失败";
+
+"forceUpdate.title" = "需要更新";
+"forceUpdate.message" = "请更新到最新版本以获得最佳体验。";
+"forceUpdate.button" = "更新";

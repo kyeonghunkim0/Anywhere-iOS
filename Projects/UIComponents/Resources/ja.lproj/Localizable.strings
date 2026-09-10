@@ -189,3 +189,7 @@
 "review.placeholder" = "次の人にひと言だけ残すなら？";
 "review.submit" = "登録する";
 "review.failureTitle" = "登録に失敗しました";
+
+"forceUpdate.title" = "アップデートが必要です";
+"forceUpdate.message" = "快適にご利用いただくため、最新バージョンにアップデートしてください。";
+"forceUpdate.button" = "アップデート";

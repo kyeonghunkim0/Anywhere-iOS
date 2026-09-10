@@ -189,3 +189,7 @@
 "review.placeholder" = "One line for the next traveler?";
 "review.submit" = "Submit";
 "review.failureTitle" = "Couldn't submit";
+
+"forceUpdate.title" = "Update Required";
+"forceUpdate.message" = "Please update to the latest version for the best experience.";
+"forceUpdate.button" = "Update";

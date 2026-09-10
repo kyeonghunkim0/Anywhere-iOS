@@ -42,7 +42,8 @@ struct AnywhereApp: App {
         _rootViewModel = State(
             wrappedValue: RootViewModel(
                 restoreSessionUseCase: container.restoreSessionUseCase,
-                requestLocationPermissionUseCase: container.requestLocationPermissionUseCase
+                requestLocationPermissionUseCase: container.requestLocationPermissionUseCase,
+                fetchAppInfoUseCase: container.fetchAppInfoUseCase
             )
         )
         _loginViewModel = State(wrappedValue: LoginViewModel(signInUseCase: container.signInUseCase))

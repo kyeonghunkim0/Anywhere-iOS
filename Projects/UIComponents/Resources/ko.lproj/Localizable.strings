@@ -4,6 +4,10 @@
 "common.comingSoon" = "준비 중인 화면입니다.";
 "common.back" = "뒤로";
 
+"forceUpdate.title" = "업데이트가 필요해요";
+"forceUpdate.message" = "원활한 이용을 위해 최신 버전으로 업데이트해 주세요.";
+"forceUpdate.button" = "업데이트하기";
+
 "login.title" = "시작하거나\n계정 만들기";
 "login.subtitle" = "유명 관광지 말고 한적한 지역 명소로. 도착해서 GPS로 도장을 찍고 전국을 모아보세요.";
 "login.googleButton" = "Google로 시작하기";

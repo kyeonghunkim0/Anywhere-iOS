@@ -235,3 +235,27 @@
 - `Route.placeDetail(placeId:showsArrivalAction:)` — "내 맘대로"로 고른 목적지도 같은 화면으로 오고, 그때만 GPS 인증 버튼이 붙는다. 화면을 두 개로 나누지 않기 위함.
 - 후기가 상세 응답에 함께 오므로 후기 API를 따로 부르지 않는다. 요청은 하나뿐이다.
 - `mapX`가 경도, `mapY`가 위도인 서버 함정은 매퍼에서 뒤집어 흡수한다(기존 PlaceDTO와 같은 방식).
+
+---
+
+# 강제 업데이트 (Force Update)
+
+## 할 일
+- [x] 서버 `GET /api/app/info` 신규 응답(`platform` 쿼리, `updateAvailable`/`updateMessage`/`storeUrl`) 대조
+- [x] Data: `AppAPI.info(version:platform:)`, `AppInfoDTO`/`AppInfoMapper`/`AppRepositoryImpl` 필드 확장
+- [x] Domain: `AppInfo` 엔티티 + `AppRepository`/`FetchAppInfoUseCase` 시그니처 확장
+- [x] Presentation: `ForceUpdateView`(닫기 불가) 신규, `RootViewModel`에 `forceUpdate` 게이트, `RootView`에 `fullScreenCover`
+- [x] `AnywhereApp`에서 `fetchAppInfoUseCase` 주입
+- [x] 로컬라이제이션 4개 언어 `forceUpdate.*` 키
+- [x] `tuist generate` + `AnywhereAppDebug` 컴파일 통과
+- [x] 런타임: 서버 불통 시 fail-open 확인 — `/api/app/info?platform=ios&version=1.0` 요청 나가고, 실패해도 로그인 화면 정상 진입 (시뮬레이터 스크린샷)
+- [ ] 런타임: 서버 켜고 `APP_MIN_VERSION`을 1.0보다 높여 재기동 → 스플래시 직후 `ForceUpdateView`가 덮는지 육안 확인 (서버 .env 조작 필요 — 미확인)
+- [ ] 백엔드 `.env`에 `APP_STORE_URL` 실제 링크 채우기 (앱은 폴백 상수로 커버 중)
+
+## 리뷰
+- 차단 UI는 **공통 `DSModal`(`.dsModal(showsCloseButton: false)`)** 재사용으로 결정. 처음엔 전체화면 `ForceUpdateView`를 만들었으나 디자인 시스템 일관성 우선. 별도 뷰 파일 삭제, `RootView`에 `.environment` 뒤로 `.dsModal` 한 블록.
+- 조회 시점은 세션 복구와 `async let`으로 병행. `forceUpdate`는 `state`(restoring/authenticated/unauthenticated)와 분리된 별도 프로퍼티라, 로그인/홈 어느 상태든 위를 덮는다.
+- fail-open: `loadAppInfo()`가 `try?`로 에러를 삼켜 nil → 차단 안 함. 오프라인/서버 장애로 전 사용자가 잠기지 않게.
+- 버전 비교는 서버가 함(`version` 쿼리 → `forceUpdate` 계산). 앱은 `CFBundleShortVersionString`(현재 1.0)과 `platform=ios`만 보낸다.
+- `storeUrl`은 서버 값을 우선, 없으면 `RootViewModel.appStoreFallback`(App Store 링크) 사용.
+

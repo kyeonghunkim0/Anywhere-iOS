@@ -7,10 +7,10 @@ final class AppRepositoryImpl: AppRepository, Sendable {
         self.httpClient = httpClient
     }
 
-    func fetchAppInfo(version: String?) async throws(NetworkError) -> AppInfo {
+    func fetchAppInfo(version: String?, platform: String?) async throws(NetworkError) -> AppInfo {
         do {
             let envelope = try await httpClient.request(
-                AppAPI.info(version: version),
+                AppAPI.info(version: version, platform: platform),
                 as: APIResponse<AppInfoDTO>.self
             )
             return envelope.value.data.toEntity()
