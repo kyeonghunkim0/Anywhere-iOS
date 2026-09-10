@@ -1,8 +1,16 @@
 /// GET /api/search.
 struct SearchResultDTO: Decodable, Sendable {
     let query: String
-    let regions: [SearchedRegionDTO]
+    /// 서버가 지역도 관광지와 같은 { total, limit, offset, items } 페이지로 내려준다.
+    let regions: SearchedRegionPageDTO
     let places: SearchedPlacePageDTO
+}
+
+struct SearchedRegionPageDTO: Decodable, Sendable {
+    let total: Int
+    let limit: Int
+    let offset: Int
+    let items: [SearchedRegionDTO]
 }
 
 struct SearchedRegionDTO: Decodable, Sendable {

@@ -5,7 +5,7 @@ extension SearchResultDTO {
     func toEntity() -> SearchResult {
         SearchResult(
             query: query,
-            regions: regions.map { $0.toEntity() },
+            regions: regions.items.map { $0.toEntity() },
             places: places.toEntity()
         )
     }
