@@ -30,6 +30,16 @@
 	<dict>
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
+		<!-- 운영 서버가 평문 HTTP 공인 IP(161.33.223.198)라 도메인 예외가 필요하다.
+		     HTTPS 도메인으로 전환하면 이 예외를 제거한다. -->
+		<key>NSExceptionDomains</key>
+		<dict>
+			<key>161.33.223.198</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+			</dict>
+		</dict>
 	</dict>
 	<key>CFBundleURLTypes</key>
 	<array>

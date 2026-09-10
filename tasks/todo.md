@@ -259,3 +259,19 @@
 - 버전 비교는 서버가 함(`version` 쿼리 → `forceUpdate` 계산). 앱은 `CFBundleShortVersionString`(현재 1.0)과 `platform=ios`만 보낸다.
 - `storeUrl`은 서버 값을 우선, 없으면 `RootViewModel.appStoreFallback`(App Store 링크) 사용.
 
+---
+
+# 서버 다국어 연동 (Accept-Language) + 운영 ATS 예외
+
+## 할 일
+- [x] `URLRequest+BaseAPI.swift`에 모든 요청 공통 `Accept-Language` 헤더 추가 (`Locale.preferredLanguages.first ?? "ko"`)
+- [x] `Tuist/Config/Info.plist` ATS에 운영 IP(`161.33.223.198`) `NSExceptionAllowsInsecureHTTPLoads` 예외 추가
+- [x] `tuist generate` + `AnywhereAppDebug` 컴파일 통과
+- [x] 런타임: 모든 요청에 `Accept-Language: ko-KR` 실려 나가는 것 로그로 확인 (users/me, app/info)
+- [ ] 실기기/TestFlight(Release)에서 운영 서버(`161.33.223.198`) 통신이 ATS로 막히지 않는지 확인 — **IP 주소 예외는 도메인 예외보다 불안정**. 막히면 (a) 운영을 HTTPS 도메인으로 전환하거나 (b) `NSAllowsArbitraryLoads` 필요
+- [ ] (선택) 실패 응답 신규 `code` 필드로 앱 자체 문구 매핑 — 지금은 서버 `message` 그대로 표시
+
+## 리뷰
+- 헤더는 세션 설정(`httpAdditionalHeaders`)이 아니라 `URLRequest` 조립부에 한 줄로 넣었다. 요청 조립이 이미 이 파일 하나에 모여 있고, 나중에 앱 내 언어 선택이 생기면 이 지점만 바꾸면 된다.
+- `Locale.preferredLanguages.first`는 `"ko-KR"` 같은 지역 포함 문자열을 주지만 서버가 주 서브태그(`ko`)만 보므로 변환 없이 그대로 보낸다. 미지원 언어는 서버가 한국어로 폴백 → 하위 호환.
+- ATS: 기존 `NSAllowsLocalNetworking`(개발 LAN용)은 그대로 두고 운영 IP만 `NSExceptionDomains`로 좁게 추가. `NSAllowsArbitraryLoads`(전역 허용)는 피했다. 단 Apple ATS는 IP 리터럴 예외를 공식 보장하지 않아 Release 검증이 남아 있다.

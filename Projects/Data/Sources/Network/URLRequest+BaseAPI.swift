@@ -28,6 +28,10 @@ extension URLRequest {
         self.init(url: url)
         httpMethod = api.method.rawValue
 
+        // 서버는 주 서브태그(en-US → en)만 보고, 미지원 언어는 한국어로 폴백한다.
+        // 시스템 로케일 문자열을 변환 없이 그대로 넘긴다. 앱 내 언어 선택이 생기면 이 값만 바꾸면 된다.
+        setValue(Locale.preferredLanguages.first ?? "ko", forHTTPHeaderField: "Accept-Language")
+
         switch api.authorization {
         case .none:
             break
