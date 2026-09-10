@@ -54,7 +54,7 @@ public final class ProfileEditViewModel {
         defer { isSaving = false }
 
         do throws(ProfileError) {
-            return try await updateProfileUseCase.execute(nickname: trimmedNickname, profileImage: nil)
+            return try await updateProfileUseCase.execute(nickname: trimmedNickname)
         } catch {
             errorMessage = Self.message(for: error)
             return nil

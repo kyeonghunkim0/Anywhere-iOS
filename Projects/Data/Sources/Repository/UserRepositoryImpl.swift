@@ -25,8 +25,8 @@ final class UserRepositoryImpl: UserRepository, Sendable {
         }
     }
 
-    func updateProfile(nickname: String?, profileImage: String?) async throws(ProfileError) -> UserProfile {
-        let request = UpdateProfileRequestDTO(nickname: nickname, profileImage: profileImage)
+    func updateProfile(nickname: String?) async throws(ProfileError) -> UserProfile {
+        let request = UpdateProfileRequestDTO(nickname: nickname)
         do {
             let envelope = try await httpClient.request(
                 UserAPI.updateProfile(request),

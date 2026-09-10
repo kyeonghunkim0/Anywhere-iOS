@@ -14,7 +14,6 @@ struct UserProfileDTO: Decodable, Sendable {
     let nickname: String
     let socialType: String
     let totalStamps: Int
-    let profileImage: String?
     let pushEnabled: Bool
     let level: Int
     let levelLabel: String

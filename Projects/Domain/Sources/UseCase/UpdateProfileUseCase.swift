@@ -5,7 +5,7 @@ public struct UpdateProfileUseCase: Sendable {
         self.userRepository = userRepository
     }
 
-    public func execute(nickname: String?, profileImage: String?) async throws(ProfileError) -> UserProfile {
-        try await userRepository.updateProfile(nickname: nickname, profileImage: profileImage)
+    public func execute(nickname: String?) async throws(ProfileError) -> UserProfile {
+        try await userRepository.updateProfile(nickname: nickname)
     }
 }

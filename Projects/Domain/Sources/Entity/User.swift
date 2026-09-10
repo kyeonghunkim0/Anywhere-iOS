@@ -21,14 +21,12 @@ public struct User: Sendable, Identifiable, Equatable {
 /// level/levelLabel은 서버가 누적 도장 수로 계산해 내려준다 — 클라이언트가 다시 계산하지 않는다.
 public struct UserProfile: Sendable, Equatable {
     public let user: User
-    public let profileImageURL: URL?
     public let pushEnabled: Bool
     public let level: Int
     public let levelLabel: String
 
-    public init(user: User, profileImageURL: URL?, pushEnabled: Bool, level: Int, levelLabel: String) {
+    public init(user: User, pushEnabled: Bool, level: Int, levelLabel: String) {
         self.user = user
-        self.profileImageURL = profileImageURL
         self.pushEnabled = pushEnabled
         self.level = level
         self.levelLabel = levelLabel

@@ -21,7 +21,6 @@ extension UserProfileDTO {
                 socialType: socialType,
                 totalStamps: totalStamps
             ),
-            profileImageURL: profileImage.flatMap(URL.init(string:)),
             pushEnabled: pushEnabled,
             level: level,
             levelLabel: levelLabel
