@@ -39,7 +39,12 @@ struct AnywhereApp: App {
         #endif
         let container = AppDependencyContainer(baseURL: baseURL)
         self.container = container
-        _rootViewModel = State(wrappedValue: RootViewModel(restoreSessionUseCase: container.restoreSessionUseCase))
+        _rootViewModel = State(
+            wrappedValue: RootViewModel(
+                restoreSessionUseCase: container.restoreSessionUseCase,
+                requestLocationPermissionUseCase: container.requestLocationPermissionUseCase
+            )
+        )
         _loginViewModel = State(wrappedValue: LoginViewModel(signInUseCase: container.signInUseCase))
     }
 
@@ -90,7 +95,9 @@ struct AnywhereApp: App {
                 },
                 placeSearch: {
                     PlaceSearchViewModel(
-                        fetchSearchablePlacesUseCase: container.fetchSearchablePlacesUseCase
+                        fetchSearchablePlacesUseCase: container.fetchSearchablePlacesUseCase,
+                        searchDestinationsUseCase: container.searchDestinationsUseCase,
+                        fetchCurrentLocationUseCase: container.fetchCurrentLocationUseCase
                     )
                 },
                 passport: { userId in

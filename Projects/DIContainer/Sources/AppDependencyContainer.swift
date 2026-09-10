@@ -73,6 +73,10 @@ public final class AppDependencyContainer: Sendable {
         RequestLocationPermissionUseCase(locationRepository: dataContainer.locationRepository)
     }
 
+    public var fetchCurrentLocationUseCase: FetchCurrentLocationUseCase {
+        FetchCurrentLocationUseCase(locationRepository: dataContainer.locationRepository)
+    }
+
     public var fetchRandomMatchUseCase: FetchRandomMatchUseCase {
         FetchRandomMatchUseCase(
             locationRepository: dataContainer.locationRepository,
@@ -145,6 +149,10 @@ public final class AppDependencyContainer: Sendable {
 
     public var fetchPlacesByTagUseCase: FetchPlacesByTagUseCase {
         FetchPlacesByTagUseCase(tagRepository: dataContainer.tagRepository)
+    }
+
+    public var searchDestinationsUseCase: SearchDestinationsUseCase {
+        SearchDestinationsUseCase(searchRepository: dataContainer.searchRepository)
     }
 
     public var fetchSearchablePlacesUseCase: FetchSearchablePlacesUseCase {

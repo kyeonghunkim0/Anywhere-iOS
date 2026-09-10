@@ -26,6 +26,8 @@ public enum DSShadow {
     /// 히어로 버튼 아래에 쓰이는 스탬프-잉크 톤의 시그니처 컬러 그림자입니다.
     public static let brand = DSShadowStyle(color: DSColor.stamp500.opacity(0.4), radius: 22, x: 0, y: 16)
     public static let nav = DSShadowStyle(color: DSColor.ink900.opacity(0.08), radius: 13, x: 0, y: -10)
+    /// 목록에서 고른 항목 아래에 도는 초록 그림자입니다.
+    public static let pick = DSShadowStyle(color: DSColor.brandPrimary.opacity(0.4), radius: 7, x: 0, y: 4)
 }
 
 public extension View {

@@ -25,6 +25,8 @@ public struct TaggedPlace: Sendable, Identifiable, Hashable {
     public let sidoName: String
     public let sigunguName: String
     public let isDepopulated: Bool
+    /// 검색 API만 좌표를 함께 준다. 태그 목록에서 온 장소는 nil이라 거리를 낼 수 없다.
+    public let coordinate: Coordinate?
 
     public init(
         id: String,
@@ -33,7 +35,8 @@ public struct TaggedPlace: Sendable, Identifiable, Hashable {
         thumbnailURL: URL?,
         sidoName: String,
         sigunguName: String,
-        isDepopulated: Bool
+        isDepopulated: Bool,
+        coordinate: Coordinate? = nil
     ) {
         self.id = id
         self.name = name
@@ -42,6 +45,7 @@ public struct TaggedPlace: Sendable, Identifiable, Hashable {
         self.sidoName = sidoName
         self.sigunguName = sigunguName
         self.isDepopulated = isDepopulated
+        self.coordinate = coordinate
     }
 
     /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
