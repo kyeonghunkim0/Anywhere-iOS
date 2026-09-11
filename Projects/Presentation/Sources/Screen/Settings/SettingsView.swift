@@ -14,6 +14,7 @@ import UIComponents
 
 struct SettingsView: View {
     @State private var viewModel: SettingsViewModel
+    @State private var showsSignOutConfirmation = false
     private let onOpenDocument: (LegalDocument) -> Void
     private let onSignOut: () -> Void
 
@@ -39,6 +40,13 @@ struct SettingsView: View {
                     .padding(.horizontal, DSSpacing.s6)
                     .padding(.top, 24)
 
+                if viewModel.profile?.user.isGuest == true {
+                    group(L10n.settingsGroupAccountLink) {
+                        linkAccountRow(socialType: .google, title: L10n.settingsLinkGoogleButton)
+                        linkAccountRow(socialType: .apple, title: L10n.settingsLinkAppleButton)
+                    }
+                }
+
                 group(L10n.settingsGroupNotification) {
                     pushRow
                 }
@@ -50,10 +58,7 @@ struct SettingsView: View {
                 }
 
                 DSButton(L10n.settingsSignOut, variant: .secondary) {
-                    Task {
-                        await viewModel.signOut()
-                        onSignOut()
-                    }
+                    showsSignOutConfirmation = true
                 }
                 .padding(.horizontal, DSSpacing.s6)
                 .padding(.top, 34)
@@ -74,6 +79,24 @@ struct SettingsView: View {
         } message: {
             Text(viewModel.errorMessage ?? "")
         }
+        .dsModal(
+            isPresented: $showsSignOutConfirmation,
+            title: L10n.settingsSignOut,
+            message: L10n.settingsSignOutConfirmTitle,
+            actions: [
+                DSModalAction(label: L10n.settingsSignOut, isEmphasized: true) {
+                    showsSignOutConfirmation = false
+                    Task {
+                        await viewModel.signOut()
+                        onSignOut()
+                    }
+                },
+                DSModalAction(label: L10n.commonCancel) {
+                    showsSignOutConfirmation = false
+                },
+            ],
+            showsCloseButton: false
+        )
     }
 
     // MARK: - 프로필
@@ -138,7 +161,10 @@ struct SettingsView: View {
 
     private var pushRow: some View {
         HStack(spacing: 12) {
-            DSIconView(.sparkles, size: 17, color: DSColor.brandPrimary)
+            Image(systemName: "bell.fill")
+                .font(.system(size: 15, weight: .semibold))
+                .foregroundStyle(DSColor.brandPrimary)
+                .frame(width: 17)
 
             Text(L10n.settingsPushNotification)
                 .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.semibold))
@@ -162,6 +188,17 @@ struct SettingsView: View {
         }
     }
 
+    private func linkAccountRow(socialType: SocialType, title: String) -> some View {
+        Button {
+            Task { await viewModel.linkSocialAccount(socialType: socialType) }
+        } label: {
+            row(icon: nil, label: title, value: nil, showsChevron: false)
+        }
+        .buttonStyle(DSPressStyle())
+        .disabled(viewModel.isLinkingAccount)
+        .opacity(viewModel.isLinkingAccount ? 0.6 : 1)
+    }
+
     private func documentRow(_ document: LegalDocument, icon: DSIcon) -> some View {
         Button { onOpenDocument(document) } label: {
             row(icon: icon, label: document.title, value: nil, showsChevron: true)
@@ -173,9 +210,11 @@ struct SettingsView: View {
         row(icon: icon, label: label, value: value, showsChevron: false)
     }
 
-    private func row(icon: DSIcon, label: String, value: String?, showsChevron: Bool) -> some View {
+    private func row(icon: DSIcon?, label: String, value: String?, showsChevron: Bool) -> some View {
         HStack(spacing: 12) {
-            DSIconView(icon, size: 17, color: DSColor.brandPrimary)
+            if let icon {
+                DSIconView(icon, size: 17, color: DSColor.brandPrimary)
+            }
 
             Text(label)
                 .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.semibold))

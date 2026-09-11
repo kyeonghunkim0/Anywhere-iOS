@@ -1,0 +1,5 @@
+app_identifier("com.kimkhuna.Anywhere.AnywhereApp") # The bundle identifier of your app
+apple_id("kimkhuna1@gmail.com") # Your Apple Developer Portal username
+
+# For more information about the Appfile, see:
+#     https://docs.fastlane.tools/advanced/#appfile

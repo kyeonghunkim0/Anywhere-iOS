@@ -71,3 +71,24 @@ Tuist/Config/Secrets.xcconfig
 
 ### Tuist managed dependencies ###
 Tuist/.build
+
+### Bundler ###
+.bundle/
+vendor/bundle/
+vendor/
+
+### Fastlane ###
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+### API Keys & Credentials ###
+.env
+.env.*
+!.env.example
+*.p8
+*.cer
+*.p12
+*.mobileprovision
+*.certSigningRequest

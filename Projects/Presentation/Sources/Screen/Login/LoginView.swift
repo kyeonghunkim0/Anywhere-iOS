@@ -29,6 +29,7 @@ public struct LoginView: View {
             VStack(alignment: .leading, spacing: 0) {
                 header
                 buttons
+                guestLink
                 footer
             }
         }
@@ -83,6 +84,23 @@ public struct LoginView: View {
         }
         .padding(.top, 32)
         .padding(.horizontal, DSSpacing.s6)
+    }
+
+    private var guestLink: some View {
+        Button {
+            viewModel.signInAsGuest()
+        } label: {
+            Text(L10n.loginGuestButton)
+                .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.semibold))
+                .foregroundStyle(DSColor.textSecondary)
+                .underline()
+        }
+        .buttonStyle(DSPressStyle())
+        .disabled(viewModel.isLoading)
+        .opacity(viewModel.isLoading ? 0.6 : 1)
+        .padding(.top, 18)
+        .padding(.horizontal, DSSpacing.s6)
+        .frame(maxWidth: .infinity, alignment: .center)
     }
 
     private var footer: some View {
@@ -195,30 +213,53 @@ private struct SocialLoginButton: View {
 }
 
 #Preview {
-    LoginView(viewModel: LoginViewModel(signInUseCase: .preview))
+    LoginView(viewModel: LoginViewModel(signInUseCase: .preview, signInAsGuestUseCase: .preview))
+}
+
+private struct NoopSocialAuthenticating: SocialAuthenticating {
+    func signIn(with socialType: SocialType) async throws(SocialAuthenticationError) -> SocialCredential {
+        throw .cancelled
+    }
+    func signOut() async {}
+}
+
+private struct NoopAuthRepository: AuthRepository {
+    func login(with credential: SocialCredential) async throws(AuthError) -> AuthSession {
+        throw .signInCancelled
+    }
+    func loginAsGuest(deviceId: String) async throws(AuthError) -> AuthSession {
+        throw .signInCancelled
+    }
+    func upgradeGuest(with credential: SocialCredential) async throws(AuthError) -> AuthSession {
+        throw .signInCancelled
+    }
+}
+
+private struct NoopSessionRepository: SessionRepository {
+    func saveToken(_ token: String) async {}
+    func currentToken() async -> String? { nil }
+    func clearToken() async {}
+}
+
+private struct NoopDeviceIdentifying: DeviceIdentifying {
+    func currentDeviceId() async -> String { "preview-device-id" }
 }
 
 private extension SignInUseCase {
     /// Xcode Preview 전용. 실제 앱에서는 DIContainer가 조립한 인스턴스를 주입받는다.
     static var preview: SignInUseCase {
-        struct NoopSocialAuthenticating: SocialAuthenticating {
-            func signIn(with socialType: SocialType) async throws(SocialAuthenticationError) -> SocialCredential {
-                throw .cancelled
-            }
-            func signOut() async {}
-        }
-        struct NoopAuthRepository: AuthRepository {
-            func login(with credential: SocialCredential) async throws(AuthError) -> AuthSession {
-                throw .signInCancelled
-            }
-        }
-        struct NoopSessionRepository: SessionRepository {
-            func saveToken(_ token: String) async {}
-            func currentToken() async -> String? { nil }
-            func clearToken() async {}
-        }
-        return SignInUseCase(
+        SignInUseCase(
             socialAuthenticating: NoopSocialAuthenticating(),
+            authRepository: NoopAuthRepository(),
+            sessionRepository: NoopSessionRepository()
+        )
+    }
+}
+
+private extension SignInAsGuestUseCase {
+    static var preview: SignInAsGuestUseCase {
+        SignInAsGuestUseCase(
+            deviceIdentifying: NoopDeviceIdentifying(),
             authRepository: NoopAuthRepository(),
             sessionRepository: NoopSessionRepository()
         )

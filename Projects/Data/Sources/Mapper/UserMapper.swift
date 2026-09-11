@@ -1,13 +1,18 @@
 import Foundation
 import Domain
 
+/// 서버가 게스트 계정에 원문으로 내려주는 socialType. 이 값으로 `isGuest`를 판별한다 —
+/// 별도 isGuest 필드는 POST /api/auth/guest 응답에만 있고 다른 유저 조회 엔드포인트엔 없다.
+private let guestSocialType = "guest"
+
 extension UserDTO {
     func toEntity() -> User {
         User(
             id: id,
             nickname: nickname,
             socialType: socialType,
-            totalStamps: totalStamps
+            totalStamps: totalStamps,
+            isGuest: socialType == guestSocialType
         )
     }
 }
@@ -19,7 +24,8 @@ extension UserProfileDTO {
                 id: id,
                 nickname: nickname,
                 socialType: socialType,
-                totalStamps: totalStamps
+                totalStamps: totalStamps,
+                isGuest: socialType == guestSocialType
             ),
             pushEnabled: pushEnabled,
             level: level,

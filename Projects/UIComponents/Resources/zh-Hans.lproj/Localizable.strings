@@ -8,6 +8,7 @@
 "login.subtitle" = "跳过热门景点，去安静的本地名胜。抵达后用 GPS 盖章，集齐全国。";
 "login.googleButton" = "使用 Google 开始";
 "login.appleButton" = "使用 Apple 继续";
+"login.guestButton" = "游客登录";
 "login.termsPrefix" = "继续即表示您同意";
 "login.termsOfService" = "服务条款";
 "login.termsConnector" = "和";
@@ -16,6 +17,7 @@
 "login.failureTitle" = "登录失败";
 "login.sessionExpired" = "请重新登录。";
 "login.networkError" = "请检查网络连接。";
+"login.socialSignInFailed" = "第三方登录失败。";
 
 "home.appName" = "Anywhere";
 "home.tripBadge" = "旅途中";
@@ -123,11 +125,15 @@
 
 "settings.title" = "设置";
 "settings.connectedWith" = "已连接 %@";
+"settings.groupAccountLink" = "关联社交账号";
+"settings.linkGoogleButton" = "关联 Google 账号";
+"settings.linkAppleButton" = "关联 Apple 账号";
 "settings.groupNotification" = "通知";
 "settings.groupInfo" = "信息";
 "settings.pushNotification" = "推送通知";
 "settings.appVersion" = "应用版本";
 "settings.signOut" = "退出登录";
+"settings.signOutConfirmTitle" = "确定要退出登录吗？";
 
 "profile.joined" = "%@ 加入";
 "profile.statLevel" = "当前等级";

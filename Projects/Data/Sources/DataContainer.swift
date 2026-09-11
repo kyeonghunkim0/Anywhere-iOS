@@ -5,6 +5,7 @@ import Domain
 /// 타입으로만 Repository를 노출한다. DIContainer는 이 컨테이너 하나만 알면 된다.
 public final class DataContainer: Sendable {
     private let tokenStore: TokenStore
+    private let deviceIdentifierStore: DeviceIdentifierStore
     private let httpClient: HTTPClient
     // CLLocationManager는 델리게이트/continuation 상태를 갖는 단일 리소스라
     // 다른 Repository들과 달리 요청마다 새로 만들지 않고 하나만 공유한다.
@@ -13,6 +14,7 @@ public final class DataContainer: Sendable {
     public init(configuration: APIConfiguration) {
         let tokenStore = TokenStore()
         self.tokenStore = tokenStore
+        self.deviceIdentifierStore = DeviceIdentifierStore()
         self.httpClient = HTTPClient(
             configuration: configuration,
             tokenProvider: { await tokenStore.currentToken() }
@@ -36,4 +38,5 @@ public final class DataContainer: Sendable {
     public var appRepository: AppRepository { AppRepositoryImpl(httpClient: httpClient) }
     public var locationRepository: LocationRepository { sharedLocationRepository }
     public var sessionRepository: SessionRepository { SessionRepositoryImpl(tokenStore: tokenStore) }
+    public var deviceIdentifying: DeviceIdentifying { DeviceIdentifyingImpl(store: deviceIdentifierStore) }
 }

@@ -337,7 +337,7 @@ private extension HomeViewModel {
             }
         }
         return HomeViewModel(
-            user: User(id: "preview", nickname: "로컬탐험가", socialType: "google", totalStamps: 12),
+            user: User(id: "preview", nickname: "로컬탐험가", socialType: "google", totalStamps: 12, isGuest: false),
             fetchCurrentTripUseCase: FetchCurrentTripUseCase(matchRepository: NoopMatchRepository()),
             fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase(badgeRepository: NoopBadgeRepository()),
             fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase(regionRepository: NoopRegionRepository()),

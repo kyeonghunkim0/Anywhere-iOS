@@ -83,6 +83,7 @@ public struct RootView: View {
                     onSignOut: {
                         coordinator.reset()
                         viewModel.signOut()
+                        loginViewModel.reset()
                     }
                 )
                 .id(user.id)

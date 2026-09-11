@@ -15,6 +15,8 @@ struct SocialAuthenticatingAdapter: SocialAuthenticating {
             )
         } catch is CancellationError {
             throw .cancelled
+        } catch AuthProviderError.cancelled {
+            throw .cancelled
         } catch {
             throw .failed
         }

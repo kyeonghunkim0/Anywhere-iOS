@@ -1,3 +1,61 @@
+# 비회원(게스트) 로그인
+
+## 할 일
+- [x] Domain: `User.isGuest`, `DeviceIdentifying` 프로토콜, `AuthRepository`에 게스트 메서드 2개 추가
+- [x] Domain: `SignInAsGuestUseCase`, `UpgradeGuestAccountUseCase` 추가
+- [x] Data: `DeviceIdentifierStore`(Keychain) + `DeviceIdentifyingImpl`, `GuestLoginRequestDTO`/`GuestUpgradeRequestDTO`, `AuthAPI` case 2개, `AuthRepositoryImpl` 구현, `DataContainer` 노출
+- [x] DIContainer: `signInAsGuestUseCase`/`upgradeGuestAccountUseCase` 추가
+- [x] Presentation: `LoginViewModel.signInAsGuest()` + `LoginView` "비회원 로그인" 링크
+- [x] Presentation: `SettingsViewModel.linkSocialAccount(socialType:)` + `SettingsView` 게스트 전용 "소셜 계정 연결" 섹션
+- [x] `AnywhereApp.swift` 조립부에 신규 유스케이스 주입
+- [x] L10n 4개 로케일에 신규 키 추가
+- [x] `tuist generate` + 컴파일 통과 (AnywhereAppDebug)
+- [x] 실기기 curl로 `/api/auth/guest`, `/api/auth/guest/upgrade`, `/api/users/me` 실응답 대조
+- [x] 시뮬레이터 설치·실행 — 로그인 화면에 "비회원 로그인" 링크 렌더링 확인 (스크린샷)
+- [ ] 시뮬레이터 접근성 권한이 없어 탭 자동화 불가 — "비회원 로그인" 탭 → 홈 진입, 세션 복구, 소셜 계정 연결 성공/409 실패는 사용자가 직접 확인 중
+
+## 리뷰
+- **실제 API로 계약을 맞춰보다가 버그를 하나 잡았다.** `POST /api/auth/guest` 응답의 `data.user`에는 `isGuest`가 있지만, `GET /api/users/me`(그리고 다른 유저 조회 엔드포인트)엔 없다. 계획대로 `UserDTO.isGuest: Bool`을 그대로 뒀으면 게스트로 로그인한 뒤 프로필을 조회하는 순간 디코딩이 깨졌을 것. `isGuest` 필드 디코딩을 없애고 `socialType == "guest"`로 판별하도록 바꿔 모든 엔드포인트에서 안전하게 동작하게 했다.
+- `guestUpgrade`(소셜 계정 연결)는 게스트 JWT로 인증된 상태에서만 호출되므로 `AuthorizationPolicy.required`로 뒀다. curl로 무토큰 401, 빈 바디 400 모두 서버와 일치 확인.
+- LoginView 링크 라벨은 처음 "나중에 하기"로 만들었다가 사용자가 "비회원 로그인"으로 바로 교정했다 — 사용자에게 "지금 뭘 하는 액션인지"가 더 명확한 문구를 선호.
+
+---
+
+# 소셜 로그인 취소 알럿 버그 + 로그아웃 확인
+
+## 배경
+사용자가 Apple 로그인 시트를 취소했는데 "소셜 로그인에 실패했습니다" 알럿이 떴다. 실기기 로그에 `ASAuthorizationController credential request failed ... Code=1001`(= 사용자 취소)이 찍혀 있었다.
+
+## 원인
+`SocialAuthenticatingAdapter.signIn`은 `catch is CancellationError`만 취소로 인식했다. 그런데 Apple 취소는 `ASAuthorizationError.canceled`(NSError, 도메인 `ASAuthorizationErrorDomain`), Google 취소는 `GIDSignInError.canceled` — 둘 다 Swift `CancellationError`가 아니라 catch-all `.failed`로 떨어져 알럿이 떴다.
+
+## 할 일
+- [x] `AuthProviderError`에 `.cancelled` 케이스 추가 (`errorDescription`은 nil — 알럿에 안 쓴다는 의도를 명시)
+- [x] `AuthProvider.signInWithGoogle`: `GIDSignInError`의 `.canceled` 코드를 잡아 `.cancelled`로 재던짐
+- [x] `AuthProvider.signInWithApple`: `ASAuthorizationError`의 `.canceled` 코드를 잡아 `.cancelled`로 재던짐
+- [x] 컴파일 통과 (`AnywhereAppDebug`)
+- [ ] 실기기에서 Apple/Google 로그인 시트를 직접 취소해 알럿이 안 뜨는지 확인 (시뮬레이터 접근성 권한 없어 자동 탭 불가, SDK 로그인이라 서버 mock으로도 재현 불가)
+
+## 리뷰
+- 취소 감지를 DIContainer(`SocialAuthenticatingAdapter`)가 아니라 Auth 모듈(`AuthProvider`)에서 했다. SDK별 에러 타입(`ASAuthorizationError`, `GIDSignInError`)을 아는 계층이 Auth뿐이라, 여기서 통일된 `.cancelled`로 변환해 위로는 기존 `catch is CancellationError` 경로 하나만 더 늘리면 되게 했다 — DIContainer가 SDK 에러 타입을 새로 import할 필요가 없다.
+- **1차 수정이 실제로는 동작하지 않았다.** `AuthProvider`에서 `AuthProviderError.cancelled`를 던지긴 했지만 (1) `AuthProviderError`가 `public`이 아니어서 DIContainer 쪽에서 타입 매칭 자체가 안 됐고, (2) `SocialAuthenticatingAdapter.signIn`의 catch 체인에 `catch AuthProviderError.cancelled`를 추가하는 걸 빠뜨려서 여전히 catch-all `.failed`로 떨어졌다. 사용자가 "동일하게 뜨고 있어"라고 재현해줘서 잡았다 — 컴파일 통과와 "런타임에서 안 뜨는지"는 다른 질문이라는 걸 다시 확인.
+- 로그아웃 확인 다이얼로그는 처음에 SwiftUI 기본 `.alert`로 만들었는데, 사용자가 디자인 시스템 컴포넌트(`DSModal`/`.dsModal`)를 쓰라고 교정. `ForceUpdateView`가 이미 쓰는 패턴(`title` + `message` + `DSModalAction` 배열)을 그대로 따라 맞췄다.
+
+## 로그아웃 확인 다이얼로그
+- 사용자 요청: 로그아웃 버튼을 누르면 바로 로그아웃되지 말고 "정말로 로그아웃 하시겠습니까?" 확인 알럿을 한 번 더 띄울 것.
+- [x] `SettingsView`에 `showsSignOutConfirmation` state + `.alert` 추가, 실제 로그아웃은 확인 버튼(`role: .destructive`)을 눌러야 실행
+- [x] L10n 4개 로케일에 `settings.signOutConfirmTitle` 추가
+- [x] 컴파일 통과
+
+## 설정 화면 아이콘 정리
+- 사용자 요청: "소셜 계정 연결" 행(Apple/Google)은 아이콘 없이, 푸시 알림 행은 아이콘을 벨 모양으로.
+- [x] `SettingsView.row(icon:...)`를 `DSIcon?`로 바꿔 아이콘 없는 행을 지원 (`linkAccountRow`가 `nil` 전달)
+- [x] `pushRow`는 DSIcon에 벨이 없어 `Image(systemName: "bell.fill")`로 대체 (LoginView가 Apple 마크에 SF Symbol을 직접 쓰는 기존 패턴과 동일)
+- [x] 컴파일 통과
+- [ ] 게스트 로그인 후 Settings 탭 진입 육안 확인 (사용자가 직접 확인 중)
+
+---
+
 # Domain/Data ↔ Anywhere_server 계약 정합화
 
 ## 할 일

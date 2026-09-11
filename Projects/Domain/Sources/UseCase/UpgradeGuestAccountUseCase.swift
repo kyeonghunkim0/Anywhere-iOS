@@ -1,4 +1,6 @@
-public struct SignInUseCase: Sendable {
+/// 게스트 계정에 소셜 로그인을 연결해 정회원으로 전환한다. 스탬프·매칭이력은
+/// 같은 User row를 그대로 쓰므로 서버가 보존한다.
+public struct UpgradeGuestAccountUseCase: Sendable {
     private let socialAuthenticating: SocialAuthenticating
     private let authRepository: AuthRepository
     private let sessionRepository: SessionRepository
@@ -26,7 +28,7 @@ public struct SignInUseCase: Sendable {
             }
         }
 
-        let session = try await authRepository.login(with: credential)
+        let session = try await authRepository.upgradeGuest(with: credential)
         await sessionRepository.saveToken(session.token)
         return session
     }

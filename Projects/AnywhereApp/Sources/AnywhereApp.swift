@@ -46,7 +46,12 @@ struct AnywhereApp: App {
                 fetchAppInfoUseCase: container.fetchAppInfoUseCase
             )
         )
-        _loginViewModel = State(wrappedValue: LoginViewModel(signInUseCase: container.signInUseCase))
+        _loginViewModel = State(
+            wrappedValue: LoginViewModel(
+                signInUseCase: container.signInUseCase,
+                signInAsGuestUseCase: container.signInAsGuestUseCase
+            )
+        )
     }
 
     var body: some Scene {
@@ -119,7 +124,8 @@ struct AnywhereApp: App {
                     SettingsViewModel(
                         fetchMyProfileUseCase: container.fetchMyProfileUseCase,
                         updateSettingsUseCase: container.updateSettingsUseCase,
-                        signOutUseCase: container.signOutUseCase
+                        signOutUseCase: container.signOutUseCase,
+                        upgradeGuestAccountUseCase: container.upgradeGuestAccountUseCase
                     )
                 },
                 profile: {

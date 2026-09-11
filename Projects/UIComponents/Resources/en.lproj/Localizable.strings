@@ -8,6 +8,7 @@
 "login.subtitle" = "Skip the famous spots. Discover quiet local gems, stamp your visit with GPS, and collect the whole country.";
 "login.googleButton" = "Continue with Google";
 "login.appleButton" = "Continue with Apple";
+"login.guestButton" = "Continue as Guest";
 "login.termsPrefix" = "By continuing, you agree to our ";
 "login.termsOfService" = "Terms of Service";
 "login.termsConnector" = " and ";
@@ -16,6 +17,7 @@
 "login.failureTitle" = "Sign-in Failed";
 "login.sessionExpired" = "Please sign in again.";
 "login.networkError" = "Please check your network connection.";
+"login.socialSignInFailed" = "Social sign-in failed.";
 
 "home.appName" = "Anywhere";
 "home.tripBadge" = "On the way";
@@ -123,11 +125,15 @@
 
 "settings.title" = "Settings";
 "settings.connectedWith" = "%@ connected";
+"settings.groupAccountLink" = "Link Social Account";
+"settings.linkGoogleButton" = "Link Google Account";
+"settings.linkAppleButton" = "Link Apple Account";
 "settings.groupNotification" = "Notifications";
 "settings.groupInfo" = "About";
 "settings.pushNotification" = "Push notifications";
 "settings.appVersion" = "App version";
 "settings.signOut" = "Sign out";
+"settings.signOutConfirmTitle" = "Are you sure you want to sign out?";
 
 "profile.joined" = "Joined %@";
 "profile.statLevel" = "Level";

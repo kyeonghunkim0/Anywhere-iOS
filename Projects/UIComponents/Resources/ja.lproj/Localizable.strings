@@ -8,6 +8,7 @@
 "login.subtitle" = "有名な観光地ではなく、静かな地元の名所へ。到着したらGPSでスタンプを押して、全国を集めましょう。";
 "login.googleButton" = "Googleではじめる";
 "login.appleButton" = "Appleで続ける";
+"login.guestButton" = "ゲストとしてログイン";
 "login.termsPrefix" = "続行すると、";
 "login.termsOfService" = "利用規約";
 "login.termsConnector" = "および";
@@ -16,6 +17,7 @@
 "login.failureTitle" = "ログインに失敗しました";
 "login.sessionExpired" = "もう一度ログインしてください。";
 "login.networkError" = "ネットワーク接続を確認してください。";
+"login.socialSignInFailed" = "ソーシャルログインに失敗しました。";
 
 "home.appName" = "Anywhere";
 "home.tripBadge" = "移動中";
@@ -123,11 +125,15 @@
 
 "settings.title" = "設定";
 "settings.connectedWith" = "%@ 連携";
+"settings.groupAccountLink" = "ソーシャルアカウント連携";
+"settings.linkGoogleButton" = "Googleアカウントを連携";
+"settings.linkAppleButton" = "Appleアカウントを連携";
 "settings.groupNotification" = "通知";
 "settings.groupInfo" = "情報";
 "settings.pushNotification" = "プッシュ通知";
 "settings.appVersion" = "アプリバージョン";
 "settings.signOut" = "ログアウト";
+"settings.signOutConfirmTitle" = "本当にログアウトしますか？";
 
 "profile.joined" = "%@ 登録";
 "profile.statLevel" = "現在のレベル";

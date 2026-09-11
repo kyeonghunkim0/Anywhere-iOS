@@ -80,12 +80,14 @@ final class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate,
     }
 }
 
-enum AuthProviderError: LocalizedError {
+public enum AuthProviderError: LocalizedError {
     case missingGoogleIDToken
     case missingAppleCredential
     case missingAppleIdentityToken
+    /// 사용자가 시스템 시트에서 직접 취소함. `.failed`와 달리 에러 알럿을 띄우지 않는다.
+    case cancelled
 
-    var errorDescription: String? {
+    public var errorDescription: String? {
         switch self {
         case .missingGoogleIDToken:
             return "구글 로그인 토큰을 가져오지 못했습니다."
@@ -93,6 +95,8 @@ enum AuthProviderError: LocalizedError {
             return "애플 로그인 인증 정보를 가져오지 못했습니다."
         case .missingAppleIdentityToken:
             return "애플 로그인 토큰을 가져오지 못했습니다."
+        case .cancelled:
+            return nil
         }
     }
 }

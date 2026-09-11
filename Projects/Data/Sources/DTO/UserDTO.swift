@@ -1,6 +1,8 @@
 import Foundation
 
-/// POST /api/auth/login의 data.user.
+/// POST /api/auth/login, /api/auth/guest, /api/auth/guest/upgrade의 data.user.
+/// 게스트 계정 전용 필드(isGuest, guestExpiresAt)는 이 엔드포인트에만 있고
+/// GET /api/users/me 등에는 없어서 디코딩하지 않는다 — `socialType == "guest"`로 판별한다.
 struct UserDTO: Decodable, Sendable {
     let id: String
     let nickname: String

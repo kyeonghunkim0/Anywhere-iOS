@@ -1,0 +1,131 @@
+default_platform(:ios)
+
+platform :ios do
+  # Reusable helper to load the App Store Connect API Key
+  def load_asc_api_key
+    key_id = ENV["APP_STORE_CONNECT_API_KEY_ID"]
+    issuer_id = ENV["APP_STORE_CONNECT_API_KEY_ISSUER_ID"]
+    key_filepath = ENV["APP_STORE_CONNECT_API_KEY_KEY_FILEPATH"]
+    key_content = ENV["APP_STORE_CONNECT_API_KEY_KEY_CONTENT"]
+
+    if key_id.to_s.empty? || issuer_id.to_s.empty?
+      UI.user_error!("Missing APP_STORE_CONNECT_API_KEY_ID or APP_STORE_CONNECT_API_KEY_ISSUER_ID environment variables.")
+    end
+
+    if key_content.to_s.empty? && key_filepath.to_s.empty?
+      UI.user_error!("You must provide either APP_STORE_CONNECT_API_KEY_KEY_FILEPATH or APP_STORE_CONNECT_API_KEY_KEY_CONTENT.")
+    end
+
+    # Resolve relative filepath to an absolute path relative to the project root
+    if !key_filepath.to_s.empty? && !key_filepath.start_with?("/")
+      project_root = File.expand_path("..", __dir__)
+      key_filepath = File.expand_path(key_filepath, project_root)
+    end
+
+    app_store_connect_api_key(
+      key_id: key_id,
+      issuer_id: issuer_id,
+      key_filepath: !key_filepath.to_s.empty? ? key_filepath : nil,
+      key_content: !key_content.to_s.empty? ? key_content : nil,
+      in_house: false
+    )
+  end
+
+  desc "Verify that the App Store Connect API Key configurations are valid"
+  lane :check_api_key do
+    UI.message("Checking App Store Connect API Key settings...")
+    begin
+      api_key = load_asc_api_key
+      UI.success("Successfully loaded App Store Connect API Key ID: #{api_key[:key_id]} (Issuer ID: #{api_key[:issuer_id]})")
+    rescue => e
+      UI.error("Failed to load App Store Connect API Key. Error: #{e.message}")
+      UI.important("Please check your .env configuration file and key file path.")
+      raise e
+    end
+  end
+
+  desc "Clean the build artifacts and cache using Tuist"
+  lane :clean do
+    sh("cd .. && tuist clean")
+  end
+
+  desc "Generate the Xcode project and workspace using Tuist"
+  lane :generate do
+    sh("cd .. && tuist generate --no-open")
+  end
+
+  desc "Build the application target for the iOS Simulator"
+  lane :build do
+    generate # Ensure the workspace is generated and up to date
+
+    xcodebuild(
+      workspace: "Anywhere.xcworkspace",
+      scheme: "AnywhereAppDebug",
+      sdk: "iphonesimulator",
+      destination: "generic/platform=iOS Simulator",
+      configuration: "Debug",
+      actions: [:build]
+    )
+  end
+
+  desc "Build and upload the application to TestFlight"
+  lane :beta do
+    api_key = load_asc_api_key
+    clean
+    generate
+
+    # Download certificates and provisioning profiles
+    get_certificates(api_key: api_key)
+    get_provisioning_profile(
+      api_key: api_key,
+      app_identifier: "com.kimkhuna.Anywhere.AnywhereApp"
+    )
+
+    build_app(
+      workspace: "Anywhere.xcworkspace",
+      scheme: "AnywhereAppRelease",
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: {
+        signingStyle: "automatic"
+      }
+    )
+
+    upload_to_testflight(
+      api_key: api_key,
+      skip_waiting_for_build_processing: true
+    )
+  end
+
+  desc "Build and submit the application to App Store Connect"
+  lane :release do
+    api_key = load_asc_api_key
+    clean
+    generate
+
+    # Download certificates and provisioning profiles
+    get_certificates(api_key: api_key)
+    get_provisioning_profile(
+      api_key: api_key,
+      app_identifier: "com.kimkhuna.Anywhere.AnywhereApp"
+    )
+
+    build_app(
+      workspace: "Anywhere.xcworkspace",
+      scheme: "AnywhereAppRelease",
+      configuration: "Release",
+      export_method: "app-store",
+      export_options: {
+        signingStyle: "automatic"
+      }
+    )
+
+    upload_to_app_store(
+      api_key: api_key,
+      skip_metadata: true,
+      skip_screenshots: true,
+      force: true,
+      run_precheck_before_submit: false
+    )
+  end
+end

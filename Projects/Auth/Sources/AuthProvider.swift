@@ -11,7 +11,12 @@ public struct AuthProvider {
 
     @discardableResult
     public func signInWithGoogle(presenting viewController: UIViewController) async throws -> SocialSignInResult {
-        let result = try await GIDSignIn.sharedInstance.signIn(withPresenting: viewController)
+        let result: GIDSignInResult
+        do {
+            result = try await GIDSignIn.sharedInstance.signIn(withPresenting: viewController)
+        } catch let error as GIDSignInError where error.code == .canceled {
+            throw AuthProviderError.cancelled
+        }
         guard let idToken = result.user.idToken?.tokenString else {
             throw AuthProviderError.missingGoogleIDToken
         }
@@ -37,7 +42,12 @@ public struct AuthProvider {
 
         let nonce = AppleSignInCoordinator.randomNonceString()
         let coordinator = AppleSignInCoordinator(anchor: anchor)
-        let appleIDCredential = try await coordinator.performRequest(scopes: [.fullName, .email], nonce: nonce)
+        let appleIDCredential: ASAuthorizationAppleIDCredential
+        do {
+            appleIDCredential = try await coordinator.performRequest(scopes: [.fullName, .email], nonce: nonce)
+        } catch let error as ASAuthorizationError where error.code == .canceled {
+            throw AuthProviderError.cancelled
+        }
 
         guard let identityToken = appleIDCredential.identityToken,
               let idTokenString = String(data: identityToken, encoding: .utf8) else {

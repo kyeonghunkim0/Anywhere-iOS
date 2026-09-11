@@ -12,6 +12,7 @@
 "login.subtitle" = "유명 관광지 말고 한적한 지역 명소로. 도착해서 GPS로 도장을 찍고 전국을 모아보세요.";
 "login.googleButton" = "Google로 시작하기";
 "login.appleButton" = "Apple로 계속하기";
+"login.guestButton" = "비회원 로그인";
 "login.termsPrefix" = "계속 진행하면 ";
 "login.termsOfService" = "서비스 이용약관";
 "login.termsConnector" = "과 ";
@@ -20,6 +21,7 @@
 "login.failureTitle" = "로그인 실패";
 "login.sessionExpired" = "다시 로그인해주세요.";
 "login.networkError" = "네트워크 연결을 확인해주세요.";
+"login.socialSignInFailed" = "소셜 로그인에 실패했습니다.";
 
 "home.appName" = "아무데나";
 "home.tripBadge" = "이동 중";
@@ -127,11 +129,15 @@
 
 "settings.title" = "설정";
 "settings.connectedWith" = "%@ 연결";
+"settings.groupAccountLink" = "소셜 계정 연결";
+"settings.linkGoogleButton" = "Google 계정 연결";
+"settings.linkAppleButton" = "Apple 계정 연결";
 "settings.groupNotification" = "알림";
 "settings.groupInfo" = "정보";
 "settings.pushNotification" = "푸시 알림";
 "settings.appVersion" = "앱 버전";
 "settings.signOut" = "로그아웃";
+"settings.signOutConfirmTitle" = "정말로 로그아웃 하시겠습니까?";
 
 "profile.joined" = "%@ 가입";
 "profile.statLevel" = "현재 레벨";

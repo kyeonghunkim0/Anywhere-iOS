@@ -53,3 +53,19 @@ Fatal error: No Observable object of type NavigationCoordinator found.
 - 한 파일 안에서 섞였으면 `git apply --cached`로 해당 hunk만 스테이징한다.
 - 남의 진행 중인 작업은 내가 지은 메시지로 묶지 않는다. 무엇이 남았는지 보고하고 판단을 넘긴다.
 - 저장소에 `revert: keep unrelated staged deletion out of ...` 같은 커밋이 이미 있다 — 이 저장소는 커밋 분리를 중요하게 본다.
+
+---
+
+## 4. 새 에러 케이스를 던지는 곳만 고치고 "잡는 곳"을 확인하지 않았다
+
+**날짜**: 2026-09-11
+**상황**: 소셜 로그인 취소 시 알럿이 뜨는 버그를 고치면서 `AuthProvider`(Auth 모듈)에 `AuthProviderError.cancelled`를 추가해 던지도록 고쳤다. 컴파일이 통과해서 끝났다고 생각했는데, 실제로는 여전히 알럿이 떴다.
+
+**원인**: 두 가지를 동시에 놓쳤다.
+1. `AuthProviderError` enum이 `public`이 아니었다 — 모듈 밖(`DIContainer`)에서 이 타입으로 패턴 매칭을 할 수 없었는데도 컴파일 에러가 나지 않았다 (호출부가 `catch { throw .failed }`처럼 타입을 특정하지 않는 catch-all이라 컴파일러가 조용히 넘어갔다).
+2. 실제로 새 에러를 "잡는" 코드(`SocialAuthenticatingAdapter.signIn`의 catch 체인)에 `catch AuthProviderError.cancelled` 분기를 추가하는 걸 깜빡했다. Throw하는 쪽만 고치고 catch하는 쪽은 기존 catch-all이 알아서 처리해줄 거라고 착각했다.
+
+**자기 규칙**
+- 에러 타입에 새 case를 추가하거나 새 에러를 던지는 지점을 바꿀 때는, **그 에러를 소비하는 모든 catch 지점을 grep으로 찾아 하나씩 확인**한다. "던지는 곳만 고치면 위에서 알아서 처리되겠지"라고 넘어가지 않는다.
+- 모듈 경계를 넘는 타입(다른 모듈의 catch 블록에서 매칭해야 하는 에러)은 **`public` 여부를 먼저 확인**한다. catch-all(`catch { ... }`)이 있으면 접근 제어 실수가 컴파일 에러 없이 조용히 숨는다는 걸 기억한다.
+- "컴파일 통과 + 로그로 코드 경로를 눈으로 읽음"은 검증이 아니다. 사용자가 실기기에서 재현해서 알려줬다 — 이런 종류의 수정은 실제로 취소 동작을 시연해야 확인된 것이다.

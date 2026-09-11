@@ -8,12 +8,15 @@ public struct User: Sendable, Identifiable, Equatable {
     /// SocialType으로 강제 변환하지 않는다 — 필요하면 `SocialType(rawValue:)`로 해석한다.
     public let socialType: String
     public let totalStamps: Int
+    /// 게스트(비회원) 계정 여부. true면 소셜 계정 연결 전까지 만료 시각이 지나면 서버가 데이터를 정리한다.
+    public let isGuest: Bool
 
-    public init(id: String, nickname: String, socialType: String, totalStamps: Int) {
+    public init(id: String, nickname: String, socialType: String, totalStamps: Int, isGuest: Bool) {
         self.id = id
         self.nickname = nickname
         self.socialType = socialType
         self.totalStamps = totalStamps
+        self.isGuest = isGuest
     }
 }
 

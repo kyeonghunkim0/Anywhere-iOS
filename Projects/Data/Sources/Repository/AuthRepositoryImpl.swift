@@ -25,4 +25,36 @@ final class AuthRepositoryImpl: AuthRepository, Sendable {
             throw ErrorMapper.auth(error)
         }
     }
+
+    func loginAsGuest(deviceId: String) async throws(AuthError) -> AuthSession {
+        let request = GuestLoginRequestDTO(deviceId: deviceId)
+        do {
+            let envelope = try await httpClient.request(AuthAPI.guestLogin(request), as: APIResponse<LoginDataDTO>.self)
+            return AuthSession(
+                token: envelope.value.data.token,
+                user: envelope.value.data.user.toEntity(),
+                isNewUser: envelope.statusCode == 201
+            )
+        } catch {
+            throw ErrorMapper.auth(error)
+        }
+    }
+
+    func upgradeGuest(with credential: SocialCredential) async throws(AuthError) -> AuthSession {
+        let request = GuestUpgradeRequestDTO(
+            socialType: credential.socialType.rawValue,
+            idToken: credential.idToken,
+            nickname: credential.nickname
+        )
+        do {
+            let envelope = try await httpClient.request(AuthAPI.guestUpgrade(request), as: APIResponse<LoginDataDTO>.self)
+            return AuthSession(
+                token: envelope.value.data.token,
+                user: envelope.value.data.user.toEntity(),
+                isNewUser: envelope.statusCode == 201
+            )
+        } catch {
+            throw ErrorMapper.auth(error)
+        }
+    }
 }

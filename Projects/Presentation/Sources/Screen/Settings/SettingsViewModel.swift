@@ -22,18 +22,24 @@ public final class SettingsViewModel {
 
     private var hasLoaded = false
 
+    /// 게스트 → 소셜 연결 중일 때만 true. 연결 버튼이 중복 탭되지 않게 한다.
+    public private(set) var isLinkingAccount = false
+
     private let fetchMyProfileUseCase: FetchMyProfileUseCase
     private let updateSettingsUseCase: UpdateSettingsUseCase
     private let signOutUseCase: SignOutUseCase
+    private let upgradeGuestAccountUseCase: UpgradeGuestAccountUseCase
 
     public init(
         fetchMyProfileUseCase: FetchMyProfileUseCase,
         updateSettingsUseCase: UpdateSettingsUseCase,
-        signOutUseCase: SignOutUseCase
+        signOutUseCase: SignOutUseCase,
+        upgradeGuestAccountUseCase: UpgradeGuestAccountUseCase
     ) {
         self.fetchMyProfileUseCase = fetchMyProfileUseCase
         self.updateSettingsUseCase = updateSettingsUseCase
         self.signOutUseCase = signOutUseCase
+        self.upgradeGuestAccountUseCase = upgradeGuestAccountUseCase
     }
 
     public func load() async {
@@ -73,6 +79,23 @@ public final class SettingsViewModel {
         await signOutUseCase.execute()
     }
 
+    /// 게스트 계정에 소셜 로그인을 연결해 정회원으로 전환한다. 성공하면 프로필을 다시 읽어와
+    /// `isGuest`가 반영된 최신 상태로 갱신한다.
+    public func linkSocialAccount(socialType: SocialType) async {
+        guard !isLinkingAccount else { return }
+        isLinkingAccount = true
+        defer { isLinkingAccount = false }
+
+        do throws(AuthError) {
+            _ = try await upgradeGuestAccountUseCase.execute(socialType: socialType)
+            await reload()
+        } catch .signInCancelled {
+            // 사용자가 시스템 시트에서 직접 취소한 경우는 에러로 취급하지 않는다.
+        } catch {
+            errorMessage = Self.message(for: error)
+        }
+    }
+
     /// 번들에 박힌 이 빌드의 버전. 서버가 아는 최신 버전과는 별개다.
     public var appVersion: String {
         Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "-"
@@ -95,6 +118,8 @@ public final class SettingsViewModel {
             message
         case .sessionExpired:
             L10n.loginSessionExpired
+        case .socialSignInFailed:
+            L10n.loginSocialSignInFailed
         case .signInCancelled, .network:
             L10n.loginNetworkError
         }

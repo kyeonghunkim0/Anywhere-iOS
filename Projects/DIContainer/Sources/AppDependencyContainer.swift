@@ -40,6 +40,22 @@ public final class AppDependencyContainer: Sendable {
         SignOutUseCase(socialAuthenticating: socialAuthenticating, sessionRepository: dataContainer.sessionRepository)
     }
 
+    public var signInAsGuestUseCase: SignInAsGuestUseCase {
+        SignInAsGuestUseCase(
+            deviceIdentifying: dataContainer.deviceIdentifying,
+            authRepository: dataContainer.authRepository,
+            sessionRepository: dataContainer.sessionRepository
+        )
+    }
+
+    public var upgradeGuestAccountUseCase: UpgradeGuestAccountUseCase {
+        UpgradeGuestAccountUseCase(
+            socialAuthenticating: socialAuthenticating,
+            authRepository: dataContainer.authRepository,
+            sessionRepository: dataContainer.sessionRepository
+        )
+    }
+
     public var restoreSessionUseCase: RestoreSessionUseCase {
         RestoreSessionUseCase(
             sessionRepository: dataContainer.sessionRepository,
