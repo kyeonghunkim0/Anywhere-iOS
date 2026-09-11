@@ -111,17 +111,6 @@ struct MatchResultView: View {
             .accessibilityLabel(L10n.commonClose)
 
             Spacer()
-
-            HStack(spacing: 6) {
-                DSIconView(.sparkles, size: 13, color: DSColor.brandPrimary)
-                Text(L10n.matchResultRandomChip)
-                    .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.bold))
-                    .foregroundStyle(DSColor.ink900)
-            }
-            .padding(.horizontal, 14)
-            .frame(height: 38)
-            .background(DSColor.surface.opacity(0.92))
-            .clipShape(RoundedRectangle(cornerRadius: DSRadius.pill, style: .continuous))
         }
         .padding(.horizontal, 16)
         .padding(.top, 52)

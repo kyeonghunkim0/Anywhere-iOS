@@ -168,7 +168,6 @@
 "location.permissionTitle" = "Location access needed";
 "location.openSettings" = "Open Settings";
 
-"matchResult.randomChip" = "Random match";
 "matchResult.distanceLabel" = "Distance";
 "matchResult.distanceValue" = "%.0fkm";
 "matchResult.regionLabel" = "Region";

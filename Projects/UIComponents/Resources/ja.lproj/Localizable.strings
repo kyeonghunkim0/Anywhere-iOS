@@ -168,7 +168,6 @@
 "location.permissionTitle" = "位置情報の許可が必要";
 "location.openSettings" = "設定を開く";
 
-"matchResult.randomChip" = "ランダムマッチ";
 "matchResult.distanceLabel" = "距離";
 "matchResult.distanceValue" = "%.0fkm";
 "matchResult.regionLabel" = "地域";

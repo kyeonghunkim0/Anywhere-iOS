@@ -168,7 +168,6 @@
 "location.permissionTitle" = "需要位置权限";
 "location.openSettings" = "打开设置";
 
-"matchResult.randomChip" = "随机匹配";
 "matchResult.distanceLabel" = "距离";
 "matchResult.distanceValue" = "%.0fkm";
 "matchResult.regionLabel" = "地区";
