@@ -16,19 +16,19 @@ import UIComponents
 
 struct PlaceDetailView: View {
     @State private var viewModel: PlaceDetailViewModel
-    /// "내 맘대로"에서 왔을 때만 도착 인증으로 이어진다.
-    private let onVerifyArrival: ((PlaceRef) -> Void)?
+    /// "내 맘대로"에서 왔을 때만 붙는다 — confirmDestination()이 성공한 뒤 홈으로 돌아간다.
+    private let onConfirmDestination: (() -> Void)?
     private let onBack: () -> Void
 
     private let heroHeight: CGFloat = 300
 
     init(
         viewModel: PlaceDetailViewModel,
-        onVerifyArrival: ((PlaceRef) -> Void)? = nil,
+        onConfirmDestination: (() -> Void)? = nil,
         onBack: @escaping () -> Void = {}
     ) {
         _viewModel = State(wrappedValue: viewModel)
-        self.onVerifyArrival = onVerifyArrival
+        self.onConfirmDestination = onConfirmDestination
         self.onBack = onBack
     }
 
@@ -55,6 +55,17 @@ struct PlaceDetailView: View {
         .background(Color.white)
         .toolbar(.hidden, for: .navigationBar)
         .task { await viewModel.load() }
+        .alert(
+            L10n.homeErrorTitle,
+            isPresented: Binding(
+                get: { viewModel.place != nil && viewModel.errorMessage != nil },
+                set: { if !$0 { viewModel.errorMessage = nil } }
+            )
+        ) {
+            Button(L10n.commonConfirm, role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
     }
 
     private func content(_ place: PlaceDetail) -> some View {
@@ -82,10 +93,15 @@ struct PlaceDetailView: View {
         }
         .ignoresSafeArea(edges: .top)
         .safeAreaInset(edge: .bottom, spacing: 0) {
-            if let onVerifyArrival, let placeRef = viewModel.placeRef {
-                DSButton(L10n.homeVerifyArrival, variant: .primary) {
-                    onVerifyArrival(placeRef)
+            if let onConfirmDestination {
+                DSButton(L10n.matchResultConfirm, variant: .primary) {
+                    Task {
+                        if await viewModel.confirmDestination() {
+                            onConfirmDestination()
+                        }
+                    }
                 }
+                .disabled(viewModel.isConfirming)
                 .padding(.horizontal, DSSpacing.s6)
                 .padding(.top, 16)
                 .padding(.bottom, 32)

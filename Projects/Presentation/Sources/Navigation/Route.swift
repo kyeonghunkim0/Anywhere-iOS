@@ -41,8 +41,8 @@ public enum Route: Hashable, Identifiable, Sendable {
     /// 랭커 상세. 순위는 상세 API가 주지 않아 목록에서 눌린 값을 들고 간다.
     case rankerDetail(userId: String, rank: Int)
     /// 장소 상세. "내 맘대로"로 고른 목적지도 이 화면으로 오고,
-    /// 그때만(showsArrivalAction) 도착 인증 버튼이 붙는다.
-    case placeDetail(placeId: String, showsArrivalAction: Bool = false)
+    /// 그때만(showsConfirmAction) "여기로 결정" 버튼이 붙어 랜덤 매칭과 동일하게 홈으로 돌아간다.
+    case placeDetail(placeId: String, showsConfirmAction: Bool = false)
     /// 이용약관
     case terms
     /// 개인정보 처리방침

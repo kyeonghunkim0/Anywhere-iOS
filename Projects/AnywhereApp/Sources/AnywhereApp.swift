@@ -143,7 +143,9 @@ struct AnywhereApp: App {
                 placeDetail: { placeId in
                     PlaceDetailViewModel(
                         placeId: placeId,
-                        fetchPlaceDetailUseCase: container.fetchPlaceDetailUseCase
+                        fetchPlaceDetailUseCase: container.fetchPlaceDetailUseCase,
+                        createCustomMatchUseCase: container.createCustomMatchUseCase,
+                        confirmMatchUseCase: container.confirmMatchUseCase
                     )
                 },
                 regionDetail: { regionId in

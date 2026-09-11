@@ -313,6 +313,9 @@ private extension HomeViewModel {
             func fetchRandomMatch(at: Coordinate, radiusKm: Double?, tagId: String?) async throws(MatchError) -> RandomMatch {
                 throw .network(.unknown)
             }
+            func createCustomMatch(placeId: String, at: Coordinate) async throws(MatchError) -> RandomMatch {
+                throw .network(.unknown)
+            }
             func confirmMatch(matchId: String) async throws(MatchError) -> CurrentTrip {
                 throw .network(.unknown)
             }

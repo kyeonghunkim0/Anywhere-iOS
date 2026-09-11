@@ -28,6 +28,20 @@ final class MatchRepositoryImpl: MatchRepository, Sendable {
         }
     }
 
+    func createCustomMatch(placeId: String, at coordinate: Coordinate) async throws(MatchError) -> RandomMatch {
+        do {
+            let envelope = try await httpClient.request(
+                MatchAPI.custom(
+                    CustomMatchRequestDTO(placeId: placeId, lat: coordinate.latitude, lng: coordinate.longitude)
+                ),
+                as: APIResponse<MatchDataDTO>.self
+            )
+            return envelope.value.data.toEntity()
+        } catch {
+            throw ErrorMapper.match(error)
+        }
+    }
+
     func confirmMatch(matchId: String) async throws(MatchError) -> CurrentTrip {
         do {
             let envelope = try await httpClient.request(

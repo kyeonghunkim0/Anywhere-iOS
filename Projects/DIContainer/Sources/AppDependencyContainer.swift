@@ -100,6 +100,13 @@ public final class AppDependencyContainer: Sendable {
         )
     }
 
+    public var createCustomMatchUseCase: CreateCustomMatchUseCase {
+        CreateCustomMatchUseCase(
+            locationRepository: dataContainer.locationRepository,
+            matchRepository: dataContainer.matchRepository
+        )
+    }
+
     public var confirmMatchUseCase: ConfirmMatchUseCase {
         ConfirmMatchUseCase(matchRepository: dataContainer.matchRepository)
     }

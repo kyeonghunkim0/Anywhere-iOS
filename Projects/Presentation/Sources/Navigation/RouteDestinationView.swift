@@ -29,7 +29,7 @@ struct RouteDestinationView: View {
                 onStartCustom: {
                     guard let picked = plan.pickedPlace else { return }
                     coordinator.pushViewController(
-                        .placeDetail(placeId: picked.id, showsArrivalAction: true)
+                        .placeDetail(placeId: picked.id, showsConfirmAction: true)
                     )
                 }
             )
@@ -59,11 +59,11 @@ struct RouteDestinationView: View {
                 onDone: { coordinator.popViewController() }
             )
 
-        case .placeDetail(let placeId, let showsArrivalAction):
+        case .placeDetail(let placeId, let showsConfirmAction):
             PlaceDetailView(
                 viewModel: factory.placeDetail(placeId),
-                onVerifyArrival: showsArrivalAction
-                    ? { coordinator.pushViewController(.arrivalVerification(place: $0)) }
+                onConfirmDestination: showsConfirmAction
+                    ? { coordinator.popToRootViewController() }
                     : nil,
                 onBack: { coordinator.popViewController() }
             )
