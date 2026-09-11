@@ -87,6 +87,7 @@ struct RouteDestinationView: View {
             PassportDetailView(
                 viewModel: factory.passport(userId),
                 section: section,
+                onOpenRegion: { coordinator.pushViewController(.regionDetail(regionId: $0)) },
                 onBack: { coordinator.popViewController() }
             )
 

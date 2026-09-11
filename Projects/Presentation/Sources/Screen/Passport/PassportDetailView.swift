@@ -19,6 +19,7 @@ public enum PassportSection: String, Hashable, Sendable {
 struct PassportDetailView: View {
     @State private var viewModel: PassportViewModel
     private let section: PassportSection
+    private let onOpenRegion: (String) -> Void
     private let onBack: () -> Void
 
     private let columns = Array(repeating: GridItem(.flexible(), spacing: 12), count: 4)
@@ -26,10 +27,12 @@ struct PassportDetailView: View {
     init(
         viewModel: PassportViewModel,
         section: PassportSection,
+        onOpenRegion: @escaping (String) -> Void = { _ in },
         onBack: @escaping () -> Void = {}
     ) {
         _viewModel = State(wrappedValue: viewModel)
         self.section = section
+        self.onOpenRegion = onOpenRegion
         self.onBack = onBack
     }
 
@@ -84,14 +87,17 @@ struct PassportDetailView: View {
     private var regionGrid: some View {
         LazyVGrid(columns: columns, spacing: 22) {
             ForEach(viewModel.allStamps) { region in
-                DSStampTile(
-                    name: region.displayName,
-                    seed: region.regionId,
-                    isCollected: region.isVisited,
-                    level: region.level,
-                    visitorNumber: region.visitorNumber,
-                    imageURL: region.badge?.iconURL
-                )
+                Button { onOpenRegion(region.regionId) } label: {
+                    DSStampTile(
+                        name: region.displayName,
+                        seed: region.regionId,
+                        isCollected: region.isVisited,
+                        level: region.level,
+                        visitorNumber: region.visitorNumber,
+                        imageURL: region.badge?.iconURL
+                    )
+                }
+                .buttonStyle(DSPressStyle())
             }
         }
     }

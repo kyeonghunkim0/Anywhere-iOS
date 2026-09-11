@@ -193,15 +193,14 @@ struct RankerDetailView: View {
             LazyVGrid(columns: columns, spacing: 12) {
                 ForEach(ranker.stamps) { stamp in
                     VStack(spacing: 8) {
-                        DSIconView(stamp.regionId.regionIcon, size: 22, color: DSColor.brandPrimary)
-                            .frame(width: 56, height: 56)
-                            .background(DSColor.green50)
-                            .clipShape(Circle())
-                            .overlay {
-                                Circle().strokeBorder(DSColor.brandPrimary, lineWidth: 2)
-                            }
+                        RegionBadgeIcon(
+                            badge: stamp.badge,
+                            name: stamp.displayName,
+                            seed: stamp.regionId,
+                            diameter: 56
+                        )
 
-                        Text(stamp.sigunguName)
+                        Text(stamp.displayName)
                             .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.bold))
                             .foregroundStyle(DSColor.textPrimary)
                             .lineLimit(1)

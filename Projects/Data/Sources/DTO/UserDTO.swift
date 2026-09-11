@@ -52,6 +52,8 @@ struct RepresentativeStampDTO: Decodable, Sendable {
     let sidoName: String
     let sigunguName: String
     let visitCount: Int
+    /// 해당 지역의 기초자치단체(REGION) 뱃지. 등록된 뱃지가 없으면 nil.
+    let badge: RegionBadgeDTO?
 }
 
 /// GET /api/users/{userId}/detail.

@@ -143,12 +143,21 @@ public struct RepresentativeStamp: Sendable, Identifiable, Equatable {
     public let sidoName: String
     public let sigunguName: String
     public let visitCount: Int
+    /// 해당 지역의 기초자치단체 뱃지. 아직 뱃지가 없는 지역은 nil.
+    public let badge: RegionBadge?
 
-    public init(regionId: String, sidoName: String, sigunguName: String, visitCount: Int) {
+    public init(
+        regionId: String,
+        sidoName: String,
+        sigunguName: String,
+        visitCount: Int,
+        badge: RegionBadge? = nil
+    ) {
         self.regionId = regionId
         self.sidoName = sidoName
         self.sigunguName = sigunguName
         self.visitCount = visitCount
+        self.badge = badge
     }
 
     /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")

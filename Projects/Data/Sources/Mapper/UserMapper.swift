@@ -70,7 +70,8 @@ extension RankerDetailDTO {
                     regionId: $0.regionId,
                     sidoName: $0.sidoName,
                     sigunguName: $0.sigunguName,
-                    visitCount: $0.visitCount
+                    visitCount: $0.visitCount,
+                    badge: $0.badge?.toEntity()
                 )
             }
         )
