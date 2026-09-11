@@ -106,8 +106,11 @@ public final class PlaceSearchViewModel {
     }
 
     /// 서버가 알려준 전체 개수에 아직 못 미쳤으면 이어 받을 게 남아 있다.
-    public var canLoadMore: Bool {
-        hasKeyword && !isSearching && searchResults.count < total
+    /// `isSearching`을 넣지 않는다 — 화면이 이 값으로 로딩 스피너의 존재 자체를 가리면
+    /// 요청을 보내는 순간 스피너(와 그 `.task`)가 사라지면서 방금 보낸 요청이 취소된다.
+    /// 취소는 네트워크 에러로 잡혀 알럿이 뜨고, count가 안 늘었으니 같은 페이지를 또 쏜다.
+    public var hasMorePages: Bool {
+        hasKeyword && searchResults.count < total
     }
 
     // MARK: - 불러오기
@@ -130,9 +133,11 @@ public final class PlaceSearchViewModel {
         userCoordinate = await coordinate
     }
 
-    /// 목록 끝에 닿았을 때 다음 쪽을 붙인다.
+    /// 목록 끝에 닿았을 때 다음 쪽을 붙인다. 이미 불러오는 중이면 건너뛴다 —
+    /// 이 가드는 여기(호출 시점)에만 둔다. `hasMorePages`에 넣으면 화면의 스피너가
+    /// 중간에 사라져 요청이 취소된다.
     public func loadMore() async {
-        guard canLoadMore else { return }
+        guard hasMorePages, !isSearching else { return }
         await runSearch(query: searchedQuery, offset: searchResults.count)
     }
 

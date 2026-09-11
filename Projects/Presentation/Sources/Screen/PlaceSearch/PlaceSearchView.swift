@@ -214,11 +214,14 @@ struct PlaceSearchView: View {
 
                     // 목록 끝이 보이면 다음 쪽을 붙인다. 서버가 이름 일치도 순으로
                     // 정렬해 주므로 위쪽부터 좋은 결과다 — 굳이 다 받아 두지 않는다.
-                    if viewModel.canLoadMore {
+                    // id를 현재 개수로 고정해 둔다 — 로딩 중이라고 이 뷰 자체를 감추면
+                    // 진행 중인 .task가 취소되고, 그 취소가 네트워크 에러로 잡혀 알럿이
+                    // 뜨면서 같은 페이지를 무한히 다시 쏜다.
+                    if viewModel.hasMorePages {
                         ProgressView()
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
-                            .task { await viewModel.loadMore() }
+                            .task(id: viewModel.results.count) { await viewModel.loadMore() }
                     }
                 }
                 .padding(.horizontal, DSSpacing.s6)
