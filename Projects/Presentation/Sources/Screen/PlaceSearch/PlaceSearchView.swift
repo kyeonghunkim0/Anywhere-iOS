@@ -46,6 +46,13 @@ struct PlaceSearchView: View {
                 .background(Color.white)
         }
         .task { await viewModel.load() }
+        // 검색어를 지우거나 바꿔서 고른 장소가 목록에서 빠지면 선택도 함께 접는다 —
+        // 화면에 없는 장소를 "선택완료" 버튼만 계속 들고 있으면 혼란스럽다.
+        .onChange(of: viewModel.results) { _, results in
+            if let picked = plan.pickedPlace, !results.contains(where: { $0.id == picked.id }) {
+                plan.pickedPlace = nil
+            }
+        }
         .alert(
             L10n.placeSearchFailureTitle,
             isPresented: Binding(

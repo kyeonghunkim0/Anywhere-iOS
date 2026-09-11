@@ -191,6 +191,11 @@ public final class PlaceSearchViewModel {
             searchedQuery = query
             total = result.places.total
         } catch {
+            // 빠른 스크롤로 트리거 뷰가 화면 밖으로 밀려나면 그 .task가 취소되고,
+            // 진행 중이던 요청도 함께 취소된다("Connection interrupted"). 이 취소는
+            // await 지점에서 곧장 에러로 던져져 위 guard의 Task.isCancelled 체크를
+            // 건너뛰므로, 여기서 다시 한번 걸러 알럿을 띄우지 않는다.
+            guard !Task.isCancelled else { return }
             errorMessage = L10n.loginNetworkError
         }
     }
