@@ -13,19 +13,36 @@ final class MatchRepositoryImpl: MatchRepository, Sendable {
         tagId: String?
     ) async throws(MatchError) -> RandomMatch {
         do {
-            let envelope = try await httpClient.request(
-                MatchAPI.random(
-                    lat: coordinate.latitude,
-                    lng: coordinate.longitude,
-                    radiusKm: DebugMatchOverride.radiusKm ?? radiusKm,
-                    tagId: tagId
-                ),
-                as: APIResponse<MatchDataDTO>.self
-            )
-            return envelope.value.data.toEntity()
+            var match = try await requestRandomMatch(at: coordinate, radiusKm: radiusKm, tagId: tagId)
+
+            // 좁은 반경에서는 같은 장소가 연속으로 나올 수 있다.
+            // 남은 매칭 횟수가 있는 동안은 다른 장소가 나올 때까지 자동으로 다시 뽑는다.
+            while await match.place.id == RecentMatchCache.shared.lastPlaceId, match.matchInfo.remainingMatches > 0 {
+                match = try await requestRandomMatch(at: coordinate, radiusKm: radiusKm, tagId: tagId)
+            }
+
+            await RecentMatchCache.shared.remember(match.place.id)
+            return match
         } catch {
             throw ErrorMapper.match(error)
         }
+    }
+
+    private func requestRandomMatch(
+        at coordinate: Coordinate,
+        radiusKm: Double?,
+        tagId: String?
+    ) async throws(TransportError) -> RandomMatch {
+        let envelope = try await httpClient.request(
+            MatchAPI.random(
+                lat: coordinate.latitude,
+                lng: coordinate.longitude,
+                radiusKm: radiusKm,
+                tagId: tagId
+            ),
+            as: APIResponse<MatchDataDTO>.self
+        )
+        return envelope.value.data.toEntity()
     }
 
     func createCustomMatch(placeId: String, at coordinate: Coordinate) async throws(MatchError) -> RandomMatch {
@@ -73,15 +90,14 @@ final class MatchRepositoryImpl: MatchRepository, Sendable {
     }
 }
 
-/// 테스트용 매칭 반경 고정.
-///
-/// 좌표는 `DebugLocationOverride`가 고정하므로, 조건 화면에서 무엇을 고르든
-/// `GET /api/match/random?lat=37.503&lng=126.793&radiusKm=1`이 나간다.
-/// 조건 화면의 반경을 다시 쓰려면 nil로 바꾼다(릴리즈 빌드는 이미 nil이다).
-private enum DebugMatchOverride {
-#if DEBUG
-    static let radiusKm: Double? = 1
-#else
-    static let radiusKm: Double? = nil
-#endif
+/// 직전에 받은 랜덤 매칭 장소를 기억해 중복 여부를 판단한다.
+/// `MatchRepositoryImpl`은 호출마다 새 인스턴스로 만들어지므로 인스턴스 프로퍼티로는 기억이 유지되지 않는다.
+private actor RecentMatchCache {
+    static let shared = RecentMatchCache()
+
+    private(set) var lastPlaceId: String?
+
+    func remember(_ placeId: String) {
+        lastPlaceId = placeId
+    }
 }
