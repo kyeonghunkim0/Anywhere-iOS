@@ -16,6 +16,7 @@ public extension Settings {
                 "IPHONEOS_DEPLOYMENT_TARGET": "17.0", // 최소 지원 타겟 고정,
                 "OTHER_LDFLAGS": "-ObjC", // 카테고리나 메타데이터가 포함된 정적 라이브러리의 코드가 런타임에 정상 동작하도록 설정
                 "DEVELOPMENT_TEAM": "2N94PZ8R58", // 프로젝트 생성마다 Xcode에서 팀을 다시 선택하지 않도록 고정
+                "MARKETING_VERSION": "1.0.0", // 미설정 시 Xcode 기본값(1.0)으로 떨어지는 것을 방지
             ],
             configurations: [
                 .debug(
