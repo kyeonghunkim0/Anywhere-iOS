@@ -56,6 +56,7 @@
 
 "placeDetail.stampCount" = "印章";
 "placeDetail.reviewCount" = "评价";
+"placeDetail.festivalActive" = "%@ 进行中 (D-%d)";
 "placeDetail.reviewsTitle" = "去过的人";
 "placeDetail.noReviews" = "还没有评价，来写第一条吧。";
 "placeSearch.depopulated" = "人口减少";
@@ -177,6 +178,7 @@
 "matchResult.distanceValue" = "%.0fkm";
 "matchResult.regionLabel" = "地区";
 "matchResult.depopulatedBonus" = "人口减少地区 · 印章奖励";
+"matchResult.latestReviewTitle" = "最近访客留言";
 "matchResult.confirm" = "就去这里";
 "matchResult.reroll" = "换个地方 · 剩余%d次";
 "matchResult.failureTitle" = "请求失败";

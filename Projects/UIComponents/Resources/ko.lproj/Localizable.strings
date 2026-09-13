@@ -60,6 +60,7 @@
 
 "placeDetail.stampCount" = "찍힌 도장";
 "placeDetail.reviewCount" = "후기";
+"placeDetail.festivalActive" = "지금 %@ 진행 중 (D-%d)";
 "placeDetail.reviewsTitle" = "다녀온 사람들";
 "placeDetail.noReviews" = "아직 후기가 없어요. 첫 한마디를 남겨보세요.";
 "placeSearch.depopulated" = "인구감소";
@@ -181,6 +182,7 @@
 "matchResult.distanceValue" = "%.0fkm";
 "matchResult.regionLabel" = "지역";
 "matchResult.depopulatedBonus" = "인구감소지역 · 도장 보너스";
+"matchResult.latestReviewTitle" = "최근 방문자 한마디";
 "matchResult.confirm" = "여기로 결정";
 "matchResult.reroll" = "다른 곳 들러보기 · %d회 남음";
 "matchResult.failureTitle" = "요청 실패";

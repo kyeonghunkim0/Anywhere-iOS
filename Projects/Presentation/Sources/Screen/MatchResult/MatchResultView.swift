@@ -3,7 +3,6 @@
 //  Presentation
 //
 //  원본: Prototype.dc.html의 isResult 화면.
-//  프로토타입의 "주민 한마디"는 RandomMatch에 없는 값이라 옮기지 않는다.
 //
 
 import SwiftUI
@@ -36,6 +35,7 @@ struct MatchResultView: View {
             VStack(spacing: 0) {
                 hero
                 stats
+                quote
                 actions
             }
         }
@@ -165,6 +165,22 @@ struct MatchResultView: View {
                 .foregroundStyle(DSColor.textPrimary)
         }
         .frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    @ViewBuilder
+    private var quote: some View {
+        if let review = viewModel.match.place.latestReview, !review.content.isEmpty {
+            VStack(alignment: .leading, spacing: 0) {
+                Text(L10n.matchResultLatestReviewTitle)
+                    .font(DSTypography.font(DSTypography.Size.lg, weight: DSTypography.Weight.extrabold))
+                    .foregroundStyle(DSColor.textPrimary)
+                    .padding(.bottom, 14)
+
+                DSQuoteCallout("\(review.content) - \(review.nickname)")
+            }
+            .padding(.horizontal, DSSpacing.s6)
+            .padding(.top, 22)
+        }
     }
 
     // MARK: - Actions

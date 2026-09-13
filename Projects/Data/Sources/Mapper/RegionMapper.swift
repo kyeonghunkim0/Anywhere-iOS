@@ -3,7 +3,27 @@ import Domain
 
 extension RegionDTO {
     func toEntity() -> Region {
-        Region(id: id, sidoName: sidoName, sigunguName: sigunguName, isDepopulated: isDepopulated)
+        Region(
+            id: id,
+            sidoName: sidoName,
+            sigunguName: sigunguName,
+            isDepopulated: isDepopulated,
+            activeFestivals: (activeFestivals ?? []).map { $0.toEntity() }
+        )
+    }
+}
+
+extension ActiveFestivalDTO {
+    func toEntity() -> ActiveFestival {
+        ActiveFestival(
+            id: id,
+            key: key,
+            name: name,
+            description: description,
+            iconURL: icon.flatMap(URL.init(string:)),
+            endDate: endAt,
+            daysRemaining: daysRemaining
+        )
     }
 }
 

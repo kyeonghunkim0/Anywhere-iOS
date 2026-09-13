@@ -73,6 +73,12 @@ struct PlaceDetailView: View {
             VStack(alignment: .leading, spacing: 0) {
                 hero(place)
 
+                if !place.region.activeFestivals.isEmpty {
+                    festivalBadges(place)
+                        .padding(.horizontal, DSSpacing.s6)
+                        .padding(.top, 16)
+                }
+
                 stats(place)
 
                 if !place.tags.isEmpty {
@@ -174,6 +180,26 @@ struct PlaceDetailView: View {
         .frame(maxWidth: .infinity)
         .frame(height: heroHeight)
         .clipped()
+    }
+
+    // MARK: - 진행 중 축제
+
+    private func festivalBadges(_ place: PlaceDetail) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            ForEach(place.region.activeFestivals) { festival in
+                HStack(spacing: 8) {
+                    DSIconView(.sparkles, size: 16, color: DSColor.brandPrimary)
+                    Text(L10n.placeDetailFestivalActive(festival.name, max(festival.daysRemaining, 0)))
+                        .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.semibold))
+                        .foregroundStyle(DSColor.brandPrimary)
+                    Spacer()
+                }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(DSColor.green50)
+                .clipShape(RoundedRectangle(cornerRadius: DSRadius.lg, style: .continuous))
+            }
+        }
     }
 
     // MARK: - 통계 / 태그 / 후기

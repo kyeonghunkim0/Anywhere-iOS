@@ -1,8 +1,22 @@
+import Foundation
+
 struct RegionDTO: Decodable, Sendable {
     let id: String
     let sidoName: String
     let sigunguName: String
     let isDepopulated: Bool
+    /// 새로 추가된 필드라 없는 응답도 있다 — 없으면 빈 배열로 취급한다.
+    let activeFestivals: [ActiveFestivalDTO]?
+}
+
+struct ActiveFestivalDTO: Decodable, Sendable {
+    let id: String
+    let key: String
+    let name: String
+    let description: String
+    let icon: String?
+    let endAt: Date
+    let daysRemaining: Int
 }
 
 struct RegionBadgeDTO: Decodable, Sendable {

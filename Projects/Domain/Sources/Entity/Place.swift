@@ -6,13 +6,36 @@ public struct Place: Sendable, Identifiable, Hashable {
     public let address: String
     public let thumbnailURL: URL?
     public let coordinate: Coordinate
+    /// 가장 최근 방문 후기. 후기가 하나도 없으면 nil.
+    public let latestReview: PlaceLatestReview?
 
-    public init(id: String, name: String, address: String, thumbnailURL: URL?, coordinate: Coordinate) {
+    public init(
+        id: String,
+        name: String,
+        address: String,
+        thumbnailURL: URL?,
+        coordinate: Coordinate,
+        latestReview: PlaceLatestReview? = nil
+    ) {
         self.id = id
         self.name = name
         self.address = address
         self.thumbnailURL = thumbnailURL
         self.coordinate = coordinate
+        self.latestReview = latestReview
+    }
+}
+
+/// 매칭 응답에 실려 오는 장소의 최근 방문 후기.
+public struct PlaceLatestReview: Sendable, Hashable {
+    public let content: String
+    public let nickname: String
+    public let createdAt: Date
+
+    public init(content: String, nickname: String, createdAt: Date) {
+        self.content = content
+        self.nickname = nickname
+        self.createdAt = createdAt
     }
 }
 

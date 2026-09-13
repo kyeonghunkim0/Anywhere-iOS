@@ -56,6 +56,7 @@
 
 "placeDetail.stampCount" = "スタンプ";
 "placeDetail.reviewCount" = "レビュー";
+"placeDetail.festivalActive" = "今%@開催中 (D-%d)";
 "placeDetail.reviewsTitle" = "訪れた人たち";
 "placeDetail.noReviews" = "まだレビューがありません。最初のひとことをどうぞ。";
 "placeSearch.depopulated" = "人口減少";
@@ -177,6 +178,7 @@
 "matchResult.distanceValue" = "%.0fkm";
 "matchResult.regionLabel" = "地域";
 "matchResult.depopulatedBonus" = "人口減少地域 · スタンプボーナス";
+"matchResult.latestReviewTitle" = "最近の訪問者のひとこと";
 "matchResult.confirm" = "ここに決定";
 "matchResult.reroll" = "他の場所を見る · 残り%d回";
 "matchResult.failureTitle" = "リクエストに失敗しました";

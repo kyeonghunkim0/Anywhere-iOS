@@ -56,6 +56,7 @@
 
 "placeDetail.stampCount" = "Stamps";
 "placeDetail.reviewCount" = "Reviews";
+"placeDetail.festivalActive" = "%@ is on now (D-%d)";
 "placeDetail.reviewsTitle" = "People who went";
 "placeDetail.noReviews" = "No reviews yet. Leave the first one.";
 "placeSearch.depopulated" = "Shrinking";
@@ -177,6 +178,7 @@
 "matchResult.distanceValue" = "%.0fkm";
 "matchResult.regionLabel" = "Region";
 "matchResult.depopulatedBonus" = "Depopulated area · stamp bonus";
+"matchResult.latestReviewTitle" = "From a recent visitor";
 "matchResult.confirm" = "Go here";
 "matchResult.reroll" = "Somewhere else · %d left";
 "matchResult.failureTitle" = "Request failed";

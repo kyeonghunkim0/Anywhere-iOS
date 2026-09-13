@@ -5,12 +5,21 @@ public struct Region: Sendable, Identifiable, Hashable {
     public let sidoName: String
     public let sigunguName: String
     public let isDepopulated: Bool
+    /// 지금 진행 중인 시즌 축제. 없으면 빈 배열.
+    public let activeFestivals: [ActiveFestival]
 
-    public init(id: String, sidoName: String, sigunguName: String, isDepopulated: Bool) {
+    public init(
+        id: String,
+        sidoName: String,
+        sigunguName: String,
+        isDepopulated: Bool,
+        activeFestivals: [ActiveFestival] = []
+    ) {
         self.id = id
         self.sidoName = sidoName
         self.sigunguName = sigunguName
         self.isDepopulated = isDepopulated
+        self.activeFestivals = activeFestivals
     }
 
     public var fullName: String { "\(sidoName) \(sigunguName)" }
@@ -157,4 +166,34 @@ public struct RegionDetail: Sendable, Identifiable {
 
     /// 화면 표시용 이름. "중구"처럼 겹치는 이름을 시·도로 구분한다. (예: "인천 중구")
     public var displayName: String { RegionNaming.displayName(sido: sidoName, sigungu: sigunguName) }
+}
+
+/// 지역에서 지금 진행 중인 시즌 축제.
+public struct ActiveFestival: Sendable, Identifiable, Hashable {
+    public let id: String
+    public let key: String
+    public let name: String
+    public let description: String
+    public let iconURL: URL?
+    public let endDate: Date
+    /// 종료까지 남은 일수.
+    public let daysRemaining: Int
+
+    public init(
+        id: String,
+        key: String,
+        name: String,
+        description: String,
+        iconURL: URL?,
+        endDate: Date,
+        daysRemaining: Int
+    ) {
+        self.id = id
+        self.key = key
+        self.name = name
+        self.description = description
+        self.iconURL = iconURL
+        self.endDate = endDate
+        self.daysRemaining = daysRemaining
+    }
 }
