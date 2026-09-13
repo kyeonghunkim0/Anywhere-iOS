@@ -55,6 +55,14 @@ Build the application target for the iOS Simulator
 
 Build and upload the application to TestFlight
 
+### ios upload_screenshots
+
+```sh
+[bundle exec] fastlane ios upload_screenshots
+```
+
+Upload App Store screenshots only (from fastlane/screenshots/<locale>/)
+
 ### ios release
 
 ```sh

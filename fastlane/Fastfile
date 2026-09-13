@@ -51,6 +51,7 @@ platform :ios do
 
   desc "Generate the Xcode project and workspace using Tuist"
   lane :generate do
+    sh("cd .. && tuist install")
     sh("cd .. && tuist generate --no-open")
   end
 
@@ -107,7 +108,8 @@ platform :ios do
       skip_metadata: true,
       skip_app_version_update: true,
       force: true,
-      overwrite_screenshots: true
+      overwrite_screenshots: true,
+      run_precheck_before_submit: false
     )
   end
 
