@@ -79,6 +79,11 @@
 "placeSearch.emptyTitle" = "その名前はまだありません";
 "placeSearch.title" = "どこへ行くか\n決めましたか？";
 "placeSearch.eyebrow" = "MY OWN PICK";
+"placeSearch.headingFestivals" = "関連する祭り";
+"placeSearch.festivalStatusUpcoming" = "開催予定";
+"placeSearch.festivalStatusActive" = "開催中";
+"placeSearch.festivalStatusExpired" = "終了";
+"placeSearch.festivalDaysLeft" = "残り%d日";
 
 "pickedPlace.chip" = "選んだ場所";
 "pickedPlace.addressLabel" = "住所";

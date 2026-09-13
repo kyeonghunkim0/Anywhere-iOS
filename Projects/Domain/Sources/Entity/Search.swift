@@ -7,17 +7,68 @@ public struct SearchResult: Sendable {
     /// 화면에 그리지 않지만, 엔드포인트가 주는 절반이라 모델에는 남겨 둔다.
     public let regions: [SearchedRegion]
     public let places: SearchedPlacePage
+    /// 이름·설명에 검색어가 걸린 축제. 최대 20건이며 페이징이 없다.
+    public let festivals: [Festival]
 
-    public init(query: String, regions: [SearchedRegion], places: SearchedPlacePage) {
+    public init(query: String, regions: [SearchedRegion], places: SearchedPlacePage, festivals: [Festival] = []) {
         self.query = query
         self.regions = regions
         self.places = places
+        self.festivals = festivals
     }
 
     /// 검색어가 비었을 때 요청 없이 돌려줄 빈 결과.
     public static func empty(query: String = "") -> SearchResult {
-        SearchResult(query: query, regions: [], places: .empty)
+        SearchResult(query: query, regions: [], places: .empty, festivals: [])
     }
+}
+
+public enum FestivalStatus: String, Sendable, Equatable {
+    case upcoming = "UPCOMING"
+    case active = "ACTIVE"
+    case expired = "EXPIRED"
+}
+
+/// 검색어에 이름·설명이 걸린 축제. 시즌이 지났거나 아직 시작 전이어도 status로
+/// 구분해 포함되므로, 화면에서 이 값으로 표시를 나눈다.
+public struct Festival: Sendable, Identifiable, Equatable {
+    public let id: String
+    public let key: String
+    public let name: String
+    public let description: String
+    public let iconURL: URL?
+    public let status: FestivalStatus
+    public let startDate: Date
+    public let endDate: Date
+    /// 종료까지 남은 일수. 이미 끝났으면 음수일 수 있다.
+    public let daysRemaining: Int
+    public let region: Region
+
+    public init(
+        id: String,
+        key: String,
+        name: String,
+        description: String,
+        iconURL: URL?,
+        status: FestivalStatus,
+        startDate: Date,
+        endDate: Date,
+        daysRemaining: Int,
+        region: Region
+    ) {
+        self.id = id
+        self.key = key
+        self.name = name
+        self.description = description
+        self.iconURL = iconURL
+        self.status = status
+        self.startDate = startDate
+        self.endDate = endDate
+        self.daysRemaining = daysRemaining
+        self.region = region
+    }
+
+    public var displayName: String { region.displayName }
 }
 
 public struct SearchedRegion: Sendable, Identifiable, Equatable {

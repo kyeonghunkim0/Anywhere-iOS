@@ -79,6 +79,11 @@
 "placeSearch.emptyTitle" = "还没有这个名字";
 "placeSearch.title" = "想好去哪儿了吗？";
 "placeSearch.eyebrow" = "MY OWN PICK";
+"placeSearch.headingFestivals" = "相关节庆";
+"placeSearch.festivalStatusUpcoming" = "即将开始";
+"placeSearch.festivalStatusActive" = "进行中";
+"placeSearch.festivalStatusExpired" = "已结束";
+"placeSearch.festivalDaysLeft" = "还剩%d天";
 
 "pickedPlace.chip" = "我选的地方";
 "pickedPlace.addressLabel" = "地址";

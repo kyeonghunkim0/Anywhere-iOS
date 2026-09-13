@@ -56,7 +56,8 @@ struct RouteDestinationView: View {
             PlaceSearchView(
                 viewModel: factory.placeSearch(),
                 onBack: { coordinator.popViewController() },
-                onDone: { coordinator.popViewController() }
+                onDone: { coordinator.popViewController() },
+                onOpenRegion: { coordinator.pushViewController(.regionDetail(regionId: $0)) }
             )
 
         case .placeDetail(let placeId, let showsConfirmAction):

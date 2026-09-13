@@ -6,7 +6,8 @@ extension SearchResultDTO {
         SearchResult(
             query: query,
             regions: regions.items.map { $0.toEntity() },
-            places: places.toEntity()
+            places: places.toEntity(),
+            festivals: festivals.map { $0.toEntity() }
         )
     }
 }
@@ -30,6 +31,23 @@ extension SearchedPlacePageDTO {
             limit: limit,
             offset: offset,
             items: items.map { $0.toEntity() }
+        )
+    }
+}
+
+extension FestivalDTO {
+    func toEntity() -> Festival {
+        Festival(
+            id: id,
+            key: key,
+            name: name,
+            description: description,
+            iconURL: icon.flatMap(URL.init(string:)),
+            status: FestivalStatus(rawValue: status) ?? .expired,
+            startDate: startAt,
+            endDate: endAt,
+            daysRemaining: daysRemaining,
+            region: region.toEntity()
         )
     }
 }

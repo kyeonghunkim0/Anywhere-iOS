@@ -79,6 +79,11 @@
 "placeSearch.emptyTitle" = "No such name yet";
 "placeSearch.title" = "Know where\nyou're going?";
 "placeSearch.eyebrow" = "MY OWN PICK";
+"placeSearch.headingFestivals" = "Related festivals";
+"placeSearch.festivalStatusUpcoming" = "Upcoming";
+"placeSearch.festivalStatusActive" = "Ongoing";
+"placeSearch.festivalStatusExpired" = "Ended";
+"placeSearch.festivalDaysLeft" = "%d days left";
 
 "pickedPlace.chip" = "Your pick";
 "pickedPlace.addressLabel" = "Address";

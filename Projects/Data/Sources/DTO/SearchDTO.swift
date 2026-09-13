@@ -1,9 +1,13 @@
+import Foundation
+
 /// GET /api/search.
 struct SearchResultDTO: Decodable, Sendable {
     let query: String
     /// 서버가 지역도 관광지와 같은 { total, limit, offset, items } 페이지로 내려준다.
     let regions: SearchedRegionPageDTO
     let places: SearchedPlacePageDTO
+    /// 최대 20건, 페이징 없이 통째로 내려온다.
+    let festivals: [FestivalDTO]
 }
 
 struct SearchedRegionPageDTO: Decodable, Sendable {
@@ -40,5 +44,20 @@ struct SearchedPlaceDTO: Decodable, Sendable {
     let mapX: Double
     /// 위도.
     let mapY: Double
+    let region: RegionDTO
+}
+
+struct FestivalDTO: Decodable, Sendable {
+    let id: String
+    let key: String
+    let name: String
+    let description: String
+    /// 완전한 이미지 URL로 온다.
+    let icon: String?
+    let status: String
+    let startAt: Date
+    let endAt: Date
+    /// 종료까지 남은 일수. 이미 끝났으면 음수일 수 있다.
+    let daysRemaining: Int
     let region: RegionDTO
 }

@@ -16,6 +16,7 @@ struct PlaceSearchView: View {
     @State private var viewModel: PlaceSearchViewModel
     private let onBack: () -> Void
     private let onDone: () -> Void
+    private let onOpenRegion: (String) -> Void
 
     @Environment(TripPlanModel.self) private var plan
     @FocusState private var isFieldFocused: Bool
@@ -23,11 +24,13 @@ struct PlaceSearchView: View {
     init(
         viewModel: PlaceSearchViewModel,
         onBack: @escaping () -> Void = {},
-        onDone: @escaping () -> Void = {}
+        onDone: @escaping () -> Void = {},
+        onOpenRegion: @escaping (String) -> Void = { _ in }
     ) {
         _viewModel = State(wrappedValue: viewModel)
         self.onBack = onBack
         self.onDone = onDone
+        self.onOpenRegion = onOpenRegion
     }
 
     var body: some View {
@@ -210,6 +213,11 @@ struct PlaceSearchView: View {
         } else {
             ScrollView {
                 LazyVStack(alignment: .leading, spacing: 9) {
+                    if !viewModel.festivals.isEmpty {
+                        festivalSection
+                            .padding(.bottom, 8)
+                    }
+
                     Text(viewModel.listHeading)
                         .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.bold))
                         .foregroundStyle(DSColor.sand600)
@@ -271,7 +279,7 @@ struct PlaceSearchView: View {
         } label: {
             HStack(spacing: 13) {
                 DSIconView(
-                    place.isDepopulated ? .sprout : .pin,
+                    .pin,
                     size: 19,
                     color: isPicked ? DSColor.brandPrimary : DSColor.sand600
                 )
@@ -319,6 +327,90 @@ struct PlaceSearchView: View {
         }
         .buttonStyle(DSPressStyle())
         .accessibilityAddTraits(isPicked ? [.isButton, .isSelected] : .isButton)
+    }
+
+    // MARK: - 축제
+
+    private var festivalSection: some View {
+        VStack(alignment: .leading, spacing: 9) {
+            Text(L10n.placeSearchHeadingFestivals)
+                .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.bold))
+                .foregroundStyle(DSColor.sand600)
+
+            ForEach(viewModel.festivals) { festival in
+                festivalRow(festival)
+            }
+        }
+    }
+
+    private func festivalRow(_ festival: Festival) -> some View {
+        Button {
+            onOpenRegion(festival.region.id)
+        } label: {
+            HStack(spacing: 13) {
+                RegionBadgeIcon(
+                    badge: RegionBadge(
+                        key: festival.key,
+                        name: festival.name,
+                        description: festival.description,
+                        iconURL: festival.iconURL
+                    ),
+                    name: festival.name,
+                    seed: festival.key,
+                    diameter: 40
+                )
+
+                VStack(alignment: .leading, spacing: 3) {
+                    HStack(spacing: 6) {
+                        Text(festival.name)
+                            .font(DSTypography.font(DSTypography.Size.base, weight: DSTypography.Weight.extrabold))
+                            .tracking(DSTypography.Size.base * -0.02)
+                            .foregroundStyle(DSColor.textPrimary)
+                            .lineLimit(1)
+
+                        festivalStatusBadge(festival.status)
+                    }
+
+                    Text("\(festival.displayName) · \(festival.description)")
+                        .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.semibold))
+                        .foregroundStyle(DSColor.sand600)
+                        .lineLimit(1)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+
+                // 종료된 축제는 남은 일수가 의미 없어 자리를 비운다.
+                if festival.status != .expired {
+                    Text(L10n.placeSearchFestivalDaysLeft(max(festival.daysRemaining, 0)))
+                        .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.extrabold))
+                        .foregroundStyle(DSColor.sand700)
+                }
+            }
+            .padding(.vertical, 14)
+            .padding(.horizontal, 16)
+            .background(Color.white)
+            .clipShape(RoundedRectangle(cornerRadius: 16, style: .continuous))
+            .overlay {
+                RoundedRectangle(cornerRadius: 16, style: .continuous)
+                    .strokeBorder(DSColor.border, lineWidth: 1.5)
+            }
+        }
+        .buttonStyle(DSPressStyle())
+    }
+
+    private func festivalStatusBadge(_ status: FestivalStatus) -> some View {
+        let (label, foreground, background): (String, Color, Color) = switch status {
+        case .upcoming: (L10n.placeSearchFestivalStatusUpcoming, DSColor.info, DSColor.infoBg)
+        case .active: (L10n.placeSearchFestivalStatusActive, DSColor.successDeep, DSColor.successBg)
+        case .expired: (L10n.placeSearchFestivalStatusExpired, DSColor.textMuted, DSColor.sand100)
+        }
+
+        return Text(label)
+            .font(DSTypography.font(DSTypography.Size.xs2, weight: DSTypography.Weight.extrabold))
+            .foregroundStyle(foreground)
+            .padding(.horizontal, 7)
+            .padding(.vertical, 3)
+            .background(background)
+            .clipShape(Capsule())
     }
 
     // MARK: - CTA

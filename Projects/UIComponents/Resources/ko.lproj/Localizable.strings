@@ -83,6 +83,11 @@
 "placeSearch.emptyTitle" = "그런 이름은 아직 없어요";
 "placeSearch.title" = "어디로 갈지\n정했어요?";
 "placeSearch.eyebrow" = "MY OWN PICK";
+"placeSearch.headingFestivals" = "관련 축제";
+"placeSearch.festivalStatusUpcoming" = "예정";
+"placeSearch.festivalStatusActive" = "진행중";
+"placeSearch.festivalStatusExpired" = "종료";
+"placeSearch.festivalDaysLeft" = "%d일 남음";
 
 "pickedPlace.chip" = "내가 고른 곳";
 "pickedPlace.addressLabel" = "주소";

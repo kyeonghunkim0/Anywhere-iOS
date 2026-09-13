@@ -46,6 +46,9 @@ public final class PlaceSearchViewModel {
     private var searchedQuery = ""
     private var total = 0
 
+    /// 검색어에 걸린 축제. 페이징이 없어 매 페이지 응답으로 통째로 갱신한다.
+    private var searchFestivals: [Festival] = []
+
     private var searchTask: Task<Void, Never>?
 
     /// 목록에 거리를 곁들이기 위한 현재 위치. 권한이 없으면 nil이고,
@@ -85,6 +88,11 @@ public final class PlaceSearchViewModel {
         hasKeyword ? searchResults : recommended
     }
 
+    /// 검색어에 걸린 축제. 검색어가 없으면 감춘다.
+    public var festivals: [Festival] {
+        hasKeyword ? searchFestivals : []
+    }
+
     /// 검색어가 없을 때 보여줄 기본 목록. 프로토타입의 "사람 적은 추천 지역"이라
     /// 인구감소지역을 앞으로 끌어올린다 — 그게 이 앱이 미는 방향이다.
     private var recommended: [TaggedPlace] {
@@ -102,7 +110,8 @@ public final class PlaceSearchViewModel {
     public var isEmptyResult: Bool {
         guard hasKeyword else { return hasLoaded && recommended.isEmpty }
         // 아직 이 검색어의 응답이 안 온 상태를 "결과 없음"으로 보여주면 깜빡인다.
-        return !isSearching && searchedQuery == trimmedKeyword && searchResults.isEmpty
+        // 장소가 0건이어도 걸린 축제가 있으면 결과가 있는 것이다.
+        return !isSearching && searchedQuery == trimmedKeyword && searchResults.isEmpty && searchFestivals.isEmpty
     }
 
     /// 서버가 알려준 전체 개수에 아직 못 미쳤으면 이어 받을 게 남아 있다.
@@ -161,6 +170,7 @@ public final class PlaceSearchViewModel {
         guard !query.isEmpty else {
             // 검색어를 지우면 추천 목록으로 돌아간다 — 지난 결과를 남겨 두지 않는다.
             searchResults = []
+            searchFestivals = []
             searchedQuery = ""
             total = 0
             isSearching = false
@@ -190,6 +200,9 @@ public final class PlaceSearchViewModel {
             searchResults = offset == 0 ? result.places.items : searchResults + result.places.items
             searchedQuery = query
             total = result.places.total
+            // 페이징이 없는 필드라 첫 페이지 응답으로만 갱신한다 — 다음 페이지에도
+            // 같은 값이 오지만 다시 덮어써도 결과는 같다.
+            if offset == 0 { searchFestivals = result.festivals }
         } catch {
             // 빠른 스크롤로 트리거 뷰가 화면 밖으로 밀려나면 그 .task가 취소되고,
             // 진행 중이던 요청도 함께 취소된다("Connection interrupted"). 이 취소는
