@@ -119,6 +119,10 @@ public final class AppDependencyContainer: Sendable {
         FetchCurrentTripUseCase(matchRepository: dataContainer.matchRepository)
     }
 
+    public var fetchHomeUseCase: FetchHomeUseCase {
+        FetchHomeUseCase(homeRepository: dataContainer.homeRepository)
+    }
+
     public var checkInUseCase: CheckInUseCase {
         CheckInUseCase(
             locationRepository: dataContainer.locationRepository,

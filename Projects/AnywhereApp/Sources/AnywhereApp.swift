@@ -78,9 +78,7 @@ struct AnywhereApp: App {
                 home: { user in
                     HomeViewModel(
                         user: user,
-                        fetchCurrentTripUseCase: container.fetchCurrentTripUseCase,
-                        fetchSeasonalBadgesUseCase: container.fetchSeasonalBadgesUseCase,
-                        fetchGrowthRegionsUseCase: container.fetchGrowthRegionsUseCase,
+                        fetchHomeUseCase: container.fetchHomeUseCase,
                         cancelMatchUseCase: container.cancelMatchUseCase,
                         requestLocationPermissionUseCase: container.requestLocationPermissionUseCase
                     )

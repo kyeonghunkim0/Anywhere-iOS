@@ -18,25 +18,20 @@ public final class HomeViewModel {
     public private(set) var currentTrip: CurrentTrip?
     public private(set) var seasonalBadges: [Badge] = []
     public private(set) var growthRegions: [GrowthRegion] = []
+    public private(set) var sectionVisibility: HomeSectionVisibility = .allVisible
 
-    private let fetchCurrentTripUseCase: FetchCurrentTripUseCase
-    private let fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase
-    private let fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase
+    private let fetchHomeUseCase: FetchHomeUseCase
     private let cancelMatchUseCase: CancelMatchUseCase
     private let requestLocationPermissionUseCase: RequestLocationPermissionUseCase
 
     public init(
         user: User,
-        fetchCurrentTripUseCase: FetchCurrentTripUseCase,
-        fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase,
-        fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase,
+        fetchHomeUseCase: FetchHomeUseCase,
         cancelMatchUseCase: CancelMatchUseCase,
         requestLocationPermissionUseCase: RequestLocationPermissionUseCase
     ) {
         self.nicknameInitial = String(user.nickname.prefix(1))
-        self.fetchCurrentTripUseCase = fetchCurrentTripUseCase
-        self.fetchSeasonalBadgesUseCase = fetchSeasonalBadgesUseCase
-        self.fetchGrowthRegionsUseCase = fetchGrowthRegionsUseCase
+        self.fetchHomeUseCase = fetchHomeUseCase
         self.cancelMatchUseCase = cancelMatchUseCase
         self.requestLocationPermissionUseCase = requestLocationPermissionUseCase
     }
@@ -66,18 +61,19 @@ public final class HomeViewModel {
         await reload()
     }
 
-    /// 세 섹션을 동시에 불러온다. 한 섹션이 실패해도 다른 섹션은 보여준다 —
-    /// 대시보드 성격상 부분 실패로 화면 전체를 막을 이유가 없다.
+    /// 홈 데이터를 한 번에 불러온다. 실패 시 기존 화면을 비우지 않고 에러만 알린다 —
+    /// pull-to-refresh 중 재시도하다 화면이 깜빡이며 비는 걸 막기 위함.
     public func reload() async {
         isLoading = true
-
-        async let trip = Self.loadTrip(fetchCurrentTripUseCase)
-        async let badges = Self.loadSeasonalBadges(fetchSeasonalBadgesUseCase)
-        async let regions = Self.loadGrowthRegions(fetchGrowthRegionsUseCase)
-
-        currentTrip = await trip
-        seasonalBadges = await badges
-        growthRegions = await regions
+        do throws(NetworkError) {
+            let snapshot = try await fetchHomeUseCase.execute()
+            currentTrip = snapshot.currentTrip
+            seasonalBadges = snapshot.seasonalBadges
+            growthRegions = snapshot.growthRegions
+            sectionVisibility = snapshot.sectionVisibility
+        } catch {
+            errorMessage = L10n.loginNetworkError
+        }
         isLoading = false
         hasLoaded = true
     }
@@ -91,30 +87,6 @@ public final class HomeViewModel {
             } catch {
                 errorMessage = Self.message(for: error)
             }
-        }
-    }
-
-    private static func loadTrip(_ useCase: FetchCurrentTripUseCase) async -> CurrentTrip? {
-        do throws(MatchError) {
-            return try await useCase.execute()
-        } catch {
-            return nil
-        }
-    }
-
-    private static func loadSeasonalBadges(_ useCase: FetchSeasonalBadgesUseCase) async -> [Badge] {
-        do throws(NetworkError) {
-            return try await useCase.execute()
-        } catch {
-            return []
-        }
-    }
-
-    private static func loadGrowthRegions(_ useCase: FetchGrowthRegionsUseCase) async -> [GrowthRegion] {
-        do throws(NetworkError) {
-            return try await useCase.execute(limit: nil)
-        } catch {
-            return []
         }
     }
 

@@ -37,10 +37,10 @@ public struct HomeView: View {
                 } else {
                     heroCard
                 }
-                if !viewModel.seasonalBadges.isEmpty {
+                if viewModel.sectionVisibility.specialQuests && !viewModel.seasonalBadges.isEmpty {
                     specialQuests
                 }
-                if !viewModel.growthRegions.isEmpty {
+                if viewModel.sectionVisibility.trendingLocal && !viewModel.growthRegions.isEmpty {
                     trendingLocal
                 }
             }
@@ -322,14 +322,9 @@ private extension HomeViewModel {
             func cancelMatch(matchId: String) async throws(MatchError) {}
             func fetchCurrentTrip() async throws(MatchError) -> CurrentTrip? { nil }
         }
-        struct NoopBadgeRepository: BadgeRepository {
-            func fetchMyBadges() async throws(NetworkError) -> [Badge] { [] }
-            func fetchSeasonalBadges() async throws(NetworkError) -> [Badge] { [] }
-        }
-        struct NoopRegionRepository: RegionRepository {
-            func fetchGrowthRegions(limit: Int?) async throws(NetworkError) -> [GrowthRegion] { [] }
-            func fetchRegionDetail(regionId: String) async throws(NetworkError) -> RegionDetail {
-                throw .unknown
+        struct NoopHomeRepository: HomeRepository {
+            func fetchHome() async throws(NetworkError) -> HomeSnapshot {
+                HomeSnapshot(currentTrip: nil, seasonalBadges: [], growthRegions: [], sectionVisibility: .allVisible)
             }
         }
         struct NoopLocationRepository: LocationRepository {
@@ -341,9 +336,7 @@ private extension HomeViewModel {
         }
         return HomeViewModel(
             user: User(id: "preview", nickname: "로컬탐험가", socialType: "google", totalStamps: 12, isGuest: false),
-            fetchCurrentTripUseCase: FetchCurrentTripUseCase(matchRepository: NoopMatchRepository()),
-            fetchSeasonalBadgesUseCase: FetchSeasonalBadgesUseCase(badgeRepository: NoopBadgeRepository()),
-            fetchGrowthRegionsUseCase: FetchGrowthRegionsUseCase(regionRepository: NoopRegionRepository()),
+            fetchHomeUseCase: FetchHomeUseCase(homeRepository: NoopHomeRepository()),
             cancelMatchUseCase: CancelMatchUseCase(matchRepository: NoopMatchRepository()),
             requestLocationPermissionUseCase: RequestLocationPermissionUseCase(
                 locationRepository: NoopLocationRepository()
