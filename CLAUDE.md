@@ -100,6 +100,7 @@ Micro-Feature 모듈 구성 (`Workspace.swift` 기준):
 
 | 스킬/커맨드 | 다룰 때 사용 |
 |------|-------------|
+| `.claude/skills/fastlane-upload` | fastlane으로 TestFlight/App Store에 빌드를 업로드할 때 |
 | `.claude/skills/fastlane-screenshots` | App Store Connect 스크린샷을 fastlane으로 업로드/교체할 때 |
 
 ---
