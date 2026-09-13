@@ -100,6 +100,6 @@ Micro-Feature 모듈 구성 (`Workspace.swift` 기준):
 
 | 스킬/커맨드 | 다룰 때 사용 |
 |------|-------------|
-| _(아직 없음)_ | 필요해지면 `.claude/skills/<name>/SKILL.md`로 추가하고 여기 등록 |
+| `.claude/skills/fastlane-screenshots` | App Store Connect 스크린샷을 fastlane으로 업로드/교체할 때 |
 
 ---
