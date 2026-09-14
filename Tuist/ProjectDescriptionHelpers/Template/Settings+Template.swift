@@ -17,6 +17,7 @@ public extension Settings {
                 "OTHER_LDFLAGS": "-ObjC", // 카테고리나 메타데이터가 포함된 정적 라이브러리의 코드가 런타임에 정상 동작하도록 설정
                 "DEVELOPMENT_TEAM": "2N94PZ8R58", // 프로젝트 생성마다 Xcode에서 팀을 다시 선택하지 않도록 고정
                 "MARKETING_VERSION": "1.0.0", // 미설정 시 Xcode 기본값(1.0)으로 떨어지는 것을 방지
+                "CURRENT_PROJECT_VERSION": "3", // 미설정 시 빈 값이 되어 Info.plist의 CFBundleVersion이 누락됨(업로드 실패 원인). 빌드 1·2는 이미 업로드됨
             ],
             configurations: [
                 .debug(
