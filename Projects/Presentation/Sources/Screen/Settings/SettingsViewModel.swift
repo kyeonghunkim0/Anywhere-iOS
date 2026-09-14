@@ -24,22 +24,26 @@ public final class SettingsViewModel {
 
     /// 게스트 → 소셜 연결 중일 때만 true. 연결 버튼이 중복 탭되지 않게 한다.
     public private(set) var isLinkingAccount = false
+    public private(set) var isDeletingAccount = false
 
     private let fetchMyProfileUseCase: FetchMyProfileUseCase
     private let updateSettingsUseCase: UpdateSettingsUseCase
     private let signOutUseCase: SignOutUseCase
     private let upgradeGuestAccountUseCase: UpgradeGuestAccountUseCase
+    private let deleteAccountUseCase: DeleteAccountUseCase
 
     public init(
         fetchMyProfileUseCase: FetchMyProfileUseCase,
         updateSettingsUseCase: UpdateSettingsUseCase,
         signOutUseCase: SignOutUseCase,
-        upgradeGuestAccountUseCase: UpgradeGuestAccountUseCase
+        upgradeGuestAccountUseCase: UpgradeGuestAccountUseCase,
+        deleteAccountUseCase: DeleteAccountUseCase
     ) {
         self.fetchMyProfileUseCase = fetchMyProfileUseCase
         self.updateSettingsUseCase = updateSettingsUseCase
         self.signOutUseCase = signOutUseCase
         self.upgradeGuestAccountUseCase = upgradeGuestAccountUseCase
+        self.deleteAccountUseCase = deleteAccountUseCase
     }
 
     public func load() async {
@@ -77,6 +81,22 @@ public final class SettingsViewModel {
     /// 토큰과 소셜 세션을 지운다. 화면 전환은 호출부(RootViewModel)가 한다.
     public func signOut() async {
         await signOutUseCase.execute()
+    }
+
+    /// 탈퇴 성공 시 true를 돌려준다. 호출부는 이 값으로 로그아웃과 같은 화면 전환(onSignOut)을 트리거한다.
+    @discardableResult
+    public func deleteAccount() async -> Bool {
+        guard !isDeletingAccount else { return false }
+        isDeletingAccount = true
+        defer { isDeletingAccount = false }
+
+        do throws(AuthError) {
+            try await deleteAccountUseCase.execute()
+            return true
+        } catch {
+            errorMessage = Self.message(for: error)
+            return false
+        }
     }
 
     /// 게스트 계정에 소셜 로그인을 연결해 정회원으로 전환한다. 성공하면 프로필을 다시 읽어와

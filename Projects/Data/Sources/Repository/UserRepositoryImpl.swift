@@ -62,4 +62,12 @@ final class UserRepositoryImpl: UserRepository, Sendable {
             throw ErrorMapper.network(error)
         }
     }
+
+    func deleteMyAccount() async throws(AuthError) {
+        do {
+            _ = try await httpClient.request(UserAPI.deleteMe, as: MessageResponse.self)
+        } catch {
+            throw ErrorMapper.auth(error)
+        }
+    }
 }

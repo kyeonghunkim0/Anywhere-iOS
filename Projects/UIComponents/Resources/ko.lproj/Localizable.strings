@@ -144,6 +144,8 @@
 "settings.appVersion" = "앱 버전";
 "settings.signOut" = "로그아웃";
 "settings.signOutConfirmTitle" = "정말로 로그아웃 하시겠습니까?";
+"settings.withdraw" = "회원 탈퇴";
+"settings.withdrawConfirmTitle" = "정말로 탈퇴하시겠습니까?\n계정 정보와 활동 기록이 모두 삭제되며 복구할 수 없습니다.";
 
 "profile.joined" = "%@ 가입";
 "profile.statLevel" = "현재 레벨";

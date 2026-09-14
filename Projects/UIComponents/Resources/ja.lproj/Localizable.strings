@@ -140,6 +140,8 @@
 "settings.appVersion" = "アプリバージョン";
 "settings.signOut" = "ログアウト";
 "settings.signOutConfirmTitle" = "本当にログアウトしますか？";
+"settings.withdraw" = "退会する";
+"settings.withdrawConfirmTitle" = "本当に退会しますか？\nアカウント情報と活動履歴はすべて削除され、復元できません。";
 
 "profile.joined" = "%@ 登録";
 "profile.statLevel" = "現在のレベル";

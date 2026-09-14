@@ -140,6 +140,8 @@
 "settings.appVersion" = "应用版本";
 "settings.signOut" = "退出登录";
 "settings.signOutConfirmTitle" = "确定要退出登录吗？";
+"settings.withdraw" = "注销账号";
+"settings.withdrawConfirmTitle" = "确定要注销账号吗？\n账号信息和活动记录将被永久删除，且无法恢复。";
 
 "profile.joined" = "%@ 加入";
 "profile.statLevel" = "当前等级";

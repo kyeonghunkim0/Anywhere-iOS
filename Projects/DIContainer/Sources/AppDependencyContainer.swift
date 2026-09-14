@@ -40,6 +40,14 @@ public final class AppDependencyContainer: Sendable {
         SignOutUseCase(socialAuthenticating: socialAuthenticating, sessionRepository: dataContainer.sessionRepository)
     }
 
+    public var deleteAccountUseCase: DeleteAccountUseCase {
+        DeleteAccountUseCase(
+            userRepository: dataContainer.userRepository,
+            socialAuthenticating: socialAuthenticating,
+            sessionRepository: dataContainer.sessionRepository
+        )
+    }
+
     public var signInAsGuestUseCase: SignInAsGuestUseCase {
         SignInAsGuestUseCase(
             deviceIdentifying: dataContainer.deviceIdentifying,

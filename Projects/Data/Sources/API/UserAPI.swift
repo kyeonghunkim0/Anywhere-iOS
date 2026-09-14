@@ -4,13 +4,14 @@ enum UserAPI: BaseAPI {
     case updateProfile(UpdateProfileRequestDTO)
     case updateSettings(UpdateSettingsRequestDTO)
     case detail(userId: String)
+    case deleteMe
 
     var path: String {
         switch self {
-        case .me, .updateProfile: "/api/users/me"
-        case .stats:              "/api/users/me/stats"
-        case .updateSettings:     "/api/users/me/settings"
-        case .detail:             "/api/users/{userId}/detail"
+        case .me, .updateProfile, .deleteMe: "/api/users/me"
+        case .stats:                         "/api/users/me/stats"
+        case .updateSettings:                "/api/users/me/settings"
+        case .detail:                        "/api/users/{userId}/detail"
         }
     }
 
@@ -25,6 +26,7 @@ enum UserAPI: BaseAPI {
         switch self {
         case .me, .stats, .detail:            .get
         case .updateProfile, .updateSettings: .patch
+        case .deleteMe:                       .delete
         }
     }
 

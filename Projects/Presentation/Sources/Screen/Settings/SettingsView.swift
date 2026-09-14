@@ -15,6 +15,7 @@ import UIComponents
 struct SettingsView: View {
     @State private var viewModel: SettingsViewModel
     @State private var showsSignOutConfirmation = false
+    @State private var showsWithdrawConfirmation = false
     private let onOpenDocument: (LegalDocument) -> Void
     private let onSignOut: () -> Void
 
@@ -62,7 +63,17 @@ struct SettingsView: View {
                 }
                 .padding(.horizontal, DSSpacing.s6)
                 .padding(.top, 34)
+
+                Button(L10n.settingsWithdraw) {
+                    showsWithdrawConfirmation = true
+                }
+                .buttonStyle(DSPressStyle())
+                .font(DSTypography.font(DSTypography.Size.sm, weight: DSTypography.Weight.semibold))
+                .foregroundStyle(DSColor.textMuted)
+                .frame(maxWidth: .infinity)
+                .padding(.top, 16)
                 .padding(.bottom, 36)
+                .disabled(viewModel.isDeletingAccount)
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
@@ -93,6 +104,25 @@ struct SettingsView: View {
                 },
                 DSModalAction(label: L10n.commonCancel) {
                     showsSignOutConfirmation = false
+                },
+            ],
+            showsCloseButton: false
+        )
+        .dsModal(
+            isPresented: $showsWithdrawConfirmation,
+            title: L10n.settingsWithdraw,
+            message: L10n.settingsWithdrawConfirmTitle,
+            actions: [
+                DSModalAction(label: L10n.settingsWithdraw, isEmphasized: true) {
+                    showsWithdrawConfirmation = false
+                    Task {
+                        if await viewModel.deleteAccount() {
+                            onSignOut()
+                        }
+                    }
+                },
+                DSModalAction(label: L10n.commonCancel) {
+                    showsWithdrawConfirmation = false
                 },
             ],
             showsCloseButton: false

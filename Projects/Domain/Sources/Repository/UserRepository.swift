@@ -6,4 +6,6 @@ public protocol UserRepository: Sendable {
     func updateProfile(nickname: String?) async throws(ProfileError) -> UserProfile
     func updateSettings(pushEnabled: Bool) async throws(ProfileError) -> UserProfile
     func fetchRankerDetail(userId: String) async throws(NetworkError) -> RankerDetail
+    /// 토큰 만료 시 .sessionExpired를 던진다 — fetchMyProfile과 같은 판단 기준을 쓴다.
+    func deleteMyAccount() async throws(AuthError)
 }

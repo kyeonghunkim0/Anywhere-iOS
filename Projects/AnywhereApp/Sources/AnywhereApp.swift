@@ -123,7 +123,8 @@ struct AnywhereApp: App {
                         fetchMyProfileUseCase: container.fetchMyProfileUseCase,
                         updateSettingsUseCase: container.updateSettingsUseCase,
                         signOutUseCase: container.signOutUseCase,
-                        upgradeGuestAccountUseCase: container.upgradeGuestAccountUseCase
+                        upgradeGuestAccountUseCase: container.upgradeGuestAccountUseCase,
+                        deleteAccountUseCase: container.deleteAccountUseCase
                     )
                 },
                 profile: {

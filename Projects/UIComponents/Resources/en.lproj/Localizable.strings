@@ -140,6 +140,8 @@
 "settings.appVersion" = "App version";
 "settings.signOut" = "Sign out";
 "settings.signOutConfirmTitle" = "Are you sure you want to sign out?";
+"settings.withdraw" = "Delete account";
+"settings.withdrawConfirmTitle" = "Are you sure you want to delete your account?\nYour account and activity history will be permanently deleted and cannot be recovered.";
 
 "profile.joined" = "Joined %@";
 "profile.statLevel" = "Level";
