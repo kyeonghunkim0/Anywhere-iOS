@@ -73,8 +73,21 @@ public final class PlaceDetailViewModel {
             _ = try await confirmMatchUseCase.execute(matchId: match.matchId)
             return true
         } catch {
-            errorMessage = L10n.loginNetworkError
+            errorMessage = Self.message(for: error)
             return false
+        }
+    }
+
+    private static func message(for error: MatchError) -> String {
+        switch error {
+        case .dailyLimitExceeded(let message), .notFound(let message), .rejected(let message):
+            message
+        case .network:
+            L10n.loginNetworkError
+        case .location(.authorizationDenied):
+            L10n.locationPermissionDenied
+        case .location(.unableToLocate):
+            L10n.locationUnableToLocate
         }
     }
 }

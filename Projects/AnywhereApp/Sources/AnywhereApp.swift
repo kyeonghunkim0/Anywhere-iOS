@@ -156,7 +156,8 @@ struct AnywhereApp: App {
                 rankerDetail: { userId in
                     RankerDetailViewModel(
                         userId: userId,
-                        fetchRankerDetailUseCase: container.fetchRankerDetailUseCase
+                        fetchRankerDetailUseCase: container.fetchRankerDetailUseCase,
+                        blockUserUseCase: container.blockUserUseCase
                     )
                 },
                 arrivalVerification: { place in
@@ -169,6 +170,18 @@ struct AnywhereApp: App {
                     ReviewViewModel(
                         place: place,
                         createReviewUseCase: container.createReviewUseCase
+                    )
+                },
+                reportReview: { reviewId in
+                    ReportReviewViewModel(
+                        reviewId: reviewId,
+                        reportReviewUseCase: container.reportReviewUseCase
+                    )
+                },
+                blockedUsers: {
+                    BlockedUsersViewModel(
+                        fetchBlockedUsersUseCase: container.fetchBlockedUsersUseCase,
+                        unblockUserUseCase: container.unblockUserUseCase
                     )
                 }
             )

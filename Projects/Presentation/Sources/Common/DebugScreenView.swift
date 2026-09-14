@@ -79,6 +79,7 @@ private struct StubMissionRepository: MissionRepository {
 }
 
 private struct StubReviewRepository: ReviewRepository {
+    func reportReview(reviewId: String, reason: ReportReason, detail: String?) async throws(ReviewError) {}
     func createReview(placeId: String, content: String) async throws(ReviewError) -> Review {
         Review(id: "debug-review", content: content, createdAt: Date(), placeId: placeId, placeName: debugPlace.name)
     }

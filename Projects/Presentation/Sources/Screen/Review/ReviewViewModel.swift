@@ -60,6 +60,8 @@ public final class ReviewViewModel {
         switch error {
         case .rejected(let message), .placeNotFound(let message):
             message
+        case .alreadyReported:
+            ""
         case .network:
             L10n.loginNetworkError
         }

@@ -7,6 +7,15 @@ final class ReviewRepositoryImpl: ReviewRepository, Sendable {
         self.httpClient = httpClient
     }
 
+    func reportReview(reviewId: String, reason: ReportReason, detail: String?) async throws(ReviewError) {
+        let request = ReportReviewRequestDTO(reason: reason.rawValue, detail: detail)
+        do {
+            _ = try await httpClient.request(ReviewAPI.report(reviewId: reviewId, request), as: MessageResponse.self)
+        } catch {
+            throw ErrorMapper.review(error)
+        }
+    }
+
     func createReview(placeId: String, content: String) async throws(ReviewError) -> Review {
         let request = CreateReviewRequestDTO(placeId: placeId, content: content)
         do {

@@ -48,6 +48,18 @@ public final class AppDependencyContainer: Sendable {
         )
     }
 
+    public var blockUserUseCase: BlockUserUseCase {
+        BlockUserUseCase(userRepository: dataContainer.userRepository)
+    }
+
+    public var unblockUserUseCase: UnblockUserUseCase {
+        UnblockUserUseCase(userRepository: dataContainer.userRepository)
+    }
+
+    public var fetchBlockedUsersUseCase: FetchBlockedUsersUseCase {
+        FetchBlockedUsersUseCase(userRepository: dataContainer.userRepository)
+    }
+
     public var signInAsGuestUseCase: SignInAsGuestUseCase {
         SignInAsGuestUseCase(
             deviceIdentifying: dataContainer.deviceIdentifying,
@@ -200,6 +212,10 @@ public final class AppDependencyContainer: Sendable {
 
     public var createReviewUseCase: CreateReviewUseCase {
         CreateReviewUseCase(reviewRepository: dataContainer.reviewRepository)
+    }
+
+    public var reportReviewUseCase: ReportReviewUseCase {
+        ReportReviewUseCase(reviewRepository: dataContainer.reviewRepository)
     }
 
     public var fetchPlaceReviewsUseCase: FetchPlaceReviewsUseCase {

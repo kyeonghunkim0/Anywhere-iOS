@@ -12,6 +12,7 @@ import UIComponents
 
 struct RankerDetailView: View {
     @State private var viewModel: RankerDetailViewModel
+    @State private var showsBlockConfirmation = false
     private let rank: Int
     private let onBack: () -> Void
 
@@ -51,13 +52,42 @@ struct RankerDetailView: View {
         .background(Color.white)
         .toolbar(.hidden, for: .navigationBar)
         .task { await viewModel.load() }
+        .alert(
+            L10n.homeErrorTitle,
+            isPresented: Binding(
+                get: { viewModel.errorMessage != nil },
+                set: { if !$0 { viewModel.errorMessage = nil } }
+            )
+        ) {
+            Button(L10n.commonConfirm, role: .cancel) {}
+        } message: {
+            Text(viewModel.errorMessage ?? "")
+        }
+        .dsModal(
+            isPresented: $showsBlockConfirmation,
+            title: L10n.rankerDetailBlockButton,
+            message: L10n.rankerDetailBlockConfirmTitle,
+            actions: [
+                DSModalAction(label: L10n.rankerDetailBlockButton, isEmphasized: true) {
+                    showsBlockConfirmation = false
+                    Task { await viewModel.blockUser() }
+                },
+                DSModalAction(label: L10n.commonCancel) {
+                    showsBlockConfirmation = false
+                },
+            ],
+            showsCloseButton: false
+        )
     }
 
     private func content(_ ranker: RankerDetail) -> some View {
         ScrollView {
             VStack(alignment: .leading, spacing: 0) {
                 profile(ranker)
-                    .padding(.bottom, 28)
+                    .padding(.bottom, 12)
+
+                blockButton
+                    .padding(.bottom, 16)
 
                 dashboard(ranker)
 
@@ -114,6 +144,15 @@ struct RankerDetailView: View {
             }
             .frame(maxWidth: .infinity, alignment: .leading)
         }
+    }
+
+    private var blockButton: some View {
+        Button(viewModel.isBlocked ? L10n.rankerDetailBlockedLabel : L10n.rankerDetailBlockButton) {
+            showsBlockConfirmation = true
+        }
+        .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.semibold))
+        .foregroundStyle(DSColor.textMuted)
+        .disabled(viewModel.isBlocked || viewModel.isBlocking)
     }
 
     // MARK: - 요약 지표

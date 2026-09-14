@@ -56,6 +56,14 @@ struct RepresentativeStampDTO: Decodable, Sendable {
     let badge: RegionBadgeDTO?
 }
 
+/// GET /api/users/me/blocks의 배열 원소.
+struct BlockedUserDTO: Decodable, Sendable {
+    let id: String
+    let nickname: String
+    let profileImage: String?
+    let blockedAt: Date
+}
+
 /// GET /api/users/{userId}/detail.
 struct RankerDetailDTO: Decodable, Sendable {
     let userId: String

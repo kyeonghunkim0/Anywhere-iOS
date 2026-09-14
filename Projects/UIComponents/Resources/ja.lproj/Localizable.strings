@@ -59,6 +59,7 @@
 "placeDetail.festivalActive" = "今%@開催中 (D-%d)";
 "placeDetail.reviewsTitle" = "訪れた人たち";
 "placeDetail.noReviews" = "まだレビューがありません。最初のひとことをどうぞ。";
+"placeDetail.reportReview" = "通報";
 "placeSearch.depopulated" = "人口減少";
 "placeSearch.fieldPlaceholder" = "地域や場所の名前";
 "placeSearch.headingRecommended" = "人の少ないおすすめ地域";
@@ -128,6 +129,9 @@
 
 "rankerDetail.monthlyTitle" = "今月の活動";
 "rankerDetail.stampsTitle" = "代表スタンプ";
+"rankerDetail.blockButton" = "ブロックする";
+"rankerDetail.blockedLabel" = "ブロック済み";
+"rankerDetail.blockConfirmTitle" = "このユーザーをブロックしますか？\nブロックするとこのユーザーの活動が表示されなくなります。";
 
 "settings.title" = "設定";
 "settings.connectedWith" = "%@ 連携";
@@ -203,6 +207,19 @@
 "review.placeholder" = "次の人にひと言だけ残すなら？";
 "review.submit" = "登録する";
 "review.failureTitle" = "登録に失敗しました";
+"review.reportTitle" = "レビューを通報";
+"review.reportReasonSpam" = "スパム・広告";
+"review.reportReasonAbuse" = "誹謗中傷";
+"review.reportReasonInappropriate" = "不適切な内容";
+"review.reportReasonEtc" = "その他";
+"review.reportDetailPlaceholder" = "具体的な理由を教えてください。";
+"review.reportSubmit" = "通報する";
+"review.reportSuccessMessage" = "通報を受け付けました。\n確認のうえ対応します。";
+"review.reportFailureTitle" = "通報に失敗しました";
+
+"blockedUsers.title" = "ブロックしたユーザー";
+"blockedUsers.empty" = "ブロックしたユーザーはいません。";
+"blockedUsers.unblock" = "ブロック解除";
 
 "forceUpdate.title" = "アップデートが必要です";
 "forceUpdate.message" = "快適にご利用いただくため、最新バージョンにアップデートしてください。";

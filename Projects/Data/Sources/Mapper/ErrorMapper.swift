@@ -9,7 +9,7 @@ enum ErrorMapper {
             .offline
         case .server:
             .server
-        case .invalidPath, .unauthorized, .badRequest, .notFound, .rateLimited, .decoding, .unknown:
+        case .invalidPath, .unauthorized, .badRequest, .notFound, .conflict, .rateLimited, .decoding, .unknown:
             .unknown
         }
     }
@@ -62,9 +62,24 @@ enum ErrorMapper {
 
     static func review(_ error: TransportError) -> ReviewError {
         switch error {
+        case .conflict:
+            .alreadyReported
         case .notFound(let message):
             .placeNotFound(message: message)
         case .badRequest(let message):
+            .rejected(message: message)
+        default:
+            .network(network(error))
+        }
+    }
+
+    static func userBlock(_ error: TransportError) -> UserError {
+        switch error {
+        case .unauthorized:
+            .sessionExpired
+        case .conflict:
+            .alreadyBlocked
+        case .badRequest(let message), .notFound(let message):
             .rejected(message: message)
         default:
             .network(network(error))

@@ -5,6 +5,9 @@ enum UserAPI: BaseAPI {
     case updateSettings(UpdateSettingsRequestDTO)
     case detail(userId: String)
     case deleteMe
+    case block(userId: String)
+    case unblock(userId: String)
+    case blocks
 
     var path: String {
         switch self {
@@ -12,21 +15,24 @@ enum UserAPI: BaseAPI {
         case .stats:                         "/api/users/me/stats"
         case .updateSettings:                "/api/users/me/settings"
         case .detail:                        "/api/users/{userId}/detail"
+        case .block, .unblock:               "/api/users/{userId}/block"
+        case .blocks:                        "/api/users/me/blocks"
         }
     }
 
     var pathParameters: [String: String] {
         switch self {
-        case .detail(let userId): ["userId": userId]
-        default:                  [:]
+        case .detail(let userId), .block(let userId), .unblock(let userId): ["userId": userId]
+        default:                                                            [:]
         }
     }
 
     var method: HTTPMethod {
         switch self {
-        case .me, .stats, .detail:            .get
+        case .me, .stats, .detail, .blocks:   .get
         case .updateProfile, .updateSettings: .patch
-        case .deleteMe:                       .delete
+        case .deleteMe, .unblock:             .delete
+        case .block:                          .post
         }
     }
 

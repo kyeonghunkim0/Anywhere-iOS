@@ -63,6 +63,7 @@
 "placeDetail.festivalActive" = "지금 %@ 진행 중 (D-%d)";
 "placeDetail.reviewsTitle" = "다녀온 사람들";
 "placeDetail.noReviews" = "아직 후기가 없어요. 첫 한마디를 남겨보세요.";
+"placeDetail.reportReview" = "신고";
 "placeSearch.depopulated" = "인구감소";
 "placeSearch.fieldPlaceholder" = "지역이나 장소 이름";
 "placeSearch.headingRecommended" = "사람 적은 추천 지역";
@@ -132,6 +133,9 @@
 
 "rankerDetail.monthlyTitle" = "이번 달 활동";
 "rankerDetail.stampsTitle" = "대표 도장";
+"rankerDetail.blockButton" = "차단하기";
+"rankerDetail.blockedLabel" = "차단됨";
+"rankerDetail.blockConfirmTitle" = "이 사용자를 차단하시겠습니까?\n차단하면 이 사용자의 활동이 더 이상 보이지 않아요.";
 
 "settings.title" = "설정";
 "settings.connectedWith" = "%@ 연결";
@@ -207,3 +211,16 @@
 "review.placeholder" = "다음 사람에게 딱 한마디만 남긴다면?";
 "review.submit" = "등록하기";
 "review.failureTitle" = "등록 실패";
+"review.reportTitle" = "후기 신고";
+"review.reportReasonSpam" = "스팸/광고";
+"review.reportReasonAbuse" = "욕설/비방";
+"review.reportReasonInappropriate" = "부적절한 내용";
+"review.reportReasonEtc" = "기타";
+"review.reportDetailPlaceholder" = "구체적인 사유를 알려주세요.";
+"review.reportSubmit" = "신고하기";
+"review.reportSuccessMessage" = "신고가 접수되었어요.\n검토 후 조치할게요.";
+"review.reportFailureTitle" = "신고 실패";
+
+"blockedUsers.title" = "차단한 사용자";
+"blockedUsers.empty" = "차단한 사용자가 없어요.";
+"blockedUsers.unblock" = "차단 해제";

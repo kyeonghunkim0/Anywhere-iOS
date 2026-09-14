@@ -30,7 +30,7 @@ extension MatchedPlaceDTO {
 
 extension PlaceLatestReviewDTO {
     func toEntity() -> PlaceLatestReview {
-        PlaceLatestReview(content: content, nickname: nickname, createdAt: createdAt)
+        PlaceLatestReview(id: id, content: content, nickname: nickname, createdAt: createdAt)
     }
 }
 

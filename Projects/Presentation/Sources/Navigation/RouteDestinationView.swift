@@ -49,7 +49,8 @@ struct RouteDestinationView: View {
             MatchResultView(
                 viewModel: factory.matchResult(match, radiusKm),
                 onClose: { coordinator.popToRootViewController() },
-                onConfirmed: { coordinator.popToRootViewController() }
+                onConfirmed: { coordinator.popToRootViewController() },
+                onReportReview: { coordinator.present(.reportReview(reviewId: $0), style: .sheet) }
             )
 
         case .placeSearch:
@@ -66,7 +67,8 @@ struct RouteDestinationView: View {
                 onConfirmDestination: showsConfirmAction
                     ? { coordinator.popToRootViewController() }
                     : nil,
-                onBack: { coordinator.popViewController() }
+                onBack: { coordinator.popViewController() },
+                onReportReview: { coordinator.present(.reportReview(reviewId: $0), style: .sheet) }
             )
 
         case .arrivalVerification(let place):
@@ -82,6 +84,18 @@ struct RouteDestinationView: View {
                 viewModel: factory.review(place),
                 onBack: { coordinator.popViewController() },
                 onSubmitted: { coordinator.popToRootViewController() }
+            )
+
+        case .reportReview(let reviewId):
+            ReportReviewView(
+                viewModel: factory.reportReview(reviewId),
+                onClose: { coordinator.dismiss() }
+            )
+
+        case .blockedUsers:
+            BlockedUsersView(
+                viewModel: factory.blockedUsers(),
+                onBack: { coordinator.popViewController() }
             )
 
         case .passportDetail(let userId, let section):

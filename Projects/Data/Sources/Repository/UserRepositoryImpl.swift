@@ -70,4 +70,29 @@ final class UserRepositoryImpl: UserRepository, Sendable {
             throw ErrorMapper.auth(error)
         }
     }
+
+    func blockUser(userId: String) async throws(UserError) {
+        do {
+            _ = try await httpClient.request(UserAPI.block(userId: userId), as: MessageResponse.self)
+        } catch {
+            throw ErrorMapper.userBlock(error)
+        }
+    }
+
+    func unblockUser(userId: String) async throws(UserError) {
+        do {
+            _ = try await httpClient.request(UserAPI.unblock(userId: userId), as: MessageResponse.self)
+        } catch {
+            throw ErrorMapper.userBlock(error)
+        }
+    }
+
+    func fetchBlockedUsers() async throws(NetworkError) -> [BlockedUser] {
+        do {
+            let envelope = try await httpClient.request(UserAPI.blocks, as: APIResponse<[BlockedUserDTO]>.self)
+            return envelope.value.data.map { $0.toEntity() }
+        } catch {
+            throw ErrorMapper.network(error)
+        }
+    }
 }

@@ -8,6 +8,8 @@ enum TransportError: Error, Sendable {
     case badRequest(message: String)
     /// 404. message는 서버가 준 사유 (오퍼레이션마다 뜻이 다르다).
     case notFound(message: String)
+    /// 409. 중복 요청(이미 신고함/이미 차단함 등) — message는 서버가 준 사유.
+    case conflict(message: String)
     /// 429. message는 서버가 준 사유.
     case rateLimited(message: String)
     case decoding(any Error)

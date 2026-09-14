@@ -17,17 +17,20 @@ struct MatchResultView: View {
     @State private var viewModel: MatchResultViewModel
     private let onClose: () -> Void
     private let onConfirmed: () -> Void
+    private let onReportReview: (String) -> Void
 
     private let heroHeight: CGFloat = 420
 
     init(
         viewModel: MatchResultViewModel,
         onClose: @escaping () -> Void = {},
-        onConfirmed: @escaping () -> Void = {}
+        onConfirmed: @escaping () -> Void = {},
+        onReportReview: @escaping (String) -> Void = { _ in }
     ) {
         _viewModel = State(wrappedValue: viewModel)
         self.onClose = onClose
         self.onConfirmed = onConfirmed
+        self.onReportReview = onReportReview
     }
 
     var body: some View {
@@ -177,6 +180,12 @@ struct MatchResultView: View {
                     .padding(.bottom, 14)
 
                 DSQuoteCallout("\(review.content) - \(review.nickname)")
+
+                Button(L10n.placeDetailReportReview) { onReportReview(review.id) }
+                    .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.semibold))
+                    .foregroundStyle(DSColor.textMuted)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.top, 8)
             }
             .padding(.horizontal, DSSpacing.s6)
             .padding(.top, 22)

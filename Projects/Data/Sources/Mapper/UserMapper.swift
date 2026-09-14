@@ -54,6 +54,17 @@ extension ProfileStatsDTO {
     }
 }
 
+extension BlockedUserDTO {
+    func toEntity() -> BlockedUser {
+        BlockedUser(
+            id: id,
+            nickname: nickname,
+            profileImageURL: profileImage.flatMap(URL.init(string:)),
+            blockedAt: blockedAt
+        )
+    }
+}
+
 extension RankerDetailDTO {
     func toEntity() -> RankerDetail {
         RankerDetail(

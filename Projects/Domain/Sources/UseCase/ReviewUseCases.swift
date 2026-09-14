@@ -10,6 +10,18 @@ public struct CreateReviewUseCase: Sendable {
     }
 }
 
+public struct ReportReviewUseCase: Sendable {
+    private let reviewRepository: ReviewRepository
+
+    public init(reviewRepository: ReviewRepository) {
+        self.reviewRepository = reviewRepository
+    }
+
+    public func execute(reviewId: String, reason: ReportReason, detail: String? = nil) async throws(ReviewError) {
+        try await reviewRepository.reportReview(reviewId: reviewId, reason: reason, detail: detail)
+    }
+}
+
 public struct FetchPlaceReviewsUseCase: Sendable {
     private let reviewRepository: ReviewRepository
 

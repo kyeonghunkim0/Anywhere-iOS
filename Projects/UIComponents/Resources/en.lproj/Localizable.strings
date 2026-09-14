@@ -59,6 +59,7 @@
 "placeDetail.festivalActive" = "%@ is on now (D-%d)";
 "placeDetail.reviewsTitle" = "People who went";
 "placeDetail.noReviews" = "No reviews yet. Leave the first one.";
+"placeDetail.reportReview" = "Report";
 "placeSearch.depopulated" = "Shrinking";
 "placeSearch.fieldPlaceholder" = "Region or place name";
 "placeSearch.headingRecommended" = "Quiet regions we recommend";
@@ -128,6 +129,9 @@
 
 "rankerDetail.monthlyTitle" = "This month";
 "rankerDetail.stampsTitle" = "Signature stamps";
+"rankerDetail.blockButton" = "Block";
+"rankerDetail.blockedLabel" = "Blocked";
+"rankerDetail.blockConfirmTitle" = "Block this user?\nYou won't see their activity anymore.";
 
 "settings.title" = "Settings";
 "settings.connectedWith" = "%@ connected";
@@ -203,6 +207,19 @@
 "review.placeholder" = "One line for the next traveler?";
 "review.submit" = "Submit";
 "review.failureTitle" = "Couldn't submit";
+"review.reportTitle" = "Report review";
+"review.reportReasonSpam" = "Spam/ads";
+"review.reportReasonAbuse" = "Abusive content";
+"review.reportReasonInappropriate" = "Inappropriate content";
+"review.reportReasonEtc" = "Other";
+"review.reportDetailPlaceholder" = "Tell us more about the reason.";
+"review.reportSubmit" = "Report";
+"review.reportSuccessMessage" = "Your report has been submitted.\nWe'll take a look and follow up.";
+"review.reportFailureTitle" = "Couldn't submit report";
+
+"blockedUsers.title" = "Blocked users";
+"blockedUsers.empty" = "You haven't blocked anyone.";
+"blockedUsers.unblock" = "Unblock";
 
 "forceUpdate.title" = "Update Required";
 "forceUpdate.message" = "Please update to the latest version for the best experience.";

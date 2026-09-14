@@ -25,6 +25,8 @@ public struct ViewModelFactory {
     let rankerDetail: (String) -> RankerDetailViewModel
     let arrivalVerification: (PlaceRef) -> ArrivalVerificationViewModel
     let review: (PlaceRef) -> ReviewViewModel
+    let reportReview: (String) -> ReportReviewViewModel
+    let blockedUsers: () -> BlockedUsersViewModel
 
     public init(
         home: @escaping (User) -> HomeViewModel,
@@ -40,7 +42,9 @@ public struct ViewModelFactory {
         regionDetail: @escaping (String) -> RegionDetailViewModel,
         rankerDetail: @escaping (String) -> RankerDetailViewModel,
         arrivalVerification: @escaping (PlaceRef) -> ArrivalVerificationViewModel,
-        review: @escaping (PlaceRef) -> ReviewViewModel
+        review: @escaping (PlaceRef) -> ReviewViewModel,
+        reportReview: @escaping (String) -> ReportReviewViewModel,
+        blockedUsers: @escaping () -> BlockedUsersViewModel
     ) {
         self.home = home
         self.matching = matching
@@ -56,5 +60,7 @@ public struct ViewModelFactory {
         self.rankerDetail = rankerDetail
         self.arrivalVerification = arrivalVerification
         self.review = review
+        self.reportReview = reportReview
+        self.blockedUsers = blockedUsers
     }
 }

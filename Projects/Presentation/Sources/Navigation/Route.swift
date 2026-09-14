@@ -19,6 +19,8 @@ public enum Route: Hashable, Identifiable, Sendable {
     case ranking
     /// 설정
     case settings
+    /// 차단한 사용자 목록
+    case blockedUsers
     /// 아무데나 떠날 조건 — 매칭 전 거리 선택
     case tripFilter
     /// 랜덤 매칭 — 여행 시작. 조건 화면에서 고른 반경을 그대로 들고 간다.
@@ -34,6 +36,8 @@ public enum Route: Hashable, Identifiable, Sendable {
     case arrivalVerification(place: PlaceRef)
     /// 후기 남기기 — 체크인 직후 한 줄 후기.
     case review(place: PlaceRef)
+    /// 후기 신고 — 사유 선택. 시트로 띄운다.
+    case reportReview(reviewId: String)
     /// 여권 전체 목록 — 아직 못 간 지역과 못 얻은 뱃지까지 함께 본다.
     case passportDetail(userId: String, section: PassportSection)
     /// 지역 상세

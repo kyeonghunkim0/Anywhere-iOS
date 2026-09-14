@@ -27,12 +27,14 @@ public struct Place: Sendable, Identifiable, Hashable {
 }
 
 /// 매칭 응답에 실려 오는 장소의 최근 방문 후기.
-public struct PlaceLatestReview: Sendable, Hashable {
+public struct PlaceLatestReview: Sendable, Hashable, Identifiable {
+    public let id: String
     public let content: String
     public let nickname: String
     public let createdAt: Date
 
-    public init(content: String, nickname: String, createdAt: Date) {
+    public init(id: String, content: String, nickname: String, createdAt: Date) {
+        self.id = id
         self.content = content
         self.nickname = nickname
         self.createdAt = createdAt

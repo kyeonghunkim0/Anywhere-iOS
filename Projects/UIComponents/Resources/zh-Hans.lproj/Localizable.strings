@@ -59,6 +59,7 @@
 "placeDetail.festivalActive" = "%@ 进行中 (D-%d)";
 "placeDetail.reviewsTitle" = "去过的人";
 "placeDetail.noReviews" = "还没有评价，来写第一条吧。";
+"placeDetail.reportReview" = "举报";
 "placeSearch.depopulated" = "人口减少";
 "placeSearch.fieldPlaceholder" = "地区或地点名称";
 "placeSearch.headingRecommended" = "人少的推荐地区";
@@ -128,6 +129,9 @@
 
 "rankerDetail.monthlyTitle" = "本月活动";
 "rankerDetail.stampsTitle" = "代表印章";
+"rankerDetail.blockButton" = "拉黑";
+"rankerDetail.blockedLabel" = "已拉黑";
+"rankerDetail.blockConfirmTitle" = "确定要拉黑这位用户吗？\n拉黑后将不再看到该用户的活动。";
 
 "settings.title" = "设置";
 "settings.connectedWith" = "已连接 %@";
@@ -203,6 +207,19 @@
 "review.placeholder" = "只留一句话给下一个人？";
 "review.submit" = "提交";
 "review.failureTitle" = "提交失败";
+"review.reportTitle" = "举报评价";
+"review.reportReasonSpam" = "垃圾广告";
+"review.reportReasonAbuse" = "辱骂/诽谤";
+"review.reportReasonInappropriate" = "不当内容";
+"review.reportReasonEtc" = "其他";
+"review.reportDetailPlaceholder" = "请告诉我们具体原因。";
+"review.reportSubmit" = "提交举报";
+"review.reportSuccessMessage" = "举报已提交。\n我们会尽快处理。";
+"review.reportFailureTitle" = "举报失败";
+
+"blockedUsers.title" = "已拉黑的用户";
+"blockedUsers.empty" = "还没有拉黑任何人。";
+"blockedUsers.unblock" = "取消拉黑";
 
 "forceUpdate.title" = "需要更新";
 "forceUpdate.message" = "请更新到最新版本以获得最佳体验。";

@@ -19,17 +19,20 @@ struct PlaceDetailView: View {
     /// "내 맘대로"에서 왔을 때만 붙는다 — confirmDestination()이 성공한 뒤 홈으로 돌아간다.
     private let onConfirmDestination: (() -> Void)?
     private let onBack: () -> Void
+    private let onReportReview: (String) -> Void
 
     private let heroHeight: CGFloat = 300
 
     init(
         viewModel: PlaceDetailViewModel,
         onConfirmDestination: (() -> Void)? = nil,
-        onBack: @escaping () -> Void = {}
+        onBack: @escaping () -> Void = {},
+        onReportReview: @escaping (String) -> Void = { _ in }
     ) {
         _viewModel = State(wrappedValue: viewModel)
         self.onConfirmDestination = onConfirmDestination
         self.onBack = onBack
+        self.onReportReview = onReportReview
     }
 
     var body: some View {
@@ -297,6 +300,11 @@ struct PlaceDetailView: View {
                 Text(review.createdAt, format: .dateTime.year().month().day())
                     .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.regular))
                     .foregroundStyle(DSColor.textMuted)
+
+                Button(L10n.placeDetailReportReview) { onReportReview(review.id) }
+                    .font(DSTypography.font(DSTypography.Size.xs, weight: DSTypography.Weight.semibold))
+                    .foregroundStyle(DSColor.textMuted)
+                    .padding(.leading, 8)
             }
 
             Text(review.content)

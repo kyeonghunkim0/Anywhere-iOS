@@ -8,4 +8,8 @@ public protocol UserRepository: Sendable {
     func fetchRankerDetail(userId: String) async throws(NetworkError) -> RankerDetail
     /// 토큰 만료 시 .sessionExpired를 던진다 — fetchMyProfile과 같은 판단 기준을 쓴다.
     func deleteMyAccount() async throws(AuthError)
+    func blockUser(userId: String) async throws(UserError)
+    func unblockUser(userId: String) async throws(UserError)
+    /// 최신 차단순, 페이지네이션 없음.
+    func fetchBlockedUsers() async throws(NetworkError) -> [BlockedUser]
 }

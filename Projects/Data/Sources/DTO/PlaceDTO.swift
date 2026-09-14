@@ -27,6 +27,7 @@ struct MatchedPlaceDTO: Decodable, Sendable {
 
 /// 후기가 하나도 없는 장소는 서버가 null로 준다.
 struct PlaceLatestReviewDTO: Decodable, Sendable {
+    let id: String
     let content: String
     let nickname: String
     let createdAt: Date
